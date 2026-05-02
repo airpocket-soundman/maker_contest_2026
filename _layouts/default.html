@@ -35,85 +35,14 @@
           <ul class="toc-list">
             <li><a href="{{ c.url | relative_url }}" class="toc-contest{% if page.url == c.url %} active{% endif %}">コンテスト概要</a></li>
             {% if c.hardware %}
-              {%- comment -%} ハードウェア(評価ボード等) {%- endcomment -%}
-              {% assign board_count = 0 %}
               {% for hw_ref in c.hardware %}
                 {% if hw_ref.slug %}
                   {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
                   {% if hw %}
-                    {% unless hw.category contains "フレームワーク" or hw.category contains "推奨部品" %}
-                      {% assign board_count = board_count | plus: 1 %}
-                    {% endunless %}
+                    <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
                   {% endif %}
                 {% endif %}
               {% endfor %}
-              {% if board_count > 0 %}
-                <li class="toc-group">
-                  <span class="toc-group-label">ハードウェア</span>
-                  <ul class="toc-sublist">
-                    {% for hw_ref in c.hardware %}
-                      {% if hw_ref.slug %}
-                        {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
-                        {% if hw %}
-                          {% unless hw.category contains "フレームワーク" or hw.category contains "推奨部品" %}
-                            <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
-                          {% endunless %}
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% endif %}
-              {%- comment -%} 開発フレームワーク {%- endcomment -%}
-              {% assign fw_count = 0 %}
-              {% for hw_ref in c.hardware %}
-                {% if hw_ref.slug %}
-                  {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
-                  {% if hw and hw.category contains "フレームワーク" %}
-                    {% assign fw_count = fw_count | plus: 1 %}
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-              {% if fw_count > 0 %}
-                <li class="toc-group">
-                  <span class="toc-group-label">開発フレームワーク</span>
-                  <ul class="toc-sublist">
-                    {% for hw_ref in c.hardware %}
-                      {% if hw_ref.slug %}
-                        {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
-                        {% if hw and hw.category contains "フレームワーク" %}
-                          <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% endif %}
-              {%- comment -%} 推奨部品 {%- endcomment -%}
-              {% assign parts_count = 0 %}
-              {% for hw_ref in c.hardware %}
-                {% if hw_ref.slug %}
-                  {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
-                  {% if hw and hw.category contains "推奨部品" %}
-                    {% assign parts_count = parts_count | plus: 1 %}
-                  {% endif %}
-                {% endif %}
-              {% endfor %}
-              {% if parts_count > 0 %}
-                <li class="toc-group">
-                  <span class="toc-group-label">推奨部品・その他</span>
-                  <ul class="toc-sublist">
-                    {% for hw_ref in c.hardware %}
-                      {% if hw_ref.slug %}
-                        {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
-                        {% if hw and hw.category contains "推奨部品" %}
-                          <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% endif %}
             {% endif %}
           </ul>
         {% endfor %}
