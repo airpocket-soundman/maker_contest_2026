@@ -54,14 +54,16 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 | 略称 | 想定用途 | 一言で |
 |---|---|---|
-| **FRDM-MCXC444** | エントリ・低消費電力 IoT | Cortex-M0+ 48MHz の入門 MCU 評価ボード |
-| **FRDM-MCXN947** | エッジ AI / 産業 IoT | NPU 内蔵デュアル M33、組込みAI推論向け |
-| **FRDM-IMX91** | 組込み Linux / IoT ゲートウェイ | Cortex-A55 1.4GHz + Wi-Fi 6/BLE/802.15.4 |
-| **IMXRT1050-EVKB** | 高性能リアルタイム制御・グラフィックス | Cortex-M7 600MHz クロスオーバー MCU |
+| **[FRDM-MCXC444](/maker_contest_2026/hardware/frdm-mcxc444/)** | エントリ・低消費電力 IoT | Cortex-M0+ 48MHz の入門 MCU 評価ボード |
+| **[FRDM-MCXN947](/maker_contest_2026/hardware/frdm-mcxn947/)** | エッジ AI / 産業 IoT | NPU 内蔵デュアル M33、組込みAI推論向け |
+| **[FRDM-IMX91](https://www.nxp.com/design/design-center/development-boards-and-designs/FRDM-IMX91)** | 組込み Linux / IoT ゲートウェイ | Cortex-A55 1.4GHz + Wi-Fi 6/BLE/802.15.4 |
+| **[IMXRT1050-EVKB](https://www.nxp.com/design/design-center/development-boards-and-designs/MIMXRT1050-EVKB)** | 高性能リアルタイム制御・グラフィックス | Cortex-M7 600MHz クロスオーバー MCU |
+
+> 「FRDM-MCXC444」「FRDM-MCXN947」は本サイト内に GPIO・電源・搭載センサ・AI アクセラレータの詳細ページがあります。「FRDM-IMX91」「IMXRT1050-EVKB」は NXP 公式製品ページへリンクしています(本サイト内の詳細ページは未整備)。
 
 ## 性能比較表
 
-| 項目 | FRDM-MCXC444 | FRDM-MCXN947 | FRDM-IMX91 | IMXRT1050-EVKB |
+| 項目 | [FRDM-MCXC444](/maker_contest_2026/hardware/frdm-mcxc444/) | [FRDM-MCXN947](/maker_contest_2026/hardware/frdm-mcxn947/) | [FRDM-IMX91](https://www.nxp.com/design/design-center/development-boards-and-designs/FRDM-IMX91) | [IMXRT1050-EVKB](https://www.nxp.com/design/design-center/development-boards-and-designs/MIMXRT1050-EVKB) |
 |---|---|---|---|---|
 | 価格目安 (円) | **¥1,750** | **¥4,354** | **¥13,062** | **¥18,572** |
 | 搭載チップ | MCXC444 | MCXN947 | i.MX 91 (アプリケーションプロセッサ) | i.MX RT1052 (クロスオーバー MCU) |
@@ -100,7 +102,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ### FRDM-MCXC444
 
-[DigiKey 商品ページ (FRDM-MCXC444)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-MCXC444/24374774)
+- 本サイト内 詳細ページ: [FRDM-MCXC444 (GPIO・電源・センサ)](/maker_contest_2026/hardware/frdm-mcxc444/)
+- [DigiKey 商品ページ (FRDM-MCXC444)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-MCXC444/24374774)
 
 | 種類       | 対応環境                                                           |
 | ---------- | ------------------------------------------------------------------ |
@@ -113,7 +116,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ### FRDM-MCXN947
 
-[DigiKey 商品ページ (FRDM-MCXN947)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-MCXN947/22036137)
+- 本サイト内 詳細ページ: [FRDM-MCXN947 (eIQ Neutron NPU・ONNX 変換フロー)](/maker_contest_2026/hardware/frdm-mcxn947/)
+- [DigiKey 商品ページ (FRDM-MCXN947)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-MCXN947/22036137)
 
 | 種類           | 対応環境                                                              |
 | -------------- | --------------------------------------------------------------------- |
@@ -127,7 +131,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ### FRDM-IMX91
 
-[DigiKey 商品ページ (FRDM-IMX91)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-IMX91/26236212)
+- [NXP 公式製品ページ (FRDM-IMX91)](https://www.nxp.com/design/design-center/development-boards-and-designs/FRDM-IMX91) (本サイト内詳細ページは未整備)
+- [DigiKey 商品ページ (FRDM-IMX91)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-IMX91/26236212)
 
 | 種類                   | 対応環境                                                               |
 | ---------------------- | ---------------------------------------------------------------------- |
@@ -141,7 +146,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ### IMXRT1050-EVKB
 
-[DigiKey 商品ページ (IMXRT1050-EVKB)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/IMXRT1050-EVKB/8440447)
+- [NXP 公式製品ページ (MIMXRT1050-EVKB)](https://www.nxp.com/design/design-center/development-boards-and-designs/MIMXRT1050-EVKB) (本サイト内詳細ページは未整備)
+- [DigiKey 商品ページ (IMXRT1050-EVKB)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/IMXRT1050-EVKB/8440447)
 
 | 種類           | 対応環境                                                          |
 | -------------- | ----------------------------------------------------------------- |
@@ -161,10 +167,10 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ## 選び方の目安
 
-- **最安(¥1,750)・電池駆動・センサ取り込み中心** → FRDM-MCXC444
-- **コスパ重視で エッジ AI 推論を MCU 単体で行いたい(¥4,354)** → FRDM-MCXN947 (eIQ Neutron NPU)
-- **Linux ベースで Wi-Fi 6/BLE/Matter 対応の IoT を作る(¥13,062)** → FRDM-IMX91
-- **画像処理・モータ制御・グラフィックス UI など演算量重め(¥18,572)** → IMXRT1050-EVKB
+- **最安(¥1,750)・電池駆動・センサ取り込み中心** → [FRDM-MCXC444](/maker_contest_2026/hardware/frdm-mcxc444/)
+- **コスパ重視で エッジ AI 推論を MCU 単体で行いたい(¥4,354)** → [FRDM-MCXN947](/maker_contest_2026/hardware/frdm-mcxn947/) (eIQ Neutron NPU)
+- **Linux ベースで Wi-Fi 6/BLE/Matter 対応の IoT を作る(¥13,062)** → [FRDM-IMX91](https://www.nxp.com/design/design-center/development-boards-and-designs/FRDM-IMX91)
+- **画像処理・モータ制御・グラフィックス UI など演算量重め(¥18,572)** → [IMXRT1050-EVKB](https://www.nxp.com/design/design-center/development-boards-and-designs/MIMXRT1050-EVKB)
 
 価格幅は約 10 倍あり、用途と予算で選択肢が分かれます。アイデア段階では FRDM-MCXC444 / MCXN947 で試作し、必要に応じて FRDM-IMX91 / IMXRT1050-EVKB にスケールアップするのが定石です。
 
