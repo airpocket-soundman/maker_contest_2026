@@ -18,11 +18,15 @@ GitHub Pages で公開しています。
 │   ├── rohm-edge-hack-challenge-2026.md
 │   └── digikey-make-one-challenge-2026.md
 ├── _hardware/               # 各ハードウェア・開発フレームワーク(Jekyll Collection)
-│   ├── solist-ai.md
-│   ├── solist-ai-dev-framework.md
-│   ├── dt-ebml63q2557.md
-│   ├── nxp-frdm-eval-boards.md
-│   └── digikey-recommended-parts.md
+│   ├── solist-ai.md                  # ROHM Solist-AI™ 概要
+│   ├── solist-ai-dev-framework.md    # LEXIDE-Ω / Solist-AI Sim 等 開発環境
+│   ├── dt-ebml63q2557.md             # ROHM Solist-AI 評価ボード(GPIO/電源 詳細)
+│   ├── nxp-frdm-eval-boards.md       # NXP 推奨 4 ボード比較ハブ
+│   ├── frdm-mcxc444.md               # NXP MCXC444 詳細
+│   ├── frdm-mcxn947.md               # NXP MCXN947 + eIQ Neutron NPU 詳細
+│   ├── frdm-imx91.md                 # NXP i.MX 91 (Linux/Yocto) 詳細
+│   ├── imxrt1050-evkb.md             # NXP i.MX RT1050 (Cortex-M7) 詳細
+│   └── digikey-recommended-parts.md  # DigiKey おすすめ部品(NXP 以外)
 ├── assets/
 │   └── style.css            # スタイルシート
 └── README.md                # このファイル
@@ -69,10 +73,12 @@ phases:
 
 既存ファイルを雛形としてコピーするのが最も簡単です。
 
-### トップページに表示される動的要素
+### サイト全体の動的要素
 
+- **左サイドバー(目次)**: 全ページ共通。コンテストごとに使用する hardware エントリを階層化して表示し、現在閲覧中のページに `.active` クラスでハイライト。900px 以下のビューポートでは折り畳み式トグルに切替。
 - **状態バッジ**: コンテスト名の右に「受付前 / 受付中 / 終了」バッジを `entry_period.start`/`end` を基準にクライアント側 JS で表示。日付を跨ぐと自動更新(リロード時)。
 - **カウントダウン**: 「締切まで」列に `ddd日hh時間mm分ss秒` 形式で残り時間を毎秒更新。`phases` があればフェーズ毎、無ければ `entry_period.end` を基準にする。基準時刻はいずれも当該日の 23:59:59 (JST)。
+- **SVG ブロック図**: ハードウェアページのブロック図は inline SVG で描画(機能別カラー分けあり)。`viewBox` でレスポンシブ。ASCII 構成図は日本語/英数字の幅差で崩れるため使わない。
 
 ## 新しいハードウェアを追加する手順
 
@@ -86,6 +92,8 @@ phases:
    - `features`: 特徴(リスト)
    - `specs`: 主要スペック(`label` / `value`)
    - `resources`: 関連リソース(`name` / `url` / `note`)
+3. ハードウェアページに本サイト内の他ページへの直接リンクは置かない (コンテストごとに対象が異なるため、リンクは `_contests/*.md` の `hardware:` で集約)。
+4. ブロック図など図解を載せる場合は inline SVG を使う(`assets/style.css` の `.board-diagram` クラスと色分け用 `.box-mcu` `.box-power` `.box-ai` `.box-mem` `.box-io` を活用)。
 
 ## ローカルで確認する方法
 
