@@ -41,16 +41,16 @@ regulations:
 
 prizes:
   - name: 最優秀賞
-    amount: 1 作品
+    count: 1 作品
     description: DigiKey部品購入権、Maker Faire Tokyo 2026 展示権、授賞式招待権、DigiKey ノベルティ。特別審査員のイチケン氏によるインタビューを受け、DigiKey 日本公式 YouTube チャンネルで作品紹介予定。
   - name: 優秀賞
-    amount: 3 作品
+    count: 3 作品
     description: Maker Faire Tokyo 2026 展示権、授賞式招待権、DigiKey ノベルティ。イチケン氏によるインタビューを受け、DigiKey 日本公式 YouTube チャンネルで作品紹介予定。
   - name: 学生賞
-    amount: 1 作品
+    count: 1 作品
     description: 授賞式招待権、DigiKey ノベルティ。学生の応募作品から選出。
   - name: イチケン賞
-    amount: 1 作品
+    count: 1 作品
     description: 授賞式招待権、DigiKey ノベルティ。特別審査員のイチケン氏が選出する特別賞。
   - name: 応募者特典
     description: コンテスト応募者向けの限定 DigiKey ノベルティ。さらに ProtoPedia 「DigiKey メイカー支援キャンペーン」連動で抽選 70 名に DigiKey 部品購入費 6,000 円のキャッシュバックあり(うち 20 名は学生優先枠)。

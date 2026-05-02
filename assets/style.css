@@ -131,6 +131,7 @@ h1 .status-badge { font-size: 0.55em; vertical-align: 0.2em; }
   background: var(--color-accent-bg);
   border-radius: var(--radius);
 }
+.prize-count { color: var(--color-muted); font-weight: normal; }
 
 /* バッジ */
 .badge {

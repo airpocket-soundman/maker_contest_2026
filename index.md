@@ -63,7 +63,15 @@ title: トップ
           {% endif %}
         </td>
         <td>
-          {% if c.prizes and c.prizes[0].amount %}{{ c.prizes[0].amount }}{% else %}-{% endif %}
+          {% assign max_amount = nil %}
+          {% if c.prizes %}
+            {% for p in c.prizes %}
+              {% if p.amount and max_amount == nil %}
+                {% assign max_amount = p.amount %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          {% if max_amount %}{{ max_amount }}{% else %}賞品(現金なし){% endif %}
         </td>
       </tr>
     {% endfor %}

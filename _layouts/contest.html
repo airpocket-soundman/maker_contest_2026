@@ -147,6 +147,7 @@ layout: default
           <li>
             <strong>{{ p.name }}</strong>
             {% if p.amount %} - {{ p.amount }}{% endif %}
+            {% if p.count %} <span class="prize-count">({{ p.count }})</span>{% endif %}
             {% if p.description %}<br><small>{{ p.description }}</small>{% endif %}
           </li>
         {% endfor %}
