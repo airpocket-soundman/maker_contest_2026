@@ -18,9 +18,44 @@
     </div>
   </header>
 
-  <main class="container">
-    {{ content }}
-  </main>
+  <div class="page-layout">
+    <aside class="sidebar" aria-label="サイトナビゲーション">
+      <button class="sidebar-toggle" type="button" aria-expanded="false" aria-controls="sidebar-toc">
+        <span class="sidebar-toggle-label">目次</span>
+        <span class="sidebar-toggle-caret" aria-hidden="true">▾</span>
+      </button>
+      <nav class="toc" id="sidebar-toc">
+        <p class="toc-section-label">トップ</p>
+        <ul class="toc-list">
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>サイトトップ</a></li>
+        </ul>
+        <p class="toc-section-label">コンテスト</p>
+        <ul class="toc-list">
+          {% assign sidebar_contests = site.contests | sort: 'entry_period.start' %}
+          {% for c in sidebar_contests %}
+            <li>
+              <a href="{{ c.url | relative_url }}" class="toc-contest{% if page.url == c.url %} active{% endif %}">{{ c.title }}</a>
+              {% if c.hardware %}
+                <ul class="toc-sublist">
+                  {% for hw_ref in c.hardware %}
+                    {% if hw_ref.slug %}
+                      {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
+                      {% if hw %}
+                        <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.title }}</a></li>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </aside>
+    <main class="content">
+      {{ content }}
+    </main>
+  </div>
 
   <footer class="site-footer">
     <div class="container">
@@ -31,6 +66,14 @@
 
   <script>
   (function () {
+    const btn = document.querySelector('.sidebar-toggle');
+    const toc = document.getElementById('sidebar-toc');
+    if (btn && toc) {
+      btn.addEventListener('click', () => {
+        const open = toc.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    }
     const pad = (n, w) => String(n).padStart(w, '0');
 
     const badges = document.querySelectorAll('.status-badge');

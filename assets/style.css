@@ -30,6 +30,108 @@ body {
   padding: 0 1rem;
 }
 
+/* 2カラム レイアウト(サイドバー + コンテンツ) */
+.page-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem;
+  align-items: start;
+}
+.page-layout .content {
+  min-width: 0;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  background: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.sidebar-toggle {
+  display: none;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-toggle-caret { transition: transform 0.2s; }
+
+.toc { line-height: 1.5; }
+.toc .toc-section-label {
+  margin: 0.6rem 0 0.3rem;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.toc-list, .toc-sublist {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.toc-list > li { margin-bottom: 0.25rem; }
+.toc-list > li > a {
+  display: block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.toc-list > li > a:hover { background: #e5e7eb; }
+.toc-list > li > a.toc-contest { font-weight: bold; color: var(--color-primary-dark); }
+.toc-list > li > a.active,
+.toc-sublist > li > a.active {
+  background: var(--color-primary);
+  color: #fff;
+}
+.toc-sublist {
+  margin: 0.2rem 0 0.5rem 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--color-border);
+}
+.toc-sublist > li > a {
+  display: block;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.toc-sublist > li > a:hover { background: #e5e7eb; }
+
+@media (max-width: 900px) {
+  .page-layout {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+  }
+  .sidebar {
+    position: static;
+    max-height: none;
+    margin-bottom: 1rem;
+  }
+  .sidebar-toggle { display: flex; }
+  .toc { display: none; }
+  .toc.is-open { display: block; margin-top: 0.75rem; }
+  .sidebar-toggle[aria-expanded="true"] .sidebar-toggle-caret { transform: rotate(180deg); }
+}
+
 /* ヘッダー */
 .site-header {
   border-bottom: 1px solid var(--color-border);
