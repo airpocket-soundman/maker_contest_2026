@@ -65,8 +65,17 @@ resources:
   - name: ROHM - ML63Q2557 製品ページ
     url: https://www.rohm.com/products/micon/solist-ai/ml63q2500-group/ml63q2557-nnntb_tray_-product
     note: MCU側のデータシート・周辺機能(CAN FD/3相モータPWM/I²C/SPI/UART/12bit ADC等)を参照
+  - name: ROHM/LAPIS - ML63Q2500グループ データシート (FEDL63Q2500.pdf)
+    url: https://fscdn.rohm.com/lapis/en/products/databook/datasheet/ic/micon/FEDL63Q2500.pdf
+    note: SoC内部ブロック図・MCU 64ピン配置・電気的特性は本データシートで確認(英文)
+  - name: ROHM/LAPIS - リファレンスボード RB-D63Q2557TB64 ユーザーズガイド (FEBL63Q2557TB64RB.pdf)
+    url: https://fscdn.rohm.com/lapis/en/products/databook/applinote/ic/micon/FEBL63Q2557TB64RB.pdf
+    note: ROHM公式リファレンスボード側の構成図・回路例
   - name: ROHM - Solist-AI™ ソリューション総合ページ
     url: https://www.rohm.com/support/solist-ai
+  - name: ROHM - Solist-AI™ Solution プロモーション資料 (PDF)
+    url: https://fscdn.rohm.com/en/products/databook/catalog/common/N_Solist-AI_Solution_Promotional_materials_EN.pdf
+    note: AxlCORE-ODL アーキテクチャ概念図あり
   - name: ROHM EDGE HACK CHALLENGE 2026 ニュース
     url: https://www.rohm.co.jp/news-detail?news-title=2026-04-22_rehc2026
 ---
@@ -98,6 +107,277 @@ ROHM EDGE HACK CHALLENGE 2026 のデバイス提供キャンペーン対象品�
 - 購入者には **IOドライバソース**、**AISignalInference / AIVibrationInference**(評価用サンプル)、**Windows ホストアプリ**(AISignalInferenceHost) が提供される
 - ROHM 公式の Solist-AI™ 統合開発環境・ドライバと組み合わせて使うことが想定されている
 
+## ボード ブロック図(図1-1)
+
+ハードウェアユーザーズマニュアル §1.5 図1-1 にボード全体のブロック図が掲載されています。概要を文字で表すと以下の構成です。
+
+```
+                               +-------------------+
+   USB Type-C (CN9: COM/Power) | FT2232H (USB Bridge)|--- UART#0 ----+
+   USB Type-C (CN8: Power)     +----+----------+-----+               |
+                                    | SPI(slave)                     |
+   電池(CN7) -+                     v                                |
+              |    +---- 3.3V/5V/24V Boost (U13/U14/U15) ----+       |
+   電源SW(SW7)+----+                                          |       |
+                                                              v       v
+                              +-----------------------------------------+
+                              |          ROHM ML63Q2557 (TQFP64)         |
+                              |  Cortex-M0+ 48MHz + AxlCORE-ODL (AI)      |
+                              |  ROM 256KB / RAM 16KB / DataFlash 8KB    |
+                              +--+------+----------+-----------+---------+
+                                 |      |          |           |
+                       SPI#0 ----+      |          |           +----- I²C(LCD,16x2)
+                                        |          |
+                       FeRAM 2Mbit (Soft-SPI) ◀────+
+                       RTC + CR1220 backup ◀───────+
+                       任意: 16bit ADC ADS8860 (SPI#1) ◀──┐
+                                                          |
+                       SPI/I²C 14-pin MIL (CN1) ── 加速度センサ等
+                       絶縁I/O 12-pin JST XH (CN5) ── 産業信号 (絶縁IN×4 / SSR OUT×2)
+                       3-pin XH (CN4) ── RS-485 / CAN(任意)
+                       3-pin (CN6)  ── アナログ入力 (内蔵12bit ADC, OpAmp経由)
+                       LCD 16×2 / LED×4 / DIP-SW(SW1, SW6) / 押しボタン×4(SW2-SW5)
+                       Debug: 10-pin SW-DP (CMSIS-DAP / DAPLink / J-Link)
+```
+
+> SoC 内部のブロック図(AxlCORE-ODL を含む)は [LAPIS ML63Q2500 データシート (FEDL63Q2500.pdf)](https://fscdn.rohm.com/lapis/en/products/databook/datasheet/ic/micon/FEDL63Q2500.pdf) 冒頭の Block Diagram を参照してください。AI アクセラレータの位置付けや 3 層ニューラルネットの構成イメージは [Solist-AI™ Promotional Materials (PDF)](https://fscdn.rohm.com/en/products/databook/catalog/common/N_Solist-AI_Solution_Promotional_materials_EN.pdf) に図示されています。
+
+ボード現物の部品配置・シルクは、ハードウェアマニュアル §2 (図2-1〜2-7) と §3 (図3-1〜3-3) に表面/裏面/MEMSセンサボードの写真が掲載されています。
+
+## コネクタ一覧
+
+ハードウェアマニュアル §4 (表2) より。
+
+| 番号 | 用途 |
+|---|---|
+| CN1 | デジタルセンサ I/F (SPI/I²C 14ピン MIL、付属の加速度/サーモパイルセンサもここに接続) |
+| CN2 | 未使用 / 予備 (実装はマニュアル参照) |
+| CN3 | 予備コネクタ |
+| CN4 | RS-485 / CAN (任意実装、3ピン JST XH) |
+| CN5 | 絶縁デジタル I/O (12ピン JST XH、絶縁IN×4 / SSR OUT×2) |
+| CN6 | アナログ入力 (3ピン) |
+| CN7 | 電池入力 (単三×2、2.4〜3.0V) |
+| CN8 | USB Type-C (電源専用) |
+| CN9 | USB Type-C (通信 + 電源) |
+
+> CN2/CN3 の正確な用途はマニュアル PDF §4 表2 で確認してください(本ページの抽出では字化けして判別困難なため省略)。
+
+## コネクタ ピンアサイン
+
+### CN1 — デジタルセンサ I/F (14ピン MIL、SPI + I²C)
+
+| Pin | 信号 | Pin | 信号 |
+|----:|------|----:|------|
+| 1 | P73 / SCL (I²C) | 2 | GND |
+| 3 | P74 / SDA (I²C) | 4 | GND |
+| 5 | Power Out | 6 | P23 / INT2 |
+| 7 | P22 / INT1 | 8 | Power Out |
+| 9 | P41 / MOSI (SPI) | 10 | P42 / MISO (SPI) |
+| 11 | GND | 12 | P40 / SCK (SPI) |
+| 13 | GND | 14 | P43 / CS (SPI) |
+
+- Power Out は基板の 3.3V または 5V を選択(JP1 で切替、デフォルトは要マニュアル確認)
+- I²C は LCD と共通(Fast-mode)。SPI は MCU の SPI#0 を共有
+
+### CN4 — RS-485 / CAN (3ピン JST XH、任意実装)
+
+| Pin | 信号 |
+|----:|------|
+| 1 | RS-485 B(−) / CAN-L |
+| 2 | RS-485 A(+) / CAN+ |
+| 3 | GND |
+
+JP3 で終端抵抗の有効/無効を選択。RS-485 と CAN はトランシーバ IC 実装で排他切替。
+
+### CN5 — 絶縁デジタル I/O (12ピン JST XH)
+
+| Pin | 信号 |
+|----:|------|
+| 1 | SW4 外部入力 + |
+| 2 | SW4 外部入力 − |
+| 3 | SW5 外部入力 + |
+| 4 | SW5 外部入力 − |
+| 5 | IN0 (絶縁入力) + |
+| 6 | IN0 (絶縁入力) − |
+| 7 | IN1 (絶縁入力) + |
+| 8 | IN1 (絶縁入力) − |
+| 9 | OUT0 a (SSR0) |
+| 10 | OUT0 c (SSR0) |
+| 11 | OUT1 a (SSR1) |
+| 12 | OUT1 c (SSR1) |
+
+- IN0/IN1 はフォトカプラ絶縁入力。SW4/SW5 は基板上の押しボタンを外部からも駆動できるよう端子化されたもの
+- OUT0/OUT1 は SSR (ソリッドステートリレー) で、絶対最大 24V 系を制御可能
+
+### CN6 — アナログ入力 (3ピン)
+
+| Pin | 信号 |
+|----:|------|
+| 1 | Power Out (センサ駆動用) |
+| 2 | Analog Input (0〜3.3V、内蔵12bit ADC AIN0 接続) |
+| 3 | GND |
+
+- DIP-SW SW6 でゲイン(0.741〜20倍)切替、JP7 で AC/DC 結合切替、JP4 で OpAmp 有効化
+- AC 入力時は 1.65V バイアス。10kHz まで対応(マニュアル §5.12 表4 参照)
+
+### CN7 — 電池入力 (2ピン)
+
+単三電池 ×2 (2.4〜3.0V)。逆接保護 Q2 経由で内部レギュレータへ。
+
+### CN8 / CN9 — USB Type-C
+
+- CN8: 電源専用 (5V, 500mA)
+- CN9: 通信(FT2232H 経由 UART/SPI) + 電源 (5V, 500mA)
+
+### Debug Connector — 10ピン SW-DP
+
+ARM Cortex Debug Connector (Serial Wire Debug)。CMSIS-DAP / DAPLink / SEGGER J-Link PLUS / Strawberry Linux ARM-JTAG-20-10 で接続可能。CMSIS-DAP/DAPLink は 1番ピン (Vcc) からターゲット給電も可。
+
+## MCU ピンアサイン (ML63Q2557 / TQFP64)
+
+ハードウェアマニュアル §7.3 表5 より、本ボードでの結線。
+
+| Pin | 信号(MCU) | I/O | TP | 用途 |
+|---:|------|:---:|---|------|
+| 1 | SWD | I/O | TP12 | SW-DP データ (要外部プルアップ) |
+| 2 | SWC | I | TP11 | SW-DP クロック (要外部プルアップ) |
+| 3 | P72 | O | — | EXT_RESET_B (外部デバイスリセット) |
+| 4 | TXDF1 | O | — | FT2232H からの RXD |
+| 5 | RXDF1 | I | — | FT2232H への TXD |
+| 6 | RESET_N | I | — | MCU RESET_B (要外部プルアップ) |
+| 7 | VREF | — | TP9 | VCC 接続 |
+| 8 | VREFN | — | TP10 | GND 接続 |
+| 9 | HXT0 | I | TP5 | 20MHz水晶 (未実装オプション、CAN用) |
+| 10 | HXT1 | I | TP6 | 同上 |
+| 11 | VDDL | — | TP7 | Power |
+| 12 | VSS | — | TP8 | GND |
+| 13 | VDD | — | TP23 | Power |
+| 14 | NC | — | — | 未接続 |
+| 15 | XT1 | I | TP20 | 32.768kHz水晶 |
+| 16 | XT0 | O | TP21 | 32.768kHz水晶 |
+| 17 | P22 / INT | I | TP22 | デジタルセンサ INT1 (要外部プルアップ) |
+| 18 | P23 / INT | I | TP19 | デジタルセンサ INT2 (要外部プルアップ) |
+| 19 | SCKF0-2 | O | TP18 | SPI#0 SCK (CN1) |
+| 20 | SOUTF0-2 | O | TP16 | SPI#0 MOSI (CN1) |
+| 21 | SINF0-2 | I | TP15 | SPI#0 MISO (CN1) |
+| 22 | SSNF0-2 | O | TP14 | SPI#0 CS (CN1) |
+| 23 | P44 | O | TP13 | POWSW_CHK 入力検出 |
+| 24 | P45 | O | TP17 | POWER_KEEP |
+| 25 | P46 | I | TP32 | REG5V_ON |
+| 26 | P47 | O | TP33 | REG24V_ON |
+| 27 | P80 / INT | O | TP34 | RTC INT (要外部プルアップ) |
+| 28 | P81 | I | TP35 | CS3 (RTC、要外部プルダウン) |
+| 29 | P82 | O | TP36 | CS2_B (FeRAM、要外部プルアップ) |
+| 30 | P83 | O | TP37 | Soft-SPI MISO2 (要外部プルアップ) |
+| 31 | P84 | I | TP38 | Soft-SPI MOSI2 (要外部プルアップ) |
+| 32 | P85 | O | TP39 | Soft-SPI SCK2 (要外部プルアップ) |
+| 33 | VDD | — | TP40 | Power |
+| 34 | P30 | O | TP41 | FeRAM /WP 信号 (要外部プルダウン) |
+| 35 | P31 | O | TP42 | VDET モニタ Enable |
+| 36 | AIN0 | A | TP43 | アナログ入力(CN6) |
+| 37 | AIN1 | A | TP31 | VDET アナログ入力 (電源電圧監視) |
+| 38 | P34 | I | TP30 | DIP-SW SW1-1 |
+| 39 | P35 | I | TP29 | DIP-SW SW1-2 |
+| 40 | P36 | I | TP28 | DIP-SW SW1-3 |
+| 41 | P37 | I | TP27 | DIP-SW SW1-4 |
+| 42 | P50 | I | TP26 | 押しボタン SW2 |
+| 43 | P51 | I | TP25 | 押しボタン SW3 |
+| 44 | P52 | I | TP24 | 押しボタン SW4 |
+| 45 | P53 | I | — | 押しボタン SW5 |
+| 46 | P54 | I | — | LED1 |
+| 47 | P55 | I | — | LED2 |
+| 48 | P56 | I | — | LED3 |
+| 49 | P57 | O | — | (LED4 / 予備) |
+| 50 | BRMPN | O | — | ISOOUT1 (SSR1 駆動) |
+| 51 | P66 | I | — | ROM Address Remap Enable |
+| 52 | P65 | I | — | ISOOUT0 (SSR0 駆動) |
+| 53 | P64 | O | — | ISOIN1 (絶縁入力1) |
+| 54 | SSNF1-1 | I | — | ISOIN0 (絶縁入力0) |
+| 55 | SINF1-1 | I | — | FT2232H SPI CS |
+| 56 | SOUTF1-1 | O | — | FT2232H SPI MOSI |
+| 57 | SCKF1-1 | I | — | FT2232H SPI MISO |
+| 58 | P77 | I | — | FT2232H SPI SCK |
+| 59 | P76 | O | — | RS-485 DE / CAN STB (要外部プルダウン) |
+| 60 | P75 | I/O | — | 未接続 (NC) |
+| 61 | SDAF0-2 | O | — | LCD_BACKLIGHT 制御 |
+| 62 | SCLF0-2 | I | — | I²C SDA (CN1, LCD 共有) |
+| 63 | RXDF0 / CAN_RX0 | O | — | I²C SCL (CN1, LCD 共有) |
+| 64 | TXDF0 / CAN_TX0 | — | — | RS-485 / CAN RXD/TXD |
+
+> ⚠️ 上記の I/O 方向や内部結線は PDF テキスト抽出時に列がずれる可能性があるため、実際の実装の前に必ず[ハードウェアユーザーズマニュアル §7.3](https://www.datatecno.co.jp/datatecno_core/content/uploads/2025/06/DT-EBML63Q2557_hardware_users_manual_Rev.20250527.pdf) の表5原本で確認してください。
+
+## 主なテストポイント (TP1〜TP48 抜粋)
+
+ハードウェアマニュアル §7.4 表6 より。デバッグ・信号観測時に有用。
+
+| TP | 信号 | 用途 |
+|---|---|---|
+| TP1〜TP4 | GND | グランド |
+| TP5〜TP8 | ACC_SCK / MOSI / MISO / CS | デジタルセンサ I/F SPI |
+| TP9 / TP10 | ACC_INT1 / INT2 | センサ割込み |
+| TP11 | RESET_B | パワーオンリセット |
+| TP12 | EXT_RESET_B | 外部デバイスリセット |
+| TP13〜TP16 | SCK2 / MOSI2 / MISO2 / CS2_B | Soft-SPI (FeRAM 用) |
+| TP17 | WP_B | FeRAM /WP |
+| TP18 | CS3 | Soft-SPI CS for RTC |
+| TP19 | RTCINT_B | RTC 割込み |
+| TP20 | POWER_KEEP | 3.3V 電源維持信号 |
+| TP21 | REG5V_ON | 5V レギュレータ ON |
+| TP22 | REG24V_ON | 24V レギュレータ ON |
+| TP23 | POWSW_CHK | 電源SW 押下検出 |
+| TP24 / TP25 | LCD_SCL / LCD_SDA | LCD I²C |
+| TP26 | LCD_BACKLIGHT | バックライト制御 |
+| TP28〜TP31 | SLAVE_SPI_SCK/MISO/MOSI/SEL | USB-SPI (FT2232H) |
+| TP32 | AnalogIN | CN6 アナログ入力(OpAmp前) |
+| TP33〜TP36 | SW1_1〜SW1_4 | DIP-SW SW1 各列 |
+| TP37〜TP40 | SW2 / SW3 / SW4 / SW5 | 押しボタン |
+| TP41〜TP43 | LED1 / LED2 / LED3 | ユーザ LED |
+| TP44 / TP45 | AMP_IN / AMP_OUT | アナログ OpAmp 入出力 |
+| TP46 | VDET_GATE | 電源電圧監視 Enable |
+| TP47 | VDET | 電源電圧 |
+| TP48 | AIN1 | VDET 測定入力 |
+
+> 電源電圧の算出式: `VDET[V] = AIN1 × 6.6 / 4096` (ハードウェアマニュアル §5.1.9)
+
+## ジャンパ・スイッチ (表3 抜粋)
+
+| 番号 | 用途 |
+|---|---|
+| JP1 | デジタル電源電圧選択 (3.3V / 5V) |
+| JP2 | ROM アドレス リマップ |
+| JP3 | RS-485 / CAN 終端抵抗 |
+| JP4 | アナログ OpAmp 有効化 |
+| JP5 | アナログ 24V 注入 |
+| JP6 | アナログ電源電圧選択 |
+| JP7 | アナログ DC/AC 結合切替 |
+| JP8 | 3.3V 電源 ON 維持 |
+| JP9 | 24V DC-DC 強制 ON |
+| JP10 | 5V DC-DC 強制 ON |
+| SW1 | DIP-SW(汎用4ビット) |
+| SW6 | DIP-SW(アナログ ゲイン調整、4ビット) |
+| SW7 | 電源スイッチ |
+
+## 電気的定格 (マニュアル §6 抜粋)
+
+### 推奨動作 (出力電流の代表値)
+| 系統 | 値 |
+|---|---|
+| 3.3V | 100mA (代表) |
+| 5V | 100mA (代表) |
+| 24V | 3.5mA |
+| センサ駆動出力 | 50mA (代表) |
+| MCU 動作 | ML63Q2557 規格に準ずる |
+
+### 絶対最大定格
+| 入力 | 値 |
+|---|---|
+| USB Type-C | 6V |
+| 電池 (単三×2) | 5V |
+| MCU GPIO | 3.6V |
+| アナログ入力 (OpAmp 経由) | 28V |
+| 絶縁デジタル入力 | 24V |
+| RS-485 / CAN ライン | 24V |
+
 ## 入手方法
 
 - データ・テクノ オンライン注文ページ
@@ -105,4 +385,4 @@ ROHM EDGE HACK CHALLENGE 2026 のデバイス提供キャンペーン対象品�
 - 問合せフォーム(24時間受付)
 - ROHM EDGE HACK CHALLENGE 2026 のデバイス提供キャンペーン対象者には、本ボードを含む数万円相当のデバイス・部品が支給される予定
 
-> ⚠️ 本ページは公開情報をもとにまとめた参考情報です。実際の開発では必ず[ハードウェアユーザーズマニュアル](https://www.datatecno.co.jp/datatecno_core/content/uploads/2025/06/DT-EBML63Q2557_hardware_users_manual_Rev.20250527.pdf)および[ROHM ML63Q2557 データシート](https://www.rohm.com/products/micon/solist-ai/ml63q2500-group/ml63q2557-nnntb_tray_-product)で最新の仕様(ピンアサイン・電気的定格・ジャンパ設定など)を確認してください。
+> ⚠️ 本ページは公開情報をもとにまとめた参考情報です。実際の開発では必ず[ハードウェアユーザーズマニュアル](https://www.datatecno.co.jp/datatecno_core/content/uploads/2025/06/DT-EBML63Q2557_hardware_users_manual_Rev.20250527.pdf) および [LAPIS ML63Q2500 データシート (FEDL63Q2500.pdf)](https://fscdn.rohm.com/lapis/en/products/databook/datasheet/ic/micon/FEDL63Q2500.pdf) で最新の仕様(SoC ブロック図・MCUピン配置・ジャンパ設定・電気的定格など)を確認してください。
