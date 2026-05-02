@@ -27,6 +27,9 @@ resources:
   - name: ROHM EDGE HACK CHALLENGE 2026 ニュース
     url: https://www.rohm.co.jp/news-detail?news-title=2026-04-22_rehc2026
     note: コンテスト概要およびデバイス提供キャンペーン情報
+  - name: 評価ボード DT-EBML63Q2557 詳細(本サイト内)
+    url: /maker_contest_2026/hardware/dt-ebml63q2557/
+    note: ML63Q2557搭載 評価ボードの GPIO・電源・搭載センサ等の開発向け情報
 ---
 
 ## 概要

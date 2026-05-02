@@ -57,6 +57,10 @@ hardware:
     slug: solist-ai
     required: true
     note: コンテストでは Solist-AI™ デバイスの使用が必須。デバイス提供キャンペーン対象者には数万円相当のデバイス・部品が支給される。
+  - name: DT-EBML63Q2557 (Solist-AI™ 評価ボード)
+    slug: dt-ebml63q2557
+    required: false
+    note: デバイス提供キャンペーンの中核ボード。ML63Q2557搭載、GPIO・電源・搭載センサ等の開発情報は詳細ページを参照。
 ---
 
 ## 補足情報
