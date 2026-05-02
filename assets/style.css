@@ -348,3 +348,30 @@ h1 .status-badge { font-size: 0.55em; vertical-align: 0.2em; }
   border-radius: 2px;
 }
 .judges-phase-heading:first-of-type { margin-top: 0; }
+
+/* サイドバー サブ目次(アクティブページの H2 一覧) */
+.toc-sub {
+  list-style: none;
+  padding: 0.2rem 0 0.2rem 0.5rem;
+  margin: 0.25rem 0 0.4rem 0.4rem;
+  border-left: 2px solid var(--color-border);
+}
+.toc-sub li { margin: 0; }
+.toc-sub a {
+  display: block;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--color-muted);
+  text-decoration: none;
+  border-radius: 2px;
+}
+.toc-sub a:hover {
+  color: var(--color-accent);
+  background: #f4f4f4;
+}
+.toc-sub a.active {
+  color: var(--color-accent);
+  font-weight: 600;
+  background: #eef3fb;
+}
