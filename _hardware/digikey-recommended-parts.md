@@ -49,6 +49,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 ## 製品一覧
 
 ### 1. STM32WBA65I-DK1 (STMicroelectronics)
+- **DigiKey**: [STM32WBA65I-DK1 商品ページ](https://www.digikey.jp/ja/products/detail/stmicroelectronics/STM32WBA65I-DK1/26257424)
 - **種別**: BLE 5.4 / 802.15.4 / Zigbee / Thread / Matter 対応 Discovery キット
 - **MCU**: STM32WBA65RIV7 (Arm Cortex-M33 + Arm TrustZone, 100MHz, Flash 2MB / SRAM 512KB)
 - **無線**: Bluetooth LE 5.4 / IEEE 802.15.4-2015 (Thread / Zigbee / Matter)
@@ -58,6 +59,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: Matter 対応スマートホーム、低電力 BLE センサ、Thread メッシュノード
 
 ### 2. Arduino UNO R4 WiFi (ABX00087)
+- **DigiKey**: [ABX00087 商品ページ](https://www.digikey.jp/ja/products/detail/arduino/ABX00087/20371539)
 - **種別**: Arduino UNO 互換 + Wi-Fi/BLE 拡張ボード
 - **MCU**: Renesas RA4M1 (Arm Cortex-M4, 48MHz, Flash 256KB / SRAM 32KB)
 - **無線**: ESP32-S3 モジュール経由で Wi-Fi 4 / Bluetooth LE
@@ -66,6 +68,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: 入門〜中級レベルの IoT・センサ・LED アート工作
 
 ### 3. Raspberry Pi Pico 2 H (SC1632)
+- **DigiKey**: [SC1632 商品ページ](https://www.digikey.jp/ja/products/detail/raspberry-pi/SC1632/26241102)
 - **種別**: ピンヘッダ実装済み (H = Headers) の RP2350 ボード
 - **MCU**: RP2350 (デュアル Arm Cortex-M33 もしくは デュアル RISC-V Hazard3、150MHz)
 - **メモリ**: SRAM 520KB / 外付け QSPI Flash 4MB
@@ -74,6 +77,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: 低コストのセンサ収集、PIO を活用したカスタム I/O、教育用途
 
 ### 4. Seeed XIAO ESP32S3 Sense (113991115)
+- **DigiKey**: [113991115 商品ページ](https://www.digikey.jp/ja/products/detail/seeed-technology-co-ltd/113991115/18724504)
 - **種別**: 小型 (21×17.5mm) AI カメラ ボードキット
 - **MCU**: ESP32-S3 (Xtensa デュアルコア, Wi-Fi 4 + BLE 5.0)
 - **メモリ**: PSRAM 8MB / Flash 8MB
@@ -83,6 +87,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: 組込み画像認識・音声認識、ウェアラブル AI
 
 ### 5. Seeed Wio Terminal (102991299)
+- **DigiKey**: [102991299 商品ページ](https://www.digikey.jp/ja/products/detail/seeed-technology-co-ltd/102991299/11689373)
 - **種別**: LCD・ボタン・ジョイスティック付き Arduino 互換ターミナル
 - **MCU**: Microchip ATSAMD51 (Arm Cortex-M4F, 120MHz)
 - **無線**: Realtek RTL8720DN 経由で Wi-Fi + Bluetooth
@@ -91,6 +96,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: スタンドアロンの IoT ガジェット、教育用ハンドヘルド
 
 ### 6. M5Stack Unit Cam (K147-CAM / AtomS3R Cam)
+- **DigiKey**: [K147-CAM 商品ページ](https://www.digikey.jp/ja/products/detail/m5stack-technology-co-ltd/K147-CAM/26772241)
 - **種別**: AtomS3R をベースとした AI カメラ Unit
 - **MCU**: ESP32-S3 (Xtensa デュアルコア, Wi-Fi/BLE)
 - **カメラ**: 内蔵カメラセンサ
@@ -99,6 +105,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: 軽量画像認識、QR コード読取、監視カメラ
 
 ### 7. M5Stack Stepmotor Driver Module v1.1 (M039-V11)
+- **DigiKey**: [M039-V11 を DigiKey で検索](https://www.digikey.jp/ja/products/result?keywords=M039-V11)
 - **種別**: M5Core 用ステッピングモータ駆動モジュール
 - **構成**: STM32 + HR8825 ×3 (3 軸独立 / 連動制御)、リミットスイッチ 4 入力対応
 - **電流**: ドライバごとに調整可、マイクロステッピング対応
@@ -106,12 +113,14 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: 3 軸 CNC・3D プリンタ・自動装置のプロトタイプ
 
 ### 8. DFRobot Beginner Kit for Arduino (DFR0100)
+- **DigiKey**: [DFR0100 商品ページ](https://www.digikey.jp/ja/products/detail/dfrobot/DFR0100/6579320)
 - **種別**: Arduino UNO R3 互換ボードを中心にした入門学習キット
 - **構成**: DFRduino UNO R3 + プロトタイプシールド + センサ・アクチュエータ・抵抗・ジャンパ等
 - **開発環境**: Arduino IDE / PlatformIO
 - **用途例**: 初学者向けプロトタイピング、ワークショップ
 
 ### 9. DFRobot FireBeetle 2 ESP32-E IoT (DFR0975-U)
+- **DigiKey**: [DFR0975-U 商品ページ](https://www.digikey.jp/ja/products/detail/dfrobot/DFR0975-U/20500161)
 - **種別**: 低消費電力 ESP32 系 IoT ボード (FireBeetle シリーズ)
 - **MCU**: ESP32-E (Xtensa デュアルコア, Wi-Fi + Bluetooth)
 - **電源**: 5V USB / リチウム電池ソケット
@@ -120,6 +129,7 @@ DigiKey Make ONE Challenge 2026 公式ページで「おすすめ製品」とし
 - **用途例**: バッテリ駆動 IoT センサノード、屋外モニタ
 
 ### 10. DFRobot Gravity 多機能環境センサ (SEN0501)
+- **DigiKey**: [SEN0501 商品ページ](https://www.digikey.jp/ja/products/detail/dfrobot/SEN0501/18069231)
 - **種別**: I²C/UART 接続の環境センサモジュール
 - **計測項目**: 温度 (SHTC3) / 湿度 (SHTC3) / 気圧 (BMP280) / 環境光 (VEML7700) / UV (LTR390)
 - **電源**: 3.3〜5V DC

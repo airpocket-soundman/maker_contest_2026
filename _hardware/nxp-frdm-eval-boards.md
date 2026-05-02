@@ -100,6 +100,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ### FRDM-MCXC444
 
+[DigiKey 商品ページ (FRDM-MCXC444)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-MCXC444/24374774)
+
 | 種類       | 対応環境                                                           |
 | ---------- | ------------------------------------------------------------------ |
 | 公式 IDE   | **MCUXpresso IDE** / **MCUXpresso for VS Code**                    |
@@ -110,6 +112,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 | デバッグ   | オンボード MCU-Link (CMSIS-DAP) / 外部 J-Link                      |
 
 ### FRDM-MCXN947
+
+[DigiKey 商品ページ (FRDM-MCXN947)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-MCXN947/22036137)
 
 | 種類           | 対応環境                                                              |
 | -------------- | --------------------------------------------------------------------- |
@@ -123,6 +127,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ### FRDM-IMX91
 
+[DigiKey 商品ページ (FRDM-IMX91)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/FRDM-IMX91/26236212)
+
 | 種類                   | 対応環境                                                               |
 | ---------------------- | ---------------------------------------------------------------------- |
 | 公式 BSP               | **NXP Linux BSP** (Yocto Project ベース)                               |
@@ -134,6 +140,8 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 | デバッグ               | UART シリアルコンソール / SSH / リモート GDB / oprofile                |
 
 ### IMXRT1050-EVKB
+
+[DigiKey 商品ページ (IMXRT1050-EVKB)](https://www.digikey.jp/ja/products/detail/nxp-usa-inc/IMXRT1050-EVKB/8440447)
 
 | 種類           | 対応環境                                                          |
 | -------------- | ----------------------------------------------------------------- |
