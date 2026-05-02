@@ -78,6 +78,9 @@ resources:
     note: AxlCORE-ODL アーキテクチャ概念図あり
   - name: ROHM EDGE HACK CHALLENGE 2026 ニュース
     url: https://www.rohm.co.jp/news-detail?news-title=2026-04-22_rehc2026
+  - name: 開発フレームワーク詳細(本サイト内)
+    url: /maker_contest_2026/hardware/solist-ai-dev-framework/
+    note: LEXIDE-Ω / Solist-AI Sim / LxEASE 等 開発環境一式の解説
 ---
 
 ## 概要

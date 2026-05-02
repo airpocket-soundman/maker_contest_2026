@@ -30,6 +30,9 @@ resources:
   - name: 評価ボード DT-EBML63Q2557 詳細(本サイト内)
     url: /maker_contest_2026/hardware/dt-ebml63q2557/
     note: ML63Q2557搭載 評価ボードの GPIO・電源・搭載センサ等の開発向け情報
+  - name: 開発フレームワーク詳細(本サイト内)
+    url: /maker_contest_2026/hardware/solist-ai-dev-framework/
+    note: LEXIDE-Ω / Solist-AI Sim / LxEASE などソフトウェア開発環境の一覧
 ---
 
 ## 概要

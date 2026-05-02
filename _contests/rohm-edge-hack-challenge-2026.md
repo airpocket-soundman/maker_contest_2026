@@ -61,6 +61,10 @@ hardware:
     slug: dt-ebml63q2557
     required: false
     note: デバイス提供キャンペーンの中核ボード。ML63Q2557搭載、GPIO・電源・搭載センサ等の開発情報は詳細ページを参照。
+  - name: Solist-AI™ 開発フレームワーク (LEXIDE-Ω / Solist-AI Sim ほか)
+    slug: solist-ai-dev-framework
+    required: false
+    note: ML63Q2557 開発に必要な IDE・AIモデル生成ツール・デバッガ群の解説ページ。
 ---
 
 ## 補足情報
