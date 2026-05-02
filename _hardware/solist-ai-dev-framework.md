@@ -60,11 +60,6 @@ resources:
   - name: ROHM - Solist-AI™ Solution プロモーション資料 (PDF)
     url: https://fscdn.rohm.com/en/products/databook/catalog/common/N_Solist-AI_Solution_Promotional_materials_EN.pdf
     note: AxlCORE-ODL アーキテクチャ図と開発フロー図
-  - name: 評価ボード DT-EBML63Q2557 詳細(本サイト内)
-    url: /maker_contest_2026/hardware/dt-ebml63q2557/
-    note: 本フレームワークと組み合わせて使う評価ボードの詳細
-  - name: Solist-AI™ (本サイト内)
-    url: /maker_contest_2026/hardware/solist-ai/
 ---
 
 ## 概要
