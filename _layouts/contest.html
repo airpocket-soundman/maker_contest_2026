@@ -35,9 +35,20 @@ layout: default
 
       <dt>エントリー期間</dt>
       <dd>
-        {% if page.entry_period.start %}{{ page.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
-        {% if page.entry_period.end %} 〜 {{ page.entry_period.end | date: '%Y-%m-%d' }}{% endif %}
-        {% if page.entry_period.note %}<br><small>{{ page.entry_period.note }}</small>{% endif %}
+        {% if page.phases %}
+          {% for p in page.phases %}
+            <div class="period-row">
+              <small class="period-label">{{ p.name }}</small>
+              {% if p.start %}{{ p.start | date: '%Y-%m-%d' }}{% endif %}
+              {% if p.end %} 〜 {{ p.end | date: '%Y-%m-%d' }}{% endif %}
+            </div>
+          {% endfor %}
+          {% if page.entry_period.note %}<small>{{ page.entry_period.note }}</small>{% endif %}
+        {% else %}
+          {% if page.entry_period.start %}{{ page.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
+          {% if page.entry_period.end %} 〜 {{ page.entry_period.end | date: '%Y-%m-%d' }}{% endif %}
+          {% if page.entry_period.note %}<br><small>{{ page.entry_period.note }}</small>{% endif %}
+        {% endif %}
       </dd>
 
       {% if page.target_audience %}

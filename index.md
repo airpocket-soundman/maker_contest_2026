@@ -35,8 +35,18 @@ title: トップ
         </td>
         <td>{{ c.organizer }}</td>
         <td>
-          {% if c.entry_period.start %}{{ c.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
-          {% if c.entry_period.end %} 〜 {{ c.entry_period.end | date: '%Y-%m-%d' }}{% endif %}
+          {% if c.phases %}
+            {% for phase in c.phases %}
+              <div class="period-row">
+                <small class="period-label">{{ phase.name }}</small>
+                {% if phase.start %}{{ phase.start | date: '%Y-%m-%d' }}{% endif %}
+                {% if phase.end %} 〜 {{ phase.end | date: '%Y-%m-%d' }}{% endif %}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% if c.entry_period.start %}{{ c.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
+            {% if c.entry_period.end %} 〜 {{ c.entry_period.end | date: '%Y-%m-%d' }}{% endif %}
+          {% endif %}
         </td>
         <td>
           {% if c.phases %}
