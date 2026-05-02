@@ -77,6 +77,14 @@ hardware:
     slug: frdm-mcxn947
     recommended: true
     note: デュアル M33 + NPU(¥4,354)。eIQ Toolkit による ONNX→TFLite→Neutron 変換手順を解説。
+  - name: FRDM-IMX91 詳細(Linux/Yocto・Wi-Fi6/BLE/802.15.4)
+    slug: frdm-imx91
+    recommended: true
+    note: Cortex-A55 1.4GHz の Linux ボード(¥13,062)。Yocto BSP 取得・UUU 書込み手順も解説。
+  - name: IMXRT1050-EVKB 詳細(Cortex-M7 600MHz・XIP 実行・GUI Guider)
+    slug: imxrt1050-evkb
+    recommended: true
+    note: クロスオーバー MCU 高性能ボード(¥18,572)。HyperFlash XIP・LCD/カメラ/オーディオ対応。
   - name: その他おすすめ部品・ボード(STM32 / Arduino / Raspberry Pi / Seeed / M5Stack / DFRobot)
     slug: digikey-recommended-parts
     recommended: true
