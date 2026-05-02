@@ -38,23 +38,4 @@ title: トップ
   </tbody>
 </table>
 
-## <span id="hardware">ハードウェア一覧</span>
-
-<table class="index-table">
-  <thead>
-    <tr>
-      <th>製品名</th>
-      <th>メーカー</th>
-      <th>カテゴリ</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for hw in site.hardware %}
-      <tr>
-        <td><a href="{{ hw.url | relative_url }}">{{ hw.title }}</a></td>
-        <td>{{ hw.manufacturer }}</td>
-        <td>{{ hw.category | default: '-' }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+使用ハードウェアおよび開発フレームワークの一覧は、各コンテストページの「使用ハードウェア」欄を参照してください(コンテストごとに対象が異なります)。
