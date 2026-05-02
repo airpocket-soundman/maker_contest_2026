@@ -1,5 +1,6 @@
 ---
 title: Solist-AI™ 開発フレームワーク (LEXIDE-Ω / Solist-AI Sim ほか)
+short_title: 開発フレームワーク (LEXIDE-Ω)
 slug: solist-ai-dev-framework
 tagline: ML63Q2557 / DT-EBML63Q2557 用の統合開発環境・AIモデル生成ツール・デバッガ群
 manufacturer: ローム株式会社 / LAPIS Technology

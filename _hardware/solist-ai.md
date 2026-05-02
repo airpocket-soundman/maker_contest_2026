@@ -1,5 +1,6 @@
 ---
 title: Solist-AI™
+short_title: Solist-AI™ 概要
 slug: solist-ai
 tagline: ROHMが提供する超低消費電力・小型のエッジAIソリューション
 manufacturer: ローム株式会社

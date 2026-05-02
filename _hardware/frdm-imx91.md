@@ -1,5 +1,6 @@
 ---
 title: FRDM-IMX91 (NXP i.MX 91 アプリケーションプロセッサ評価ボード)
+short_title: FRDM-IMX91 (Linux)
 slug: frdm-imx91
 tagline: Cortex-A55 1.4GHz + Wi-Fi6/BLE/802.15.4 を搭載した 組込み Linux 向け FRDM ボード
 manufacturer: NXP Semiconductors

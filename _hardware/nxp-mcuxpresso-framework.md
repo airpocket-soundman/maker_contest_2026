@@ -1,5 +1,6 @@
 ---
 title: NXP MCUXpresso 開発フレームワーク (FRDM 4 ボード共通)
+short_title: MCUXpresso フレームワーク
 slug: nxp-mcuxpresso-framework
 tagline: FRDM-MCXC444 / FRDM-MCXN947 / FRDM-IMX91 / IMXRT1050-EVKB の 4 ボードに共通する開発環境・SDK・AI ツールチェーン
 manufacturer: NXP Semiconductors

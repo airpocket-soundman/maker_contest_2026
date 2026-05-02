@@ -1,5 +1,6 @@
 ---
 title: IMXRT1050-EVKB (NXP i.MX RT1050 クロスオーバー MCU 評価キット)
+short_title: IMXRT1050-EVKB
 slug: imxrt1050-evkb
 tagline: Cortex-M7 600MHz クロスオーバー MCU の高性能リアルタイム評価キット
 manufacturer: NXP Semiconductors

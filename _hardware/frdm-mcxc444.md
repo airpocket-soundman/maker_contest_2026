@@ -1,5 +1,6 @@
 ---
 title: FRDM-MCXC444 (NXP MCX C444 評価ボード)
+short_title: FRDM-MCXC444
 slug: frdm-mcxc444
 tagline: Cortex-M0+ 48MHz + 加速度/光センサ + SLCD を搭載した低消費電力 Freedom ボード
 manufacturer: NXP Semiconductors

@@ -29,27 +29,62 @@
         <ul class="toc-list">
           <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>サイトトップ</a></li>
         </ul>
-        <p class="toc-section-label">コンテスト</p>
-        <ul class="toc-list">
-          {% assign sidebar_contests = site.contests | sort: 'entry_period.start' %}
-          {% for c in sidebar_contests %}
-            <li>
-              <a href="{{ c.url | relative_url }}" class="toc-contest{% if page.url == c.url %} active{% endif %}">{{ c.title }}</a>
-              {% if c.hardware %}
-                <ul class="toc-sublist">
-                  {% for hw_ref in c.hardware %}
-                    {% if hw_ref.slug %}
-                      {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
-                      {% if hw %}
-                        <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.title }}</a></li>
-                      {% endif %}
+        {% assign sidebar_contests = site.contests | sort: 'entry_period.start' %}
+        {% for c in sidebar_contests %}
+          <p class="toc-section-label">{{ c.short_title | default: c.title }}</p>
+          <ul class="toc-list">
+            <li><a href="{{ c.url | relative_url }}" class="toc-contest{% if page.url == c.url %} active{% endif %}">コンテスト概要</a></li>
+            {% if c.hardware %}
+              {% assign boards = "" | split: "" %}
+              {% assign frameworks = "" | split: "" %}
+              {% assign parts = "" | split: "" %}
+              {% for hw_ref in c.hardware %}
+                {% if hw_ref.slug %}
+                  {% assign hw = site.hardware | where: 'slug', hw_ref.slug | first %}
+                  {% if hw %}
+                    {% if hw.category contains "フレームワーク" or hw.category contains "framework" %}
+                      {% assign frameworks = frameworks | push: hw %}
+                    {% elsif hw.category contains "部品" or hw.category contains "推奨" %}
+                      {% assign parts = parts | push: hw %}
+                    {% else %}
+                      {% assign boards = boards | push: hw %}
                     {% endif %}
-                  {% endfor %}
-                </ul>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% if boards.size > 0 %}
+                <li class="toc-group">
+                  <span class="toc-group-label">ハードウェア</span>
+                  <ul class="toc-sublist">
+                    {% for hw in boards %}
+                      <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
               {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
+              {% if frameworks.size > 0 %}
+                <li class="toc-group">
+                  <span class="toc-group-label">開発フレームワーク</span>
+                  <ul class="toc-sublist">
+                    {% for hw in frameworks %}
+                      <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+              {% if parts.size > 0 %}
+                <li class="toc-group">
+                  <span class="toc-group-label">推奨部品・その他</span>
+                  <ul class="toc-sublist">
+                    {% for hw in parts %}
+                      <li><a href="{{ hw.url | relative_url }}" {% if page.url == hw.url %}class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+            {% endif %}
+          </ul>
+        {% endfor %}
       </nav>
     </aside>
     <main class="content">

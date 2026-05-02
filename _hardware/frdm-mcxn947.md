@@ -1,5 +1,6 @@
 ---
 title: FRDM-MCXN947 (NXP MCX N947 + eIQ Neutron NPU 評価ボード)
+short_title: FRDM-MCXN947 (NPU)
 slug: frdm-mcxn947
 tagline: デュアル Cortex-M33 150MHz + eIQ Neutron NPU(4.8 GOPS, INT8) を搭載した エッジAI/産業IoT 向け Freedom ボード
 manufacturer: NXP Semiconductors

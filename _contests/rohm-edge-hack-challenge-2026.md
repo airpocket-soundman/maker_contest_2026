@@ -1,5 +1,6 @@
 ---
 title: ROHM EDGE HACK CHALLENGE 2026
+short_title: ROHM Edge Hack 2026
 tagline: ロームのエッジAIソリューション「Solist-AI™」を活用したエッジAIアイデアコンテスト
 organizer: ローム株式会社
 official_url: https://www.rohm.co.jp/news-detail?news-title=2026-04-22_rehc2026

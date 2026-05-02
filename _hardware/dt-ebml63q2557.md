@@ -1,5 +1,6 @@
 ---
 title: DT-EBML63Q2557 (Solist-AI™ 評価ボード)
+short_title: DT-EBML63Q2557
 slug: dt-ebml63q2557
 tagline: ROHM ML63Q2557(Solist-AI™ MCU)を搭載した データ・テクノ製評価ボード
 manufacturer: 株式会社データ・テクノ (MCUはローム株式会社)

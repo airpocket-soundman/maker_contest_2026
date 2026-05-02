@@ -1,5 +1,6 @@
 ---
 title: NXP 推奨評価ボード 4 種比較 (DigiKey Make ONE Challenge 2026)
+short_title: NXP 4 ボード比較
 slug: nxp-frdm-eval-boards
 tagline: FRDM-MCXC444 / FRDM-MCXN947 / FRDM-IMX91 / IMXRT1050-EVKB の 4 ボード比較と開発環境
 manufacturer: NXP Semiconductors

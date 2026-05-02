@@ -1,5 +1,6 @@
 ---
 title: DigiKey Make ONE Challenge 2026
+short_title: DigiKey Make ONE 2026
 tagline: 自分イチのモノづくりに挑戦 - DigiKey日本初開催の電子工作コンテスト
 organizer: DigiKey
 official_url: https://www.digikey.jp/ja/resources/events/2026/make-one-challenge

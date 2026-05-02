@@ -1,5 +1,6 @@
 ---
 title: DigiKey Make ONE Challenge 2026 推奨部品・ボード(NXP 以外)
+short_title: 推奨部品(NXP 以外)
 slug: digikey-recommended-parts
 tagline: NXP 4 ボード以外に DigiKey が推奨する開発ボード・モジュール 9 種
 manufacturer: 各社 (STMicroelectronics / Arduino / Raspberry Pi / Seeed / M5Stack / DFRobot)
