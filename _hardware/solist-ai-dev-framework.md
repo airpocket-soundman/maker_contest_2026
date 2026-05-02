@@ -109,9 +109,18 @@ ROHM(LAPIS Technology)は Solist-AI™ MCU (ML63Q2557 等) の開発を支援す
 
 ### LEXIDE-Ω (統合開発環境)
 - **配布元**: [LAPIS Technology - MCU Development Support System](https://www.rohm.com/lapis-tech/product/micon/software)
-- Eclipse + CDT プラグインベース。プロジェクト管理・ビルド・デバッグを 1 つで完結
+- **Eclipse + CDT プラグインベース**。プロジェクト管理・ビルド・デバッグを 1 つで完結
 - LAPIS 旧来の 8/16 bit RISC コア(nX-U8/U16)に加えて、ROHM Cortex-M も同じ IDE でサポート
 - ライセンス情報はインストールフォルダ `Licenses\LEXIDE\` 以下を参照
+
+#### VS Code 対応について
+- **2026-05-02 時点で、ROHM/LAPIS 公式の VS Code 拡張機能は提供されていません。** AI 動作可視化ツール(Solist-AI Sim/Scope)や AxlCORE-ODL 用モデル生成も LEXIDE-Ω に統合された GUI が前提です。
+- ただし ML63Q2557 は **標準 Arm Cortex-M0+ コア** なので、コアの C プログラム部分のみであれば VS Code でも開発可能です:
+  - `arm-none-eabi-gcc` + `make`/`cmake` で自前ビルド環境を組む
+  - VS Code の **C/C++ 拡張** + **Cortex-Debug 拡張** で IntelliSense とデバッグ
+  - **CMSIS-DAP / DAPLink / J-Link** 経由で `pyOCD` / `OpenOCD` 書込み・GDB デバッグ
+  - レジスタヘッダ・SVD は ROHM/LAPIS から提供されているものを利用
+- **AI アクセラレータ(AxlCORE-ODL)を使うアプリ** は LEXIDE-Ω + Solist-AI ツール群が事実上必須。VS Code 単独では NPU 用バイナリの生成・解析ができないため、フル機能の AI 開発には LEXIDE-Ω を使ってください。
 
 ### Solist-AI™ (AIモデル自動生成ツール)
 - 学習用データから ML63Q2557 向けに最適化された AI モデルを自動生成
