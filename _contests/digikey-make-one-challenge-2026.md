@@ -69,6 +69,10 @@ hardware:
     slug: nxp-frdm-eval-boards
     recommended: true
     note: 一次審査で加点対象となる「おすすめ製品」。性能比較表・価格・開発環境は詳細ページ参照。
+  - name: NXP MCUXpresso 開発フレームワーク(4 ボード共通)
+    slug: nxp-mcuxpresso-framework
+    recommended: true
+    note: VS Code 拡張・MCUXpresso SDK・eIQ Toolkit・Yocto Linux BSP・互換ツールチェーンを横断的に解説。
   - name: FRDM-MCXC444 詳細(GPIO・電源・センサ)
     slug: frdm-mcxc444
     recommended: true
