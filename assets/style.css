@@ -133,6 +133,29 @@ h1 .status-badge { font-size: 0.55em; vertical-align: 0.2em; }
 }
 .prize-count { color: var(--color-muted); font-weight: normal; }
 
+/* ボード構成図用 SVG */
+.board-diagram {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  background: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+}
+.board-diagram .box { fill: #ffffff; stroke: var(--color-border); stroke-width: 1; }
+.board-diagram .box-mcu { fill: #dbeafe; stroke: #2563eb; stroke-width: 1.5; }
+.board-diagram .box-power { fill: #fee2e2; stroke: #dc2626; }
+.board-diagram .box-ai { fill: #fef3c7; stroke: #d97706; stroke-width: 1.5; }
+.board-diagram .box-mem { fill: #dcfce7; stroke: #059669; }
+.board-diagram .box-io { fill: #f3f4f6; stroke: #6b7280; }
+.board-diagram .label { font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif; font-size: 12px; fill: #1f2937; }
+.board-diagram .label-bold { font-weight: bold; }
+.board-diagram .label-small { font-size: 10px; fill: #6b7280; }
+.board-diagram .arrow { stroke: #4b5563; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+.board-diagram .arrow-bus { stroke: #2563eb; stroke-width: 2; fill: none; }
+
 /* バッジ */
 .badge {
   display: inline-block;

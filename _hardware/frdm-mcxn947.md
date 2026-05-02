@@ -86,41 +86,96 @@ DigiKey Make ONE Challenge 2026 では「おすすめ製品」(NXP 4 ボード�
 
 ## ボード ブロック図
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│  USB Type-C (CN_HS) ─ High-Speed USB                                   │
-│  USB Type-C (CN_DEBUG) ─ MCU-Link OB (LPC55S69, CMSIS-DAP)             │
-│                                                                        │
-│       電源:  P5V_MCU_LINK_USB / P5V_USB_HS / P5V_HDR_IN                 │
-│              → 内部 LDO/SMPS で 3.3V / 1.8V を生成                      │
-│                                                                        │
-│   ┌─────────────────────────────────────────────────────────────────┐  │
-│   │              MCXN947 (デュアル Cortex-M33, 150MHz)              │  │
-│   │  CPU0  ──────────────┬──────────────┐                           │  │
-│   │  CPU1  ──────────────┤              │                           │  │
-│   │                      ▼              ▼                           │  │
-│   │   ┌──────────────────────┐  ┌────────────────┐                  │  │
-│   │   │ eIQ Neutron NPU       │  │ DSP Coprocessor│                  │  │
-│   │   │ 4.8 GOPS @ 150MHz     │  │ (FFT/FIR等)    │                  │  │
-│   │   │ INT8、CNN/RNN/TCN/    │  └────────────────┘                  │  │
-│   │   │ Transformer 対応       │                                     │  │
-│   │   └──────────────────────┘                                     │  │
-│   │                                                                 │  │
-│   │   Flash 2MB (dual-bank, 16KB cache)                              │  │
-│   │   SRAM 512KB (416KB ECC) ── SmartDMA ── FlexIO ── FlexSPI        │  │
-│   │                                                                 │  │
-│   │   10× LP Flexcomm (SPI/I²C/UART) | 2× FlexCAN-FD | 2× I3C | 2× SAI │
-│   │   Ethernet (QoS) | USB-HS | 16bit ADC | DAC | OpAmp | Comparator │  │
-│   │   EdgeLock Secure Subsystem (TrustZone-M, 暗号アクセラ)          │  │
-│   └──┬──────────┬──────────┬──────────┬──────────┬───────────────┬──┘  │
-│      │          │          │          │          │               │     │
-│      ▼          ▼          ▼          ▼          ▼               ▼     │
-│  Arduino R3  mikroBUS J5  mikroBUS J6  Pmod J9   FlexIO LCD  SmartDMA  │
-│                                                              Camera    │
-│                                                                        │
-│   ユーザボタン×2 / RGB LED / SW1 リセット                              │
-└────────────────────────────────────────────────────────────────────────┘
-```
+<svg class="board-diagram" viewBox="0 0 820 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FRDM-MCXN947 ボード ブロック図">
+  <defs>
+    <marker id="arrow-mcxn" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <!-- USB / 電源 -->
+  <rect class="box box-power" x="10" y="10" width="195" height="50" rx="4"/>
+  <text class="label label-bold" x="107" y="32" text-anchor="middle">USB-C P5V_MCU_LINK</text>
+  <text class="label label-small" x="107" y="48" text-anchor="middle">デバッガ + 給電</text>
+  <rect class="box box-power" x="215" y="10" width="195" height="50" rx="4"/>
+  <text class="label label-bold" x="312" y="32" text-anchor="middle">USB-C P5V_USB_HS</text>
+  <text class="label label-small" x="312" y="48" text-anchor="middle">High-Speed USB + 給電</text>
+  <rect class="box box-power" x="420" y="10" width="195" height="50" rx="4"/>
+  <text class="label label-bold" x="517" y="32" text-anchor="middle">P5V_HDR_IN</text>
+  <text class="label label-small" x="517" y="48" text-anchor="middle">ヘッダから 5V 給電</text>
+  <rect class="box box-io" x="625" y="10" width="185" height="50" rx="4"/>
+  <text class="label label-bold" x="717" y="32" text-anchor="middle">MCU-Link OB</text>
+  <text class="label label-small" x="717" y="48" text-anchor="middle">LPC55S69 / CMSIS-DAP</text>
+  <!-- 電源系統 -->
+  <rect class="box box-power" x="10" y="80" width="605" height="40" rx="4"/>
+  <text class="label label-bold" x="312" y="100" text-anchor="middle">内部 LDO / SMPS で 3.3V / 1.8V を生成</text>
+  <text class="label label-small" x="312" y="114" text-anchor="middle">周辺バンクごとに 3.3V/1.8V 切替可</text>
+  <!-- MCU 大枠 -->
+  <rect class="box box-mcu" x="10" y="140" width="800" height="200" rx="6"/>
+  <text class="label label-bold" x="410" y="166" text-anchor="middle" font-size="15">NXP MCXN947 (デュアル Cortex-M33, 150MHz)</text>
+  <!-- CPU + NPU + DSP -->
+  <rect class="box" x="30" y="180" width="160" height="50" rx="4" fill="#eff6ff" stroke="#2563eb"/>
+  <text class="label label-bold" x="110" y="202" text-anchor="middle">CPU0 + CPU1</text>
+  <text class="label label-small" x="110" y="218" text-anchor="middle">Cortex-M33 + DSP</text>
+  <rect class="box box-ai" x="210" y="180" width="220" height="50" rx="4"/>
+  <text class="label label-bold" x="320" y="202" text-anchor="middle">eIQ Neutron NPU</text>
+  <text class="label label-small" x="320" y="218" text-anchor="middle">4.8 GOPS @ 150MHz / INT8 / CNN・RNN・TCN・Transformer</text>
+  <rect class="box" x="450" y="180" width="170" height="50" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label label-bold" x="535" y="202" text-anchor="middle">DSP コプロセッサ</text>
+  <text class="label label-small" x="535" y="218" text-anchor="middle">FFT / FIR / 信号処理</text>
+  <rect class="box" x="640" y="180" width="160" height="50" rx="4" fill="#fee2e2" stroke="#dc2626"/>
+  <text class="label label-bold" x="720" y="202" text-anchor="middle">EdgeLock SubSys</text>
+  <text class="label label-small" x="720" y="218" text-anchor="middle">TrustZone-M, 暗号</text>
+  <!-- メモリ・周辺 -->
+  <rect class="box box-mem" x="30" y="250" width="370" height="40" rx="4"/>
+  <text class="label label-bold" x="215" y="270" text-anchor="middle">Flash 2MB (dual-bank, 16KB cache)</text>
+  <text class="label label-small" x="215" y="284" text-anchor="middle">SRAM 最大 512KB (416KB ECC)</text>
+  <rect class="box box-io" x="420" y="250" width="380" height="40" rx="4"/>
+  <text class="label label-bold" x="610" y="270" text-anchor="middle">SmartDMA / FlexIO / FlexSPI</text>
+  <text class="label label-small" x="610" y="284" text-anchor="middle">外付け QSPI Flash 拡張可</text>
+  <rect class="box" x="30" y="300" width="770" height="30" rx="4" fill="#f9fafb"/>
+  <text class="label label-small" x="415" y="320" text-anchor="middle">10× LP Flexcomm (SPI/I²C/UART) ・ 2× FlexCAN-FD ・ 2× I3C ・ 2× SAI ・ Ethernet QoS ・ USB-HS ・ 16bit ADC ・ DAC ・ OpAmp ・ Comparator</text>
+  <!-- 拡張ヘッダ -->
+  <rect class="box box-io" x="10" y="370" width="125" height="60" rx="4"/>
+  <text class="label label-bold" x="72" y="392" text-anchor="middle" font-size="11">Arduino R3</text>
+  <text class="label label-small" x="72" y="408" text-anchor="middle">UNO シールド</text>
+  <text class="label label-small" x="72" y="422" text-anchor="middle">対応</text>
+  <rect class="box box-io" x="145" y="370" width="125" height="60" rx="4"/>
+  <text class="label label-bold" x="207" y="392" text-anchor="middle" font-size="11">mikroBUS J5</text>
+  <text class="label label-small" x="207" y="408" text-anchor="middle">Click ボード</text>
+  <text class="label label-small" x="207" y="422" text-anchor="middle">1 台目</text>
+  <rect class="box box-io" x="280" y="370" width="125" height="60" rx="4"/>
+  <text class="label label-bold" x="342" y="392" text-anchor="middle" font-size="11">mikroBUS J6</text>
+  <text class="label label-small" x="342" y="408" text-anchor="middle">Click ボード</text>
+  <text class="label label-small" x="342" y="422" text-anchor="middle">2 台目</text>
+  <rect class="box box-io" x="415" y="370" width="125" height="60" rx="4"/>
+  <text class="label label-bold" x="477" y="392" text-anchor="middle" font-size="11">Pmod J9</text>
+  <text class="label label-small" x="477" y="408" text-anchor="middle">Digilent Pmod</text>
+  <text class="label label-small" x="477" y="422" text-anchor="middle">モジュール</text>
+  <rect class="box box-io" x="550" y="370" width="125" height="60" rx="4"/>
+  <text class="label label-bold" x="612" y="392" text-anchor="middle" font-size="11">FlexIO LCD</text>
+  <text class="label label-small" x="612" y="408" text-anchor="middle">パラレル LCD</text>
+  <text class="label label-small" x="612" y="422" text-anchor="middle">直接駆動</text>
+  <rect class="box box-io" x="685" y="370" width="125" height="60" rx="4"/>
+  <text class="label label-bold" x="747" y="392" text-anchor="middle" font-size="11">SmartDMA Cam</text>
+  <text class="label label-small" x="747" y="408" text-anchor="middle">パラレル/シリアル</text>
+  <text class="label label-small" x="747" y="422" text-anchor="middle">カメラ</text>
+  <!-- ユーザIF -->
+  <rect class="box" x="10" y="450" width="800" height="50" rx="4"/>
+  <text class="label label-bold" x="410" y="472" text-anchor="middle">ユーザインターフェース</text>
+  <text class="label label-small" x="410" y="488" text-anchor="middle">ユーザボタン×2 / RGB LED / SW1 リセット / オンボードセンサ拡張可能(キット同梱は無し)</text>
+  <!-- Arrows -->
+  <path d="M 107 60 L 107 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxn)"/>
+  <path d="M 312 60 L 312 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxn)"/>
+  <path d="M 517 60 L 517 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxn)"/>
+  <path d="M 717 60 L 717 140" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxn)"/>
+  <path d="M 312 120 L 312 140" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxn)"/>
+  <path d="M 72 340 L 72 370" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 207 340 L 207 370" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 342 340 L 342 370" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 477 340 L 477 370" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 612 340 L 612 370" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 747 340 L 747 370" stroke="#2563eb" stroke-width="2" fill="none"/>
+</svg>
 
 > 詳細なブロック図・回路図は [ユーザーマニュアル UM12018](https://manuals.plus/m/850e3d758fe83d78fac300a4fadd334e6f7dbbebaa816473275db57080cfa8f9.pdf) を参照。
 
@@ -191,24 +246,37 @@ NXP は VS Code 拡張版を主力に推進しており、MCXN947 の開発も E
 
 ### モデル導入の全体フロー
 
-```
-[1] PyTorch / TensorFlow / Keras / ONNX で学習
-        │
-        ▼
-[2] eIQ ModelTool (or onnx2tflite) で TensorFlow Lite (.tflite) に変換
-        │
-        ▼
-[3] INT8 量子化 (代表データセットで Post-Training Quantization)
-        │
-        ▼
-[4] Neutron Converter (eIQ Toolkit 内蔵) で .tflite → Neutron NPU 用 .tflite に再最適化
-        │
-        ▼
-[5] MCUXpresso SDK / VS Code 拡張のサンプルプロジェクトに組込み
-        │
-        ▼
-[6] FRDM-MCXN947 にフラッシュ書込みして実機推論
-```
+<svg class="board-diagram" viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MCXN947 用 ML モデル導入フロー">
+  <defs>
+    <marker id="arrow-flow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect class="box" x="160" y="10" width="500" height="50" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+  <text class="label label-bold" x="410" y="32" text-anchor="middle">[1] 学習</text>
+  <text class="label label-small" x="410" y="48" text-anchor="middle">PyTorch / TensorFlow / Keras / ONNX</text>
+  <rect class="box" x="160" y="85" width="500" height="50" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label label-bold" x="410" y="107" text-anchor="middle">[2] TensorFlow Lite (.tflite) に変換</text>
+  <text class="label label-small" x="410" y="123" text-anchor="middle">eIQ ModelTool / NXP/eiq-onnx2tflite (CLI)</text>
+  <rect class="box" x="160" y="160" width="500" height="50" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label label-bold" x="410" y="182" text-anchor="middle">[3] INT8 量子化</text>
+  <text class="label label-small" x="410" y="198" text-anchor="middle">Post-Training Quantization (代表データ 100〜数千件) / ONNX2Quant</text>
+  <rect class="box box-ai" x="160" y="235" width="500" height="50" rx="4"/>
+  <text class="label label-bold" x="410" y="257" text-anchor="middle">[4] Neutron Converter で再最適化</text>
+  <text class="label label-small" x="410" y="273" text-anchor="middle">eIQ Toolkit 内蔵 / .tflite → Neutron NPU 用 .tflite</text>
+  <rect class="box box-mem" x="160" y="310" width="500" height="50" rx="4"/>
+  <text class="label label-bold" x="410" y="332" text-anchor="middle">[5] サンプルプロジェクトに組込み</text>
+  <text class="label label-small" x="410" y="348" text-anchor="middle">MCUXpresso SDK / VS Code 拡張 / Quickstart Panel</text>
+  <rect class="box box-mcu" x="160" y="385" width="500" height="50" rx="4"/>
+  <text class="label label-bold" x="410" y="407" text-anchor="middle">[6] FRDM-MCXN947 で実機推論</text>
+  <text class="label label-small" x="410" y="423" text-anchor="middle">Flash 書込み / SWO・UART で結果出力 / NPU 使用率測定</text>
+  <path d="M 410 60 L 410 85" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-flow)"/>
+  <path d="M 410 135 L 410 160" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-flow)"/>
+  <path d="M 410 210 L 410 235" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-flow)"/>
+  <path d="M 410 285 L 410 310" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-flow)"/>
+  <path d="M 410 360 L 410 385" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-flow)"/>
+  <text class="label label-small" x="20" y="450">凡例: 青=学習データ準備, 黄=変換/量子化, 緑=統合, 青濃=実機実行</text>
+</svg>
 
 ### ONNX モデルの変換手順 (おすすめ ⭐)
 

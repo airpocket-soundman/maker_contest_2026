@@ -78,32 +78,89 @@ DigiKey Make ONE Challenge 2026 では「おすすめ製品」(NXP 4 ボード�
 
 ## ボード ブロック図
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│  USB micro-B (J28: OpenSDA/LPC-Link2 デバッガ)                         │
-│  USB micro-B (J9: USB OTG #1)                                          │
-│  USB Type-A (J12: USB OTG #2 ホスト)                                   │
-│  5V DC Jack (J2)                                                       │
-│                                                                        │
-│  ┌────────────────────────────────────────────────────────────────┐    │
-│  │              i.MX RT1052 (Cortex-M7, 600 MHz)                   │    │
-│  │  TCM 最大 512KB / OCRAM / DCP / BEE                             │    │
-│  └─┬───────┬───────┬──────┬─────────┬─────────┬───────────┬───────┘    │
-│    │       │       │      │         │         │           │            │
-│  FlexSPI  SEMC   SDIO   USB-OTG×2  Ethernet  LCD parallel  CSI Camera  │
-│    │       │       │      │         │         │           (J35)        │
-│    ▼       ▼       ▼      ▼         ▼         ▼                        │
-│  HyperFlash 64MB / QSPI 8MB                                            │
-│  SDRAM 32MB                                                            │
-│  microSD ソケット (J20)                                                │
-│                                                                        │
-│  Arduino R3 互換ヘッダ J22-J25(直接実装、はんだ付け不要)             │
-│  FXOS8700CQ 6軸センサ(加速度+磁気)                                  │
-│  3.5mm オーディオジャック / オンボードマイク / スピーカー I/F (J17)    │
-│  SAI / SPDIF / オーディオコーデック WM8960                             │
-│  ユーザボタン×2 / RGB LED / リセット SW3                                │
-└────────────────────────────────────────────────────────────────────────┘
-```
+<svg class="board-diagram" viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="IMXRT1050-EVKB ボード ブロック図">
+  <defs>
+    <marker id="arrow-rt" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <!-- 上段: USB / 電源 / デバッガ -->
+  <rect class="box box-power" x="10" y="10" width="195" height="50" rx="4"/>
+  <text class="label label-bold" x="107" y="32" text-anchor="middle">USB micro-B (J28)</text>
+  <text class="label label-small" x="107" y="48" text-anchor="middle">OpenSDA / LPC-Link2 デバッガ</text>
+  <rect class="box box-power" x="215" y="10" width="195" height="50" rx="4"/>
+  <text class="label label-bold" x="312" y="32" text-anchor="middle">USB micro-B (J9)</text>
+  <text class="label label-small" x="312" y="48" text-anchor="middle">USB OTG #1</text>
+  <rect class="box box-power" x="420" y="10" width="195" height="50" rx="4"/>
+  <text class="label label-bold" x="517" y="32" text-anchor="middle">USB Type-A (J12)</text>
+  <text class="label label-small" x="517" y="48" text-anchor="middle">USB OTG #2 ホスト</text>
+  <rect class="box box-power" x="625" y="10" width="185" height="50" rx="4"/>
+  <text class="label label-bold" x="717" y="32" text-anchor="middle">5V DC Jack (J2)</text>
+  <text class="label label-small" x="717" y="48" text-anchor="middle">外部給電</text>
+  <!-- MCU -->
+  <rect class="box box-mcu" x="10" y="80" width="800" height="80" rx="6"/>
+  <text class="label label-bold" x="410" y="106" text-anchor="middle" font-size="15">NXP i.MX RT1052 (Cortex-M7, 600 MHz クロスオーバー MCU)</text>
+  <text class="label" x="410" y="126" text-anchor="middle">TCM 最大 512KB / OCRAM / DCP (AES/SHA) / BEE / TrustZone-M</text>
+  <text class="label label-small" x="410" y="144" text-anchor="middle">FlexSPI / SEMC / SDIO / USB-OTG×2 / Ethernet / SAI / SPDIF / 16bit ADC / FlexPWM</text>
+  <!-- メモリ I/F 行 -->
+  <rect class="box box-mem" x="10" y="180" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="140" y="202" text-anchor="middle">FlexSPI</text>
+  <text class="label label-small" x="140" y="218" text-anchor="middle">HyperFlash 64MB (デフォルト)</text>
+  <text class="label label-small" x="140" y="232" text-anchor="middle">QSPI 8MB (リワーク版) / XIP 実行</text>
+  <rect class="box box-mem" x="280" y="180" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="410" y="202" text-anchor="middle">SEMC</text>
+  <text class="label label-small" x="410" y="218" text-anchor="middle">SDRAM 32MB (IS42S16160)</text>
+  <text class="label label-small" x="410" y="232" text-anchor="middle">大容量バッファ・LCD フレーム</text>
+  <rect class="box box-mem" x="550" y="180" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="680" y="202" text-anchor="middle">SDIO / microSD (J20)</text>
+  <text class="label label-small" x="680" y="218" text-anchor="middle">アプリ / 大容量データ</text>
+  <text class="label label-small" x="680" y="232" text-anchor="middle">eMMC 接続も可</text>
+  <!-- マルチメディア / 通信 -->
+  <rect class="box box-io" x="10" y="260" width="260" height="80" rx="4"/>
+  <text class="label label-bold" x="140" y="282" text-anchor="middle">Ethernet / CAN</text>
+  <text class="label label-small" x="140" y="298" text-anchor="middle">10/100 Ethernet PHY</text>
+  <text class="label label-small" x="140" y="312" text-anchor="middle">CAN ×2 (FlexCAN)</text>
+  <text class="label label-small" x="140" y="326" text-anchor="middle">産業用ネットワーク</text>
+  <rect class="box box-io" x="280" y="260" width="260" height="80" rx="4"/>
+  <text class="label label-bold" x="410" y="282" text-anchor="middle">LCD / カメラ I/F</text>
+  <text class="label label-small" x="410" y="298" text-anchor="middle">パラレル LCD (16/24bit)</text>
+  <text class="label label-small" x="410" y="312" text-anchor="middle">CSI カメラ (J35)</text>
+  <text class="label label-small" x="410" y="326" text-anchor="middle">2D グラフィックスエンジン</text>
+  <rect class="box box-io" x="550" y="260" width="260" height="80" rx="4"/>
+  <text class="label label-bold" x="680" y="282" text-anchor="middle">オーディオ</text>
+  <text class="label label-small" x="680" y="298" text-anchor="middle">SAI (I²S) / SPDIF</text>
+  <text class="label label-small" x="680" y="312" text-anchor="middle">WM8960 コーデック</text>
+  <text class="label label-small" x="680" y="326" text-anchor="middle">3.5mm Jack / マイク / SP J17</text>
+  <!-- 拡張 -->
+  <rect class="box" x="10" y="360" width="800" height="50" rx="4"/>
+  <text class="label label-bold" x="410" y="382" text-anchor="middle">Arduino R3 互換ヘッダ J22 / J23 / J24 / J25 (ボードに直接実装、はんだ付け不要)</text>
+  <text class="label label-small" x="410" y="398" text-anchor="middle">D0-D15 / A0-A5 / 5V/3.3V/GND ・ I²C は J24 ピン9/10 ではなく J23 ピン5/6 を使用</text>
+  <!-- 搭載センサ -->
+  <rect class="box box-mem" x="10" y="430" width="395" height="60" rx="4"/>
+  <text class="label label-bold" x="207" y="452" text-anchor="middle">FXOS8700CQ 6軸センサ</text>
+  <text class="label label-small" x="207" y="468" text-anchor="middle">加速度 + 磁気センサ</text>
+  <text class="label label-small" x="207" y="482" text-anchor="middle">I²C 接続</text>
+  <rect class="box" x="415" y="430" width="395" height="60" rx="4"/>
+  <text class="label label-bold" x="612" y="452" text-anchor="middle">ユーザインターフェース</text>
+  <text class="label label-small" x="612" y="468" text-anchor="middle">ユーザボタン ×2 / RGB LED</text>
+  <text class="label label-small" x="612" y="482" text-anchor="middle">リセット SW3</text>
+  <!-- セキュリティ -->
+  <rect class="box" x="10" y="510" width="800" height="50" rx="4" fill="#fee2e2" stroke="#dc2626"/>
+  <text class="label label-bold" x="410" y="532" text-anchor="middle">DCP (Data Co-Processor) + BEE (Bus Encryption Engine)</text>
+  <text class="label label-small" x="410" y="548" text-anchor="middle">AES / SHA ハードウェアアクセラ ・ XIP 実行コードのオンザフライ復号</text>
+  <!-- Arrows -->
+  <path d="M 107 60 L 107 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-rt)"/>
+  <path d="M 312 60 L 312 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-rt)"/>
+  <path d="M 517 60 L 517 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-rt)"/>
+  <path d="M 717 60 L 717 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-rt)"/>
+  <path d="M 140 160 L 140 180" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 160 L 410 180" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 680 160 L 680 180" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 140 240 L 140 260" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 240 L 410 260" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 680 240 L 680 260" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 340 L 410 360" stroke="#2563eb" stroke-width="2" fill="none"/>
+</svg>
 
 > 詳細なブロック図・回路図は [ハードウェアユーザーガイド](https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imxrt/3368/1/IMXRT1050EVKBHUG.pdf) を参照。
 

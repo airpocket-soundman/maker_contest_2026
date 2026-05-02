@@ -109,36 +109,98 @@ ROHM EDGE HACK CHALLENGE 2026 のデバイス提供キャンペーン対象品�
 
 ## ボード ブロック図(図1-1)
 
-ハードウェアユーザーズマニュアル §1.5 図1-1 にボード全体のブロック図が掲載されています。概要を文字で表すと以下の構成です。
+ハードウェアユーザーズマニュアル §1.5 図1-1 にボード全体のブロック図が掲載されています。本サイト内の概念図は以下のとおり。
 
-```
-                               +-------------------+
-   USB Type-C (CN9: COM/Power) | FT2232H (USB Bridge)|--- UART#0 ----+
-   USB Type-C (CN8: Power)     +----+----------+-----+               |
-                                    | SPI(slave)                     |
-   電池(CN7) -+                     v                                |
-              |    +---- 3.3V/5V/24V Boost (U13/U14/U15) ----+       |
-   電源SW(SW7)+----+                                          |       |
-                                                              v       v
-                              +-----------------------------------------+
-                              |          ROHM ML63Q2557 (TQFP64)         |
-                              |  Cortex-M0+ 48MHz + AxlCORE-ODL (AI)      |
-                              |  ROM 256KB / RAM 16KB / DataFlash 8KB    |
-                              +--+------+----------+-----------+---------+
-                                 |      |          |           |
-                       SPI#0 ----+      |          |           +----- I²C(LCD,16x2)
-                                        |          |
-                       FeRAM 2Mbit (Soft-SPI) ◀────+
-                       RTC + CR1220 backup ◀───────+
-                       任意: 16bit ADC ADS8860 (SPI#1) ◀──┐
-                                                          |
-                       SPI/I²C 14-pin MIL (CN1) ── 加速度センサ等
-                       絶縁I/O 12-pin JST XH (CN5) ── 産業信号 (絶縁IN×4 / SSR OUT×2)
-                       3-pin XH (CN4) ── RS-485 / CAN(任意)
-                       3-pin (CN6)  ── アナログ入力 (内蔵12bit ADC, OpAmp経由)
-                       LCD 16×2 / LED×4 / DIP-SW(SW1, SW6) / 押しボタン×4(SW2-SW5)
-                       Debug: 10-pin SW-DP (CMSIS-DAP / DAPLink / J-Link)
-```
+<svg class="board-diagram" viewBox="0 0 820 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DT-EBML63Q2557 ボード ブロック図">
+  <defs>
+    <marker id="arrow-dt" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <!-- 上段: 給電源 -->
+  <rect class="box box-power" x="10" y="10" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="105" y="32" text-anchor="middle">USB Type-C (CN9)</text>
+  <text class="label label-small" x="105" y="48" text-anchor="middle">通信 + 電源</text>
+  <rect class="box box-power" x="220" y="10" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="315" y="32" text-anchor="middle">USB Type-C (CN8)</text>
+  <text class="label label-small" x="315" y="48" text-anchor="middle">電源専用</text>
+  <rect class="box box-power" x="430" y="10" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="525" y="32" text-anchor="middle">電池 CN7 (単三×2)</text>
+  <text class="label label-small" x="525" y="48" text-anchor="middle">2.4–3.0V / 電源SW SW7</text>
+  <rect class="box box-io" x="640" y="10" width="170" height="50" rx="4"/>
+  <text class="label label-bold" x="725" y="32" text-anchor="middle">FT2232H</text>
+  <text class="label label-small" x="725" y="48" text-anchor="middle">USB→UART/SPI Bridge</text>
+  <!-- 中段: レギュレータ -->
+  <rect class="box box-power" x="10" y="90" width="610" height="50" rx="4"/>
+  <text class="label label-bold" x="315" y="112" text-anchor="middle">3.3V / 5V / 24V Boost (U13/U14/U15)</text>
+  <text class="label label-small" x="315" y="128" text-anchor="middle">JP8/JP9/JP10 で各系統 ON/OFF・PGOOD で MCU へ通知</text>
+  <!-- MCU -->
+  <rect class="box box-mcu" x="10" y="170" width="800" height="80" rx="6"/>
+  <text class="label label-bold" x="410" y="196" text-anchor="middle" font-size="15">ROHM ML63Q2557 (TQFP64)</text>
+  <text class="label" x="410" y="216" text-anchor="middle">Arm Cortex-M0+ 48MHz + AxlCORE-ODL AI アクセラレータ</text>
+  <text class="label label-small" x="410" y="234" text-anchor="middle">ROM 256KB / RAM 16KB / DataFlash 8KB / 12bit ADC / I²C / SPI / UART / CAN FD / 3相 PWM</text>
+  <!-- 下段: 周辺メモリ・LCD・ADC -->
+  <rect class="box box-mem" x="10" y="280" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="105" y="302" text-anchor="middle">2 Mbit FeRAM</text>
+  <text class="label label-small" x="105" y="318" text-anchor="middle">Soft-SPI / 10¹³回 書込み</text>
+  <rect class="box box-mem" x="210" y="280" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="305" y="302" text-anchor="middle">RTC + CR1220</text>
+  <text class="label label-small" x="305" y="318" text-anchor="middle">Soft-SPI / バックアップ</text>
+  <rect class="box box-io" x="410" y="280" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="505" y="302" text-anchor="middle">LCD 16×2</text>
+  <text class="label label-small" x="505" y="318" text-anchor="middle">I²C Fast-mode</text>
+  <rect class="box box-io" x="610" y="280" width="200" height="50" rx="4"/>
+  <text class="label label-bold" x="710" y="302" text-anchor="middle">ADS8860 (任意実装)</text>
+  <text class="label label-small" x="710" y="318" text-anchor="middle">16bit ADC / SPI#1</text>
+  <!-- 拡張コネクタ群 -->
+  <rect class="box box-io" x="10" y="360" width="195" height="60" rx="4"/>
+  <text class="label label-bold" x="107" y="382" text-anchor="middle">CN1 SPI/I²C 14pin</text>
+  <text class="label label-small" x="107" y="398" text-anchor="middle">MEMSセンサ等</text>
+  <text class="label label-small" x="107" y="412" text-anchor="middle">付属 加速度/サーモパイル</text>
+  <rect class="box box-io" x="215" y="360" width="195" height="60" rx="4"/>
+  <text class="label label-bold" x="312" y="382" text-anchor="middle">CN5 絶縁I/O 12pin</text>
+  <text class="label label-small" x="312" y="398" text-anchor="middle">フォトカプラ入力 ×4</text>
+  <text class="label label-small" x="312" y="412" text-anchor="middle">SSR 出力 ×2</text>
+  <rect class="box box-io" x="420" y="360" width="195" height="60" rx="4"/>
+  <text class="label label-bold" x="517" y="382" text-anchor="middle">CN4 RS-485 / CAN</text>
+  <text class="label label-small" x="517" y="398" text-anchor="middle">3pin / 終端 JP3</text>
+  <text class="label label-small" x="517" y="412" text-anchor="middle">PHY 排他切替</text>
+  <rect class="box box-io" x="625" y="360" width="185" height="60" rx="4"/>
+  <text class="label label-bold" x="717" y="382" text-anchor="middle">CN6 アナログ入力</text>
+  <text class="label label-small" x="717" y="398" text-anchor="middle">3pin OpAmp 経由</text>
+  <text class="label label-small" x="717" y="412" text-anchor="middle">12bit ADC AIN0</text>
+  <!-- ユーザIF / デバッグ -->
+  <rect class="box" x="10" y="450" width="400" height="60" rx="4"/>
+  <text class="label label-bold" x="210" y="472" text-anchor="middle">ユーザインターフェース</text>
+  <text class="label label-small" x="210" y="488" text-anchor="middle">押しボタン×4(SW2-SW5) / DIP-SW(SW1, SW6)</text>
+  <text class="label label-small" x="210" y="502" text-anchor="middle">LED×4 / 電源SW SW7</text>
+  <rect class="box" x="420" y="450" width="390" height="60" rx="4"/>
+  <text class="label label-bold" x="615" y="472" text-anchor="middle">デバッグ</text>
+  <text class="label label-small" x="615" y="488" text-anchor="middle">10pin SW-DP (Serial Wire Debug)</text>
+  <text class="label label-small" x="615" y="502" text-anchor="middle">CMSIS-DAP / DAPLink / J-Link / ARM-JTAG-20-10 対応</text>
+  <!-- Arrows -->
+  <path d="M 105 60 L 105 90" class="arrow" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-dt)"/>
+  <path d="M 315 60 L 315 90" class="arrow" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-dt)"/>
+  <path d="M 525 60 L 525 90" class="arrow" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-dt)"/>
+  <path d="M 725 60 L 725 170" class="arrow" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-dt)"/>
+  <path d="M 315 140 L 315 170" class="arrow" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-dt)"/>
+  <path d="M 105 250 L 105 280" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 305 250 L 305 280" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 505 250 L 505 280" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 710 250 L 710 280" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 107 330 L 107 360" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 312 330 L 312 360" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 517 330 L 517 360" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 717 330 L 717 360" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <text class="label-small" x="120" y="270" font-size="9" fill="#2563eb">Soft-SPI</text>
+  <text class="label-small" x="320" y="270" font-size="9" fill="#2563eb">Soft-SPI</text>
+  <text class="label-small" x="515" y="270" font-size="9" fill="#2563eb">I²C</text>
+  <text class="label-small" x="720" y="270" font-size="9" fill="#2563eb">SPI#1</text>
+  <text class="label-small" x="120" y="350" font-size="9" fill="#2563eb">SPI#0/I²C</text>
+  <text class="label-small" x="325" y="350" font-size="9" fill="#2563eb">GPIO</text>
+  <text class="label-small" x="525" y="350" font-size="9" fill="#2563eb">UART</text>
+  <text class="label-small" x="725" y="350" font-size="9" fill="#2563eb">ADC</text>
+</svg>
 
 > SoC 内部のブロック図(AxlCORE-ODL を含む)は [LAPIS ML63Q2500 データシート (FEDL63Q2500.pdf)](https://fscdn.rohm.com/lapis/en/products/databook/datasheet/ic/micon/FEDL63Q2500.pdf) 冒頭の Block Diagram を参照してください。AI アクセラレータの位置付けや 3 層ニューラルネットの構成イメージは [Solist-AI™ Promotional Materials (PDF)](https://fscdn.rohm.com/en/products/databook/catalog/common/N_Solist-AI_Solution_Promotional_materials_EN.pdf) に図示されています。
 

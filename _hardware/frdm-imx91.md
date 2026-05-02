@@ -84,29 +84,82 @@ DigiKey Make ONE Challenge 2026 では「おすすめ製品」(NXP 4 ボード�
 
 ## ボード ブロック図
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                                                                      │
-│  USB Type-C (J5)  ←── SDP/UUU 書込み兼 USB ホスト/デバイス         │
-│  USB Type-C (J6)  ──→ 電源 (PD 対応)                                 │
-│                                                                      │
-│  ┌──────────────────────────────────────────────────────────────┐    │
-│  │                  i.MX 91 (Cortex-A55, 1.4GHz)                 │    │
-│  │  EdgeLock Secure Enclave / TrustZone-A                        │    │
-│  │  GPU: 2D グラフィックス基本機能 / VPU: 簡易デコード           │    │
-│  └──┬──────────────┬───────────────┬─────────────┬───────────────┘    │
-│     │              │               │             │                    │
-│  LPDDR4 1GB       eMMC 8GB      microSD       USB / Eth / 拡張        │
-│  (外付け)         (オンボード)   (スロット)                           │
-│                                                                      │
-│  Murata Type-2EL モジュール (Wi-Fi 6 + BLE 5.2 + 802.15.4)            │
-│  デュアル RGMII Ethernet (10/100/1000, TSN 対応)                     │
-│  M.2 / NGFF Key E スロット (Wi-Fi/BT 拡張用)                         │
-│  40 ピン GPIO 拡張ヘッダ                                              │
-│  2×5 NXP I/F (CAN ×1 / ADC ×2 / I²C / I³C)                            │
-│  20 ピン JTAG + microUSB UART デバッグコンソール                      │
-└──────────────────────────────────────────────────────────────────────┘
-```
+<svg class="board-diagram" viewBox="0 0 820 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FRDM-IMX91 ボード ブロック図">
+  <defs>
+    <marker id="arrow-imx91" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <!-- USB / 電源 -->
+  <rect class="box box-power" x="10" y="10" width="260" height="50" rx="4"/>
+  <text class="label label-bold" x="140" y="32" text-anchor="middle">USB Type-C J5</text>
+  <text class="label label-small" x="140" y="48" text-anchor="middle">SDP / UUU 書込み兼 ホスト/デバイス</text>
+  <rect class="box box-power" x="280" y="10" width="260" height="50" rx="4"/>
+  <text class="label label-bold" x="410" y="32" text-anchor="middle">USB Type-C J6</text>
+  <text class="label label-small" x="410" y="48" text-anchor="middle">電源 (PD 対応)</text>
+  <rect class="box box-io" x="550" y="10" width="260" height="50" rx="4"/>
+  <text class="label label-bold" x="680" y="32" text-anchor="middle">JTAG 20pin + microUSB UART</text>
+  <text class="label label-small" x="680" y="48" text-anchor="middle">フルデバッグ + シリアルコンソール</text>
+  <!-- SoC -->
+  <rect class="box box-mcu" x="10" y="80" width="800" height="100" rx="6"/>
+  <text class="label label-bold" x="410" y="106" text-anchor="middle" font-size="15">NXP i.MX 91 (Cortex-A55, 1.4GHz)</text>
+  <text class="label" x="410" y="126" text-anchor="middle">EdgeLock Secure Enclave / TrustZone-A</text>
+  <text class="label label-small" x="410" y="144" text-anchor="middle">2D GPU 基本機能 / 簡易 VPU / PMIC 経由で内部電源を生成</text>
+  <text class="label label-small" x="410" y="162" text-anchor="middle">USB ×2 / RGMII Ethernet ×2 / SAI / I²C / I³C / SPI / UART / CAN</text>
+  <!-- メモリ -->
+  <rect class="box box-mem" x="10" y="200" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="140" y="222" text-anchor="middle">LPDDR4 1GB (FRDM-IMX91)</text>
+  <text class="label label-small" x="140" y="238" text-anchor="middle">2GB (FRDM-IMX91S 上位版)</text>
+  <text class="label label-small" x="140" y="252" text-anchor="middle">外付け実装</text>
+  <rect class="box box-mem" x="280" y="200" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="410" y="222" text-anchor="middle">eMMC 5.1 8GB / 16GB(S版)</text>
+  <text class="label label-small" x="410" y="238" text-anchor="middle">オンボードストレージ</text>
+  <text class="label label-small" x="410" y="252" text-anchor="middle">Yocto rootfs を配置</text>
+  <rect class="box box-mem" x="550" y="200" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="680" y="222" text-anchor="middle">microSD スロット</text>
+  <text class="label label-small" x="680" y="238" text-anchor="middle">起動イメージ書込み先候補</text>
+  <text class="label label-small" x="680" y="252" text-anchor="middle">追加データ用にも使用可</text>
+  <!-- 通信 -->
+  <rect class="box box-io" x="10" y="280" width="395" height="80" rx="4"/>
+  <text class="label label-bold" x="207" y="302" text-anchor="middle">Murata Type-2EL モジュール</text>
+  <text class="label label-small" x="207" y="318" text-anchor="middle">Wi-Fi 6 (802.11ax)</text>
+  <text class="label label-small" x="207" y="332" text-anchor="middle">Bluetooth 5.2</text>
+  <text class="label label-small" x="207" y="346" text-anchor="middle">IEEE 802.15.4 (Thread / Zigbee / Matter)</text>
+  <rect class="box box-io" x="415" y="280" width="395" height="80" rx="4"/>
+  <text class="label label-bold" x="612" y="302" text-anchor="middle">デュアル RGMII Ethernet</text>
+  <text class="label label-small" x="612" y="318" text-anchor="middle">10/100/1000Mbps</text>
+  <text class="label label-small" x="612" y="332" text-anchor="middle">TSN 対応</text>
+  <text class="label label-small" x="612" y="346" text-anchor="middle">産業ネットワーク用途に対応</text>
+  <!-- 拡張 -->
+  <rect class="box box-io" x="10" y="380" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="140" y="402" text-anchor="middle">40pin GPIO 拡張ヘッダ</text>
+  <text class="label label-small" x="140" y="418" text-anchor="middle">GPIO / SPI / I²C / UART / PWM</text>
+  <text class="label label-small" x="140" y="432" text-anchor="middle">libgpiod から制御</text>
+  <rect class="box box-io" x="280" y="380" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="410" y="402" text-anchor="middle">2×5 NXP I/F</text>
+  <text class="label label-small" x="410" y="418" text-anchor="middle">CAN ×1 / ADC ×2</text>
+  <text class="label label-small" x="410" y="432" text-anchor="middle">I²C / I³C 拡張</text>
+  <rect class="box box-io" x="550" y="380" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="680" y="402" text-anchor="middle">M.2 / NGFF Key E</text>
+  <text class="label label-small" x="680" y="418" text-anchor="middle">Wi-Fi/BT 拡張</text>
+  <text class="label label-small" x="680" y="432" text-anchor="middle">Coral Edge TPU 等にも</text>
+  <!-- セキュリティ -->
+  <rect class="box" x="10" y="460" width="800" height="50" rx="4" fill="#fee2e2" stroke="#dc2626"/>
+  <text class="label label-bold" x="410" y="482" text-anchor="middle">EdgeLock Secure Enclave (i.MX 91 内蔵)</text>
+  <text class="label label-small" x="410" y="498" text-anchor="middle">セキュアブート / 暗号アクセラレータ / タンパ検出 / 鍵管理</text>
+  <!-- Arrows -->
+  <path d="M 140 60 L 140 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imx91)"/>
+  <path d="M 410 60 L 410 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imx91)"/>
+  <path d="M 680 60 L 680 80" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imx91)"/>
+  <path d="M 140 180 L 140 200" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 180 L 410 200" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 680 180 L 680 200" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 207 260 L 207 280" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 612 260 L 612 280" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 140 360 L 140 380" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 360 L 410 380" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 680 360 L 680 380" stroke="#2563eb" stroke-width="2" fill="none"/>
+</svg>
 
 > 詳細なブロック図・回路図は [ユーザーマニュアル UM12262](https://www.farnell.com/datasheets/4594689.pdf) を参照。
 
@@ -153,28 +206,35 @@ DigiKey Make ONE Challenge 2026 では「おすすめ製品」(NXP 4 ボード�
 
 ## 開発フロー(初回起動から書込みまで)
 
-```
-[1] ホスト PC で Yocto BSP を取得・ビルド
-    git clone https://github.com/nxp-imx-support/meta-imx-frdm
-    MACHINE=imx91frdm DISTRO=fsl-imx-xwayland \
-      source sources/meta-imx-frdm/tools/imx-frdm-setup.sh -b frdm-imx91
-    bitbake imx-image-multimedia
-        │
-        ▼
-[2] ビルド成果物 (sdcard.img / flash.bin / Image / dtb / rootfs)
-        │
-        ▼
-[3] FRDM-IMX91 を SDP (Serial Download Protocol) モードに切替
-    (起動モードスイッチで設定)
-        │
-        ▼
-[4] ホストから UUU で SD/eMMC に書込み
-    uuu -b sd_all flash.bin sdcard.img
-        │
-        ▼
-[5] ボード再起動 → U-Boot → Linux ブート
-    シリアルコンソール (115200 8N1) でログ確認
-```
+<svg class="board-diagram" viewBox="0 0 820 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FRDM-IMX91 開発フロー">
+  <defs>
+    <marker id="arrow-imxflow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect class="box" x="100" y="10" width="620" height="60" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+  <text class="label label-bold" x="410" y="32" text-anchor="middle">[1] ホスト PC で Yocto BSP を取得・ビルド</text>
+  <text class="label label-small" x="410" y="48" text-anchor="middle">git clone meta-imx-frdm → imx-frdm-setup.sh -b frdm-imx91</text>
+  <text class="label label-small" x="410" y="62" text-anchor="middle">bitbake imx-image-multimedia</text>
+  <rect class="box" x="100" y="90" width="620" height="50" rx="4" fill="#dcfce7" stroke="#059669"/>
+  <text class="label label-bold" x="410" y="112" text-anchor="middle">[2] ビルド成果物</text>
+  <text class="label label-small" x="410" y="128" text-anchor="middle">sdcard.img / flash.bin / Image / dtb / rootfs</text>
+  <rect class="box" x="100" y="160" width="620" height="50" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label label-bold" x="410" y="182" text-anchor="middle">[3] ボードを SDP (Serial Download Protocol) モードに切替</text>
+  <text class="label label-small" x="410" y="198" text-anchor="middle">起動モードスイッチで設定 → USB Type-C J5 を PC に接続</text>
+  <rect class="box" x="100" y="230" width="620" height="60" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label label-bold" x="410" y="252" text-anchor="middle">[4] ホストから UUU で SD / eMMC に書込み</text>
+  <text class="label label-small" x="410" y="268" text-anchor="middle">uuu -b sd_all flash.bin sdcard.img</text>
+  <text class="label label-small" x="410" y="282" text-anchor="middle">UUU 1.5.125 以上を mfgtools リリースから取得</text>
+  <rect class="box box-mcu" x="100" y="310" width="620" height="60" rx="4"/>
+  <text class="label label-bold" x="410" y="332" text-anchor="middle">[5] ボード再起動 → U-Boot → Linux ブート</text>
+  <text class="label label-small" x="410" y="348" text-anchor="middle">シリアルコンソール (115200 8N1) でログ確認</text>
+  <text class="label label-small" x="410" y="362" text-anchor="middle">SSH / リモート GDB で開発開始</text>
+  <path d="M 410 70 L 410 90" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imxflow)"/>
+  <path d="M 410 140 L 410 160" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imxflow)"/>
+  <path d="M 410 210 L 410 230" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imxflow)"/>
+  <path d="M 410 290 L 410 310" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-imxflow)"/>
+</svg>
 
 > UUU は [NXPmicro/mfgtools リリース](https://github.com/NXPmicro/mfgtools/releases) から最新版(1.5.125 以上)を取得してください。詳細手順は [Getting Started with FRDM-IMX91S](https://www.nxp.com/document/guide/getting-started-with-frdm-imx91s:GS-FRDM-IMX91S) と [UG10195](https://www.mouser.com/pdfDocs/FRDM-IMX93_SW_UM.pdf) を参照。
 

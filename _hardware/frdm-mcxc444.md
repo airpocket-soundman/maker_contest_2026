@@ -72,32 +72,69 @@ DigiKey Make ONE Challenge 2026 では「おすすめ製品」(NXP 4 ボード�
 
 ## ボード ブロック図
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│  USB Type-C (J10) ──┐                                            │
-│                     │                                            │
-│            ┌────────▼─────────┐    SWD                           │
-│            │ MCU-Link (LPC)   │────────┐                         │
-│            │  CMSIS-DAP デバッガ│        │                         │
-│            └──────────────────┘        ▼                         │
-│                                ┌──────────────────────────────┐  │
-│                                │ MCXC444VLH                   │  │
-│   3.3V (P3V3) ─────────────────▶│ Cortex-M0+ 48MHz             │  │
-│   (内部 LDO)                    │ Flash 256KB / SRAM 32KB      │  │
-│                                │ SLCD ドライバ内蔵            │  │
-│                                └──┬───────┬──────┬────────────┘  │
-│                                   │       │      │               │
-│                I²C0 ──────────────┘       │      │               │
-│                  ├── FXLS8974CFR3 (3軸加速度)                    │
-│                  └── 可視光センサ                                │
-│                                                                  │
-│                ADC, GPIO, UART, SPI ─────┴──────┴── ヘッダへ      │
-│                                                                  │
-│   Arduino R3 (J1-J4) / FRDM / mikroBUS / Pmod                    │
-│   ユーザボタン SW2 (PTC3), SW3 (PTA4) / リセット SW1 (PTA20)      │
-│   RGB LED: 赤 PTE31 / 緑 PTD5 / 青 PTE29                         │
-└──────────────────────────────────────────────────────────────────┘
-```
+<svg class="board-diagram" viewBox="0 0 820 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FRDM-MCXC444 ボード ブロック図">
+  <defs>
+    <marker id="arrow-mcxc" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <!-- USB / 電源 -->
+  <rect class="box box-power" x="10" y="10" width="200" height="50" rx="4"/>
+  <text class="label label-bold" x="110" y="32" text-anchor="middle">USB Type-C (J10)</text>
+  <text class="label label-small" x="110" y="48" text-anchor="middle">5V 給電 + デバッグ + UART CDC</text>
+  <rect class="box box-power" x="220" y="10" width="200" height="50" rx="4"/>
+  <text class="label label-bold" x="320" y="32" text-anchor="middle">内部 LDO → P3V3</text>
+  <text class="label label-small" x="320" y="48" text-anchor="middle">3.3V CMOS, FXLS8974 給電</text>
+  <!-- MCU-Link -->
+  <rect class="box box-io" x="430" y="10" width="190" height="50" rx="4"/>
+  <text class="label label-bold" x="525" y="32" text-anchor="middle">MCU-Link デバッガ</text>
+  <text class="label label-small" x="525" y="48" text-anchor="middle">CMSIS-DAP / SWD コネクタ</text>
+  <!-- MCU -->
+  <rect class="box box-mcu" x="10" y="100" width="800" height="80" rx="6"/>
+  <text class="label label-bold" x="410" y="126" text-anchor="middle" font-size="15">NXP MCXC444VLH (LQFP64)</text>
+  <text class="label" x="410" y="146" text-anchor="middle">Arm Cortex-M0+ 48MHz</text>
+  <text class="label label-small" x="410" y="164" text-anchor="middle">Flash 256KB / SRAM 32KB / SLCD ドライバ内蔵 / USB FS / 16bit ADC / 12bit DAC</text>
+  <!-- 搭載センサ -->
+  <rect class="box box-mem" x="10" y="210" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="140" y="232" text-anchor="middle">FXLS8974CFR3</text>
+  <text class="label label-small" x="140" y="248" text-anchor="middle">3軸加速度センサ</text>
+  <text class="label label-small" x="140" y="262" text-anchor="middle">I²C0 (SDA=PTE25, SCL=PTE24)</text>
+  <rect class="box box-mem" x="280" y="210" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="410" y="232" text-anchor="middle">可視光センサ</text>
+  <text class="label label-small" x="410" y="248" text-anchor="middle">アナログ / I²C 接続</text>
+  <text class="label label-small" x="410" y="262" text-anchor="middle">P3V3 給電</text>
+  <rect class="box box-io" x="550" y="210" width="260" height="60" rx="4"/>
+  <text class="label label-bold" x="680" y="232" text-anchor="middle">SLCD インターフェース</text>
+  <text class="label label-small" x="680" y="248" text-anchor="middle">セグメント LCD 直接駆動</text>
+  <text class="label label-small" x="680" y="262" text-anchor="middle">最大 24×8 / 28×4</text>
+  <!-- 拡張ヘッダ -->
+  <rect class="box" x="10" y="290" width="800" height="60" rx="4"/>
+  <text class="label label-bold" x="410" y="312" text-anchor="middle">拡張ヘッダ (Arduino R3 / FRDM / mikroBUS / Pmod)</text>
+  <text class="label label-small" x="410" y="330" text-anchor="middle">GPIO / SPI / I²C / UART / ADC / PWM を引き出し</text>
+  <text class="label label-small" x="410" y="344" text-anchor="middle">5V Arduino シールドはレベル変換が必要(本体は 3.3V CMOS)</text>
+  <!-- ユーザIF -->
+  <rect class="box" x="10" y="370" width="400" height="70" rx="4"/>
+  <text class="label label-bold" x="210" y="392" text-anchor="middle">ユーザインターフェース</text>
+  <text class="label label-small" x="210" y="408" text-anchor="middle">押しボタン SW2 (PTC3) / SW3 (PTA4)</text>
+  <text class="label label-small" x="210" y="422" text-anchor="middle">リセット SW1 (PTA20)</text>
+  <text class="label label-small" x="210" y="436" text-anchor="middle">RGB LED 赤 PTE31 / 緑 PTD5 / 青 PTE29</text>
+  <rect class="box" x="420" y="370" width="390" height="70" rx="4"/>
+  <text class="label label-bold" x="615" y="392" text-anchor="middle">UART コンソール</text>
+  <text class="label label-small" x="615" y="408" text-anchor="middle">PTA1 (RX) / PTA2 (TX)</text>
+  <text class="label label-small" x="615" y="422" text-anchor="middle">MCU-Link 仮想 COM 経由で PC に接続</text>
+  <text class="label label-small" x="615" y="436" text-anchor="middle">115200 8N1 が標準</text>
+  <!-- Arrows -->
+  <path d="M 110 60 L 110 100" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxc)"/>
+  <path d="M 320 60 L 320 100" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxc)"/>
+  <path d="M 525 60 L 525 100" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-mcxc)"/>
+  <path d="M 140 180 L 140 210" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 180 L 410 210" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 680 180 L 680 210" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 410 270 L 410 290" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <text class="label-small" x="145" y="200" font-size="9" fill="#2563eb">I²C0</text>
+  <text class="label-small" x="415" y="200" font-size="9" fill="#2563eb">ADC/I²C</text>
+  <text class="label-small" x="685" y="200" font-size="9" fill="#2563eb">SLCD</text>
+</svg>
 
 > 詳細なブロック図・回路図は [ユーザーマニュアル UM12120](https://docs.rs-online.com/00be/A700000012839604.pdf) を参照。
 

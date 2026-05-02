@@ -68,42 +68,85 @@ ROHM(LAPIS Technology)は Solist-AI™ MCU (ML63Q2557 等) の開発を支援す
 
 ## ツール構成
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                       Host PC (Windows)                              │
-│                                                                      │
-│  ┌────────────────────────────────────────────┐                      │
-│  │ LEXIDE-Ω (Eclipse + CDT)                   │                      │
-│  │   - C/C++ ビルド・編集・デバッグ          │                      │
-│  │   - LAPIS 8/16bit + ROHM Cortex-M を統合   │                      │
-│  └─────────────┬──────────────────────────────┘                      │
-│                │                                                     │
-│  ┌─────────────▼──────────┐  ┌─────────────────────────────┐        │
-│  │ Solist-AI™ (モデル生成) │  │ AISignalInferenceHost       │        │
-│  │   学習データ → AIモデル │  │ (DT-EBML63Q2557 同梱、       │        │
-│  │   ML63Q2557最適化バイナリ│  │  振動/信号データの取得・     │        │
-│  └─────────┬──────────────┘  │  可視化)                     │        │
-│            │                 └──────────┬──────────────────┘        │
-│  ┌─────────▼──────────────┐             │                           │
-│  │ Solist-AI™ Sim          │             │                           │
-│  │  PC 上で AI 動作を検証  │             │                           │
-│  └─────────────────────────┘             │                           │
-│                                          │                           │
-│  ┌─────────────────────────┐             │                           │
-│  │ Solist-AI™ Scope         │             │                           │
-│  │  MCU 内部 AI 動作の      │             │                           │
-│  │  リアルタイム波形表示    │             │                           │
-│  └─────────────┬───────────┘             │                           │
-└────────────────┼─────────────────────────┼───────────────────────────┘
-                 │ USB                     │ USB
-                 │ (CMSIS-DAP 経由)        │ (FT2232H 経由)
-   ┌─────────────▼──────────┐  ┌──────────▼─────────────────────┐
-   │ LxEASE™ / LxEASE™       │  │ DT-EBML63Q2557 ボード          │
-   │ Isolator / EASE1000 V2  │  │   - ML63Q2557 (Cortex-M0+ 48MHz)│
-   │  (CMSIS-DAP デバッガ)   │──┤   - AxlCORE-ODL AI アクセラレータ│
-   └─────────────────────────┘  │   - センサI/F / 絶縁I/O / RTC 等 │
-                                └──────────────────────────────────┘
-```
+<svg class="board-diagram" viewBox="0 0 820 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Solist-AI 開発フレームワーク 構成図">
+  <defs>
+    <marker id="arrow-solist" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <!-- Host PC 大枠 -->
+  <rect x="10" y="10" width="800" height="380" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-dasharray="4 4"/>
+  <text class="label label-bold" x="410" y="32" text-anchor="middle" font-size="14">Host PC (Windows)</text>
+  <!-- LEXIDE-Ω -->
+  <rect class="box" x="40" y="50" width="500" height="60" rx="4" fill="#dbeafe" stroke="#2563eb"/>
+  <text class="label label-bold" x="290" y="72" text-anchor="middle">LEXIDE-Ω (Eclipse + CDT)</text>
+  <text class="label label-small" x="290" y="88" text-anchor="middle">C/C++ ビルド・編集・デバッグ</text>
+  <text class="label label-small" x="290" y="102" text-anchor="middle">LAPIS 8/16bit + ROHM Cortex-M を統合</text>
+  <!-- Solist-AI モデル生成 -->
+  <rect class="box box-ai" x="40" y="130" width="240" height="80" rx="4"/>
+  <text class="label label-bold" x="160" y="152" text-anchor="middle">Solist-AI™</text>
+  <text class="label label-small" x="160" y="168" text-anchor="middle">学習データ → AIモデル</text>
+  <text class="label label-small" x="160" y="184" text-anchor="middle">自動生成ツール</text>
+  <text class="label label-small" x="160" y="198" text-anchor="middle">ML63Q2557 最適化バイナリ</text>
+  <!-- Solist-AI Sim -->
+  <rect class="box box-mem" x="40" y="220" width="240" height="60" rx="4"/>
+  <text class="label label-bold" x="160" y="242" text-anchor="middle">Solist-AI™ Sim</text>
+  <text class="label label-small" x="160" y="258" text-anchor="middle">PC 上で AI 動作を検証</text>
+  <text class="label label-small" x="160" y="272" text-anchor="middle">推論/学習シミュレータ</text>
+  <!-- Solist-AI Scope -->
+  <rect class="box box-mem" x="40" y="290" width="240" height="80" rx="4"/>
+  <text class="label label-bold" x="160" y="312" text-anchor="middle">Solist-AI™ Scope</text>
+  <text class="label label-small" x="160" y="328" text-anchor="middle">MCU 内部 AI 動作の</text>
+  <text class="label label-small" x="160" y="342" text-anchor="middle">リアルタイム波形表示</text>
+  <text class="label label-small" x="160" y="356" text-anchor="middle">(リファレンスSWに同梱)</text>
+  <!-- AISignalInferenceHost -->
+  <rect class="box" x="300" y="130" width="240" height="240" rx="4" fill="#fef3c7" stroke="#d97706"/>
+  <text class="label label-bold" x="420" y="152" text-anchor="middle">AISignalInferenceHost</text>
+  <text class="label label-small" x="420" y="168" text-anchor="middle">DT-EBML63Q2557 同梱</text>
+  <text class="label label-small" x="420" y="184" text-anchor="middle">振動/信号データの</text>
+  <text class="label label-small" x="420" y="200" text-anchor="middle">取得・可視化</text>
+  <text class="label label-small" x="420" y="216" text-anchor="middle">USB (FT2232H) 経由で</text>
+  <text class="label label-small" x="420" y="232" text-anchor="middle">DT-EBML63Q2557 と通信</text>
+  <text class="label label-small" x="420" y="260" text-anchor="middle">学習用データセット</text>
+  <text class="label label-small" x="420" y="276" text-anchor="middle">作成にも使用</text>
+  <!-- 互換ツール -->
+  <rect class="box box-io" x="560" y="130" width="230" height="240" rx="4"/>
+  <text class="label label-bold" x="675" y="152" text-anchor="middle">互換ツールチェーン</text>
+  <text class="label label-small" x="675" y="170" text-anchor="middle">(Cortex-M0+ コア部のみ)</text>
+  <text class="label label-small" x="675" y="194" text-anchor="middle">arm-none-eabi-gcc</text>
+  <text class="label label-small" x="675" y="208" text-anchor="middle">make / cmake</text>
+  <text class="label label-small" x="675" y="224" text-anchor="middle">VS Code + Cortex-Debug</text>
+  <text class="label label-small" x="675" y="238" text-anchor="middle">pyOCD / OpenOCD</text>
+  <text class="label label-small" x="675" y="262" text-anchor="middle">Keil MDK / IAR EWARM</text>
+  <text class="label label-small" x="675" y="286" text-anchor="middle">SEGGER J-Link</text>
+  <text class="label label-small" x="675" y="320" text-anchor="middle">※ AxlCORE-ODL を使う</text>
+  <text class="label label-small" x="675" y="334" text-anchor="middle">AI 部分は LEXIDE-Ω 必須</text>
+  <!-- 実機側 -->
+  <rect class="box box-io" x="40" y="430" width="320" height="120" rx="4"/>
+  <text class="label label-bold" x="200" y="452" text-anchor="middle">LxEASE™ / LxEASE™ Isolator</text>
+  <text class="label label-bold" x="200" y="468" text-anchor="middle">/ EASE1000 V2</text>
+  <text class="label label-small" x="200" y="490" text-anchor="middle">CMSIS-DAP 準拠 デバッガ</text>
+  <text class="label label-small" x="200" y="506" text-anchor="middle">フラッシュ書込み</text>
+  <text class="label label-small" x="200" y="522" text-anchor="middle">オンチップデバッグ</text>
+  <text class="label label-small" x="200" y="538" text-anchor="middle">Isolator: 電位差絶縁版</text>
+  <rect class="box box-mcu" x="380" y="430" width="410" height="120" rx="4"/>
+  <text class="label label-bold" x="585" y="452" text-anchor="middle">DT-EBML63Q2557 ボード</text>
+  <text class="label label-small" x="585" y="476" text-anchor="middle">ML63Q2557 (Cortex-M0+ 48MHz)</text>
+  <text class="label label-small" x="585" y="494" text-anchor="middle">+ AxlCORE-ODL AI アクセラレータ</text>
+  <text class="label label-small" x="585" y="514" text-anchor="middle">センサ I/F / 絶縁 I/O / FeRAM / RTC</text>
+  <text class="label label-small" x="585" y="532" text-anchor="middle">10pin SW-DP デバッガ接続</text>
+  <!-- 矢印 -->
+  <path d="M 290 110 L 160 130" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-solist)"/>
+  <path d="M 290 110 L 420 130" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-solist)"/>
+  <path d="M 160 210 L 160 220" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-solist)"/>
+  <path d="M 160 280 L 160 290" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-solist)"/>
+  <path d="M 200 390 L 200 430" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-solist)"/>
+  <text class="label label-small" x="210" y="408">USB (CMSIS-DAP)</text>
+  <path d="M 420 390 L 580 430" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#arrow-solist)"/>
+  <text class="label label-small" x="425" y="408">USB (FT2232H)</text>
+  <path d="M 360 490 L 380 490" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arrow-solist)"/>
+  <text class="label label-small" x="595" y="570" text-anchor="middle" font-style="italic">SW-DP / FT2232H</text>
+</svg>
 
 ## 各ツールの役割
 
