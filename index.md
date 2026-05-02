@@ -17,6 +17,7 @@ title: トップ
       <th>コンテスト名</th>
       <th>主催</th>
       <th>エントリー期間</th>
+      <th>締切まで</th>
       <th>最大賞金</th>
     </tr>
   </thead>
@@ -27,8 +28,15 @@ title: トップ
         <td><a href="{{ c.url | relative_url }}">{{ c.title }}</a></td>
         <td>{{ c.organizer }}</td>
         <td>
-          {% if c.entry_period.start %}{{ c.entry_period.start }}{% endif %}
-          {% if c.entry_period.end %} 〜 {{ c.entry_period.end }}{% endif %}
+          {% if c.entry_period.start %}{{ c.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
+          {% if c.entry_period.end %} 〜 {{ c.entry_period.end | date: '%Y-%m-%d' }}{% endif %}
+        </td>
+        <td>
+          {% if c.entry_period.end %}
+            <span class="countdown" data-deadline="{{ c.entry_period.end | date: '%Y-%m-%d' }}T23:59:59+09:00">--</span>
+          {% else %}
+            -
+          {% endif %}
         </td>
         <td>
           {% if c.prizes and c.prizes[0].amount %}{{ c.prizes[0].amount }}{% else %}-{% endif %}
@@ -37,5 +45,40 @@ title: トップ
     {% endfor %}
   </tbody>
 </table>
+
+<small>※「締切まで」は エントリー期間終了日の 23:59:59 (JST) を基準に算出した残り時間です。実際の締切時刻は各コンテスト公式サイトでご確認ください。</small>
+
+<script>
+(function () {
+  const pad = (n, w) => String(n).padStart(w, '0');
+  const els = document.querySelectorAll('.countdown');
+  if (els.length === 0) return;
+  function update() {
+    const now = Date.now();
+    let anyLive = false;
+    els.forEach(el => {
+      const deadline = new Date(el.dataset.deadline).getTime();
+      if (Number.isNaN(deadline)) { el.textContent = '-'; return; }
+      const diff = deadline - now;
+      if (diff <= 0) {
+        el.textContent = '受付終了';
+        el.classList.add('countdown-expired');
+        return;
+      }
+      anyLive = true;
+      const totalSec = Math.floor(diff / 1000);
+      const days = Math.floor(totalSec / 86400);
+      const hours = Math.floor((totalSec % 86400) / 3600);
+      const minutes = Math.floor((totalSec % 3600) / 60);
+      const seconds = totalSec % 60;
+      el.textContent = pad(days, 3) + '日' + pad(hours, 2) + '時間' + pad(minutes, 2) + '分' + pad(seconds, 2) + '秒';
+    });
+    if (anyLive) {
+      window.requestAnimationFrame(() => setTimeout(update, 1000));
+    }
+  }
+  update();
+})();
+</script>
 
 使用ハードウェアおよび開発フレームワークの一覧は、各コンテストページの「使用ハードウェア」欄を参照してください(コンテストごとに対象が異なります)。

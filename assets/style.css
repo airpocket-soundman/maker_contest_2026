@@ -87,6 +87,15 @@ th { background: var(--color-accent-bg); font-weight: bold; }
 .spec-table th { width: 10rem; }
 .index-table { font-size: 0.95rem; }
 
+.countdown {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--color-primary-dark);
+  font-weight: bold;
+}
+.countdown-expired { color: var(--color-muted); font-weight: normal; }
+
 /* 賞金リスト */
 .prize-list { list-style: none; padding: 0; }
 .prize-list li {
