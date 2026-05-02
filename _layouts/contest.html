@@ -28,8 +28,8 @@ layout: default
 
       <dt>エントリー期間</dt>
       <dd>
-        {% if page.entry_period.start %}{{ page.entry_period.start }}{% endif %}
-        {% if page.entry_period.end %} 〜 {{ page.entry_period.end }}{% endif %}
+        {% if page.entry_period.start %}{{ page.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
+        {% if page.entry_period.end %} 〜 {{ page.entry_period.end | date: '%Y-%m-%d' }}{% endif %}
         {% if page.entry_period.note %}<br><small>{{ page.entry_period.note }}</small>{% endif %}
       </dd>
 
@@ -44,6 +44,36 @@ layout: default
       {% endif %}
     </dl>
   </section>
+
+  {% if page.phases %}
+    <section class="info-block">
+      <h2>応募フェーズ</h2>
+      <table class="schedule-table">
+        <thead><tr><th>フェーズ</th><th>期間</th><th>締切まで</th></tr></thead>
+        <tbody>
+          {% for p in page.phases %}
+            <tr>
+              <td>
+                <strong>{{ p.name }}</strong>
+                {% if p.note %}<br><small>{{ p.note }}</small>{% endif %}
+              </td>
+              <td>
+                {% if p.start %}{{ p.start | date: '%Y-%m-%d' }}{% endif %}
+                {% if p.end %} 〜 {{ p.end | date: '%Y-%m-%d' }}{% endif %}
+              </td>
+              <td>
+                {% if p.end %}
+                  <span class="countdown" data-deadline="{{ p.end | date: '%Y-%m-%d' }}T23:59:59+09:00">--</span>
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endif %}
 
   {% if page.schedule %}
     <section class="info-block">
