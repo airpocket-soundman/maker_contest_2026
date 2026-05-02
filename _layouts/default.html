@@ -37,8 +37,9 @@
             {% if c.hardware %}
               {% for hw_ref in c.hardware %}
                 {% if hw_ref.slug and hw_ref.slug != "" %}
+                  {%- assign target_url = '/hardware/' | append: hw_ref.slug | append: '/' -%}
                   {% for hw in site.hardware %}
-                    {% if hw.slug == hw_ref.slug %}
+                    {% if hw.url contains target_url %}
                       <li><a href="{{ hw.url | relative_url }}"{% if page.url == hw.url %} class="active"{% endif %}>{{ hw.short_title | default: hw.title }}</a></li>
                     {% endif %}
                   {% endfor %}
@@ -47,6 +48,19 @@
             {% endif %}
           </ul>
         {% endfor %}
+        <!-- DEBUG: site.hardware contents
+        {% for hw in site.hardware %}
+          slug=[{{ hw.slug }}] url=[{{ hw.url }}] title=[{{ hw.title }}]
+        {% endfor %}
+        -->
+        <!-- DEBUG: digikey c.hardware refs
+        {% for c in sidebar_contests %}
+          contest={{ c.short_title }}
+          {% for h in c.hardware %}
+            ref name=[{{ h.name | truncate: 30 }}] slug=[{{ h.slug }}]
+          {% endfor %}
+        {% endfor %}
+        -->
       </nav>
     </aside>
     <main class="content">
