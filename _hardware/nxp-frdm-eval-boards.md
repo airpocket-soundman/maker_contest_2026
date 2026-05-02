@@ -99,47 +99,51 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 各ボードで利用可能な代表的な開発環境を整理します。
 
 ### FRDM-MCXC444
-| 種類 | 対応環境 |
-|---|---|
-| 公式 IDE | **MCUXpresso IDE** / **MCUXpresso for VS Code** |
-| SDK | **MCUXpresso SDK** (FRDM-MCXC444 ボードコンポーネント込み) |
-| 商用 IDE | Keil MDK (Arm Compiler 6) / IAR Embedded Workbench for Arm |
-| RTOS | FreeRTOS / Zephyr / NuttX / Mbed OS |
-| AI | eIQ ライブラリ(CPU 推論、軽量モデル向け) |
-| デバッグ | オンボード MCU-Link (CMSIS-DAP) / 外部 J-Link |
+
+| 種類       | 対応環境                                                           |
+| ---------- | ------------------------------------------------------------------ |
+| 公式 IDE   | **MCUXpresso IDE** / **MCUXpresso for VS Code**                    |
+| SDK        | **MCUXpresso SDK** (FRDM-MCXC444 ボードコンポーネント込み)         |
+| 商用 IDE   | Keil MDK (Arm Compiler 6) / IAR Embedded Workbench for Arm         |
+| RTOS       | FreeRTOS / Zephyr / NuttX / Mbed OS                                |
+| AI         | eIQ ライブラリ (CPU 推論、軽量モデル向け)                          |
+| デバッグ   | オンボード MCU-Link (CMSIS-DAP) / 外部 J-Link                      |
 
 ### FRDM-MCXN947
-| 種類 | 対応環境 |
-|---|---|
-| 公式 IDE | **MCUXpresso IDE** / **MCUXpresso for VS Code** |
-| SDK | **MCUXpresso SDK** + **eIQ Neutron NPU 用ライブラリ** |
-| AI ツール | **eIQ Toolkit** (TensorFlow Lite / ONNX → Neutron NPU 最適化) |
-| 商用 IDE | Keil MDK / IAR EWARM |
-| RTOS | FreeRTOS / Zephyr (デュアルコア対応) / Azure RTOS ThreadX |
-| ネットワーク | lwIP (Ethernet) / NXP MCU-Boot / Matter |
-| デバッグ | オンボード MCU-Link (CMSIS-DAP) / 外部 J-Link / SEGGER OZONE |
+
+| 種類           | 対応環境                                                              |
+| -------------- | --------------------------------------------------------------------- |
+| 公式 IDE       | **MCUXpresso IDE** / **MCUXpresso for VS Code**                       |
+| SDK            | **MCUXpresso SDK** + **eIQ Neutron NPU 用ライブラリ**                 |
+| AI ツール      | **eIQ Toolkit** (TensorFlow Lite / ONNX を Neutron NPU 用に最適化)    |
+| 商用 IDE       | Keil MDK / IAR EWARM                                                  |
+| RTOS           | FreeRTOS / Zephyr (デュアルコア対応) / Azure RTOS ThreadX             |
+| ネットワーク   | lwIP (Ethernet) / NXP MCU-Boot / Matter                               |
+| デバッグ       | オンボード MCU-Link (CMSIS-DAP) / 外部 J-Link / SEGGER OZONE          |
 
 ### FRDM-IMX91
-| 種類 | 対応環境 |
-|---|---|
-| 公式 BSP | **NXP Linux BSP** (Yocto Project ベース) |
-| ディストリビューション | Yocto Project / Buildroot / Debian/Ubuntu 派生 |
-| アプリ開発 | C/C++ (GCC/Clang) / Python / Node.js / Go (任意) |
-| 無線スタック | hostapd/wpa_supplicant (Wi-Fi) / BlueZ (BLE) / OpenThread / Matter |
-| セキュリティ | EdgeLock 2GO / EdgeLock Secure Enclave SDK |
-| RTOS (補助) | Zephyr / FreeRTOS (M コア相当の利用は限定的) |
-| デバッグ | UART シリアルコンソール / SSH / GDB(リモート) / oprofile |
+
+| 種類                   | 対応環境                                                               |
+| ---------------------- | ---------------------------------------------------------------------- |
+| 公式 BSP               | **NXP Linux BSP** (Yocto Project ベース)                               |
+| ディストリビューション | Yocto Project / Buildroot / Debian・Ubuntu 派生                        |
+| アプリ開発             | C/C++ (GCC/Clang) / Python / Node.js / Go など任意                     |
+| 無線スタック           | hostapd・wpa_supplicant (Wi-Fi) / BlueZ (BLE) / OpenThread / Matter    |
+| セキュリティ           | EdgeLock 2GO / EdgeLock Secure Enclave SDK                             |
+| RTOS (補助)            | Zephyr / FreeRTOS (M コア相当の利用は限定的)                           |
+| デバッグ               | UART シリアルコンソール / SSH / リモート GDB / oprofile                |
 
 ### IMXRT1050-EVKB
-| 種類 | 対応環境 |
-|---|---|
-| 公式 IDE | **MCUXpresso IDE** / **MCUXpresso for VS Code** |
-| SDK | **MCUXpresso SDK** (IMXRT1050 ボードコンポーネント込み) |
-| 商用 IDE | Keil MDK / IAR EWARM |
-| RTOS | FreeRTOS / Azure RTOS ThreadX / Zephyr / NuttX / Mbed OS |
-| グラフィックス | NXP GUI Guider / emWin / LVGL |
-| AI | eIQ + CMSIS-NN / TensorFlow Lite for Microcontrollers |
-| デバッグ | オンボード OpenSDA (DAPLink) / 外部 J-Link |
+
+| 種類           | 対応環境                                                          |
+| -------------- | ----------------------------------------------------------------- |
+| 公式 IDE       | **MCUXpresso IDE** / **MCUXpresso for VS Code**                   |
+| SDK            | **MCUXpresso SDK** (IMXRT1050 ボードコンポーネント込み)           |
+| 商用 IDE       | Keil MDK / IAR EWARM                                              |
+| RTOS           | FreeRTOS / Azure RTOS ThreadX / Zephyr / NuttX / Mbed OS          |
+| グラフィックス | NXP GUI Guider / emWin / LVGL                                     |
+| AI             | eIQ + CMSIS-NN / TensorFlow Lite for Microcontrollers             |
+| デバッグ       | オンボード OpenSDA (DAPLink) / 外部 J-Link                        |
 
 ### NXP 共通の便利ツール
 
