@@ -73,39 +73,58 @@
     }
 
     // アクティブページの H2 見出しをサイドバーに動的に展開
-    (function buildPageToc() {
-      const main = document.querySelector('main.content');
-      if (!main) return;
-      const activeLink = document.querySelector('.toc-list a.active');
-      if (!activeLink) return;
-      const headings = main.querySelectorAll('h2[id]');
-      if (headings.length === 0) return;
-      const sub = document.createElement('ul');
-      sub.className = 'toc-sub';
-      headings.forEach(h => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = '#' + h.id;
-        a.textContent = h.textContent.replace(/^[#●■▼▶]\s*/, '').trim();
-        li.appendChild(a);
-        sub.appendChild(li);
-      });
-      activeLink.parentElement.appendChild(sub);
+    function buildPageToc() {
+      try {
+        const main = document.querySelector('main.content');
+        if (!main) { console.debug('[toc] no main.content'); return; }
+        const activeLink = document.querySelector('.toc-list a.active');
+        if (!activeLink) { console.debug('[toc] no active link'); return; }
+        // 既に注入済みなら何もしない
+        if (activeLink.parentElement.querySelector('.toc-sub')) return;
+        const headings = main.querySelectorAll('h2[id]');
+        if (headings.length === 0) { console.debug('[toc] no h2[id]'); return; }
+        const sub = document.createElement('ul');
+        sub.className = 'toc-sub';
+        headings.forEach(h => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          // ID は URL エンコードしてから href に入れる(Japanese 文字を含む id でも安全)
+          a.setAttribute('href', '#' + encodeURIComponent(h.id));
+          a.textContent = (h.textContent || '').replace(/^[#●■▼▶]\s*/, '').trim();
+          // クリック時は標準アンカーではなくスクロール(エンコード/デコード不一致回避)
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', '#' + encodeURIComponent(h.id));
+          });
+          li.appendChild(a);
+          sub.appendChild(li);
+        });
+        activeLink.parentElement.appendChild(sub);
+        console.debug('[toc] injected', headings.length, 'items');
 
-      // スクロール位置に応じて該当 H2 リンクをハイライト
-      const links = sub.querySelectorAll('a');
-      const targets = Array.from(headings);
-      function highlight() {
-        const y = window.scrollY + 80;
-        let idx = 0;
-        for (let i = 0; i < targets.length; i++) {
-          if (targets[i].offsetTop <= y) idx = i;
+        // スクロール位置に応じて該当 H2 リンクをハイライト
+        const links = sub.querySelectorAll('a');
+        const targets = Array.from(headings);
+        function highlight() {
+          const y = window.scrollY + 80;
+          let idx = 0;
+          for (let i = 0; i < targets.length; i++) {
+            if (targets[i].offsetTop <= y) idx = i;
+          }
+          links.forEach((a, i) => a.classList.toggle('active', i === idx));
         }
-        links.forEach((a, i) => a.classList.toggle('active', i === idx));
+        highlight();
+        window.addEventListener('scroll', highlight, { passive: true });
+      } catch (e) {
+        console.error('[toc] error', e);
       }
-      highlight();
-      window.addEventListener('scroll', highlight, { passive: true });
-    })();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', buildPageToc);
+    } else {
+      buildPageToc();
+    }
 
     const pad = (n, w) => String(n).padStart(w, '0');
 
