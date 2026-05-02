@@ -32,6 +32,21 @@
   <script>
   (function () {
     const pad = (n, w) => String(n).padStart(w, '0');
+
+    const badges = document.querySelectorAll('.status-badge');
+    badges.forEach(el => {
+      const start = new Date(el.dataset.start).getTime();
+      const end = new Date(el.dataset.end).getTime();
+      const now = Date.now();
+      let label, cls;
+      if (Number.isNaN(start) || Number.isNaN(end)) { label = '-'; cls = 'status-unknown'; }
+      else if (now < start) { label = '受付前'; cls = 'status-upcoming'; }
+      else if (now > end)   { label = '終了';   cls = 'status-ended'; }
+      else                  { label = '受付中'; cls = 'status-active'; }
+      el.textContent = label;
+      el.classList.add(cls);
+    });
+
     const els = document.querySelectorAll('.countdown');
     if (els.length === 0) return;
     function update() {

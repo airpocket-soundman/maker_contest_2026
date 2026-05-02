@@ -17,9 +17,12 @@ GitHub Pages で公開しています。
 ├── _contests/               # 各コンテストの情報(Jekyll Collection)
 │   ├── rohm-edge-hack-challenge-2026.md
 │   └── digikey-make-one-challenge-2026.md
-├── _hardware/               # 各ハードウェアの情報(Jekyll Collection)
+├── _hardware/               # 各ハードウェア・開発フレームワーク(Jekyll Collection)
 │   ├── solist-ai.md
-│   └── nxp-eval-boards.md
+│   ├── solist-ai-dev-framework.md
+│   ├── dt-ebml63q2557.md
+│   ├── nxp-frdm-eval-boards.md
+│   └── digikey-recommended-parts.md
 ├── assets/
 │   └── style.css            # スタイルシート
 └── README.md                # このファイル
@@ -36,7 +39,8 @@ GitHub Pages で公開しています。
    - `official_url`: 公式サイトURL
    - `target_audience`: 対象者
    - `submission_format`: 提出物の形式
-   - `entry_period`: `start` / `end` / `note`
+   - `entry_period`: `start` / `end` / `note` (全体の応募期間。トップページの状態バッジ計算とフォールバック用カウントダウンに使用)
+   - `phases`: (任意、複数フェーズ構成の場合) `name` / `start` / `end` / `note` のリスト。指定するとコンテストページに「応募フェーズ」表が表示され、トップの「締切まで」列はフェーズ毎にカウントダウン表示される。
    - `schedule`: `date` / `event` のリスト
    - `judges`: 審査員(`name` / `affiliation` / `role` のオブジェクト、または文字列)
    - `criteria`: 審査基準(リスト)
@@ -45,7 +49,30 @@ GitHub Pages で公開しています。
    - `hardware`: 使用ハードウェア(`name` / `slug` / `required` / `recommended` / `note`)
 3. ハードウェアの `slug` は `_hardware/<slug>.md` のスラッグと一致させること(自動でリンクが張られる)
 
+複数フェーズの記述例(アイデア提出 + 作品提出のような2段階構成):
+
+```yaml
+entry_period:
+  start: 2026-04-24    # 全体の開始 = 最初のフェーズの開始
+  end: 2026-09-28      # 全体の終了 = 最後のフェーズの終了
+  note: アイデア提出と作品提出の2段階構成
+phases:
+  - name: アイデア提出
+    start: 2026-04-24
+    end: 2026-06-30
+    note: デバイス提供キャンペーン
+  - name: 作品提出
+    start: 2026-07-01
+    end: 2026-09-28
+    note: コンテスト本線
+```
+
 既存ファイルを雛形としてコピーするのが最も簡単です。
+
+### トップページに表示される動的要素
+
+- **状態バッジ**: コンテスト名の右に「受付前 / 受付中 / 終了」バッジを `entry_period.start`/`end` を基準にクライアント側 JS で表示。日付を跨ぐと自動更新(リロード時)。
+- **カウントダウン**: 「締切まで」列に `ddd日hh時間mm分ss秒` 形式で残り時間を毎秒更新。`phases` があればフェーズ毎、無ければ `entry_period.end` を基準にする。基準時刻はいずれも当該日の 23:59:59 (JST)。
 
 ## 新しいハードウェアを追加する手順
 

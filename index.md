@@ -25,7 +25,14 @@ title: トップ
     {% assign sorted_contests = site.contests | sort: 'entry_period.start' %}
     {% for c in sorted_contests %}
       <tr>
-        <td><a href="{{ c.url | relative_url }}">{{ c.title }}</a></td>
+        <td>
+          <a href="{{ c.url | relative_url }}">{{ c.title }}</a>
+          {% if c.entry_period.start and c.entry_period.end %}
+            <span class="status-badge"
+                  data-start="{{ c.entry_period.start | date: '%Y-%m-%d' }}T00:00:00+09:00"
+                  data-end="{{ c.entry_period.end | date: '%Y-%m-%d' }}T23:59:59+09:00">--</span>
+          {% endif %}
+        </td>
         <td>{{ c.organizer }}</td>
         <td>
           {% if c.entry_period.start %}{{ c.entry_period.start | date: '%Y-%m-%d' }}{% endif %}
