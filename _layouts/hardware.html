@@ -1,0 +1,92 @@
+---
+layout: default
+---
+<article class="hardware">
+  <header class="hardware-header">
+    <p class="breadcrumb"><a href="{{ '/' | relative_url }}">トップ</a> &raquo; ハードウェア</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.tagline %}<p class="tagline">{{ page.tagline }}</p>{% endif %}
+    {% if page.official_url %}
+      <p class="official-link"><a href="{{ page.official_url }}" target="_blank" rel="noopener">公式製品ページ &rarr;</a></p>
+    {% endif %}
+  </header>
+
+  <section class="info-block">
+    <h2>基本情報</h2>
+    <dl class="info-list">
+      <dt>メーカー</dt>
+      <dd>{{ page.manufacturer }}</dd>
+
+      {% if page.category %}
+        <dt>カテゴリ</dt>
+        <dd>{{ page.category }}</dd>
+      {% endif %}
+
+      {% if page.price %}
+        <dt>参考価格</dt>
+        <dd>{{ page.price }}</dd>
+      {% endif %}
+    </dl>
+  </section>
+
+  {% if page.features %}
+    <section class="info-block">
+      <h2>主な特徴</h2>
+      <ul>
+        {% for f in page.features %}<li>{{ f }}</li>{% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if page.specs %}
+    <section class="info-block">
+      <h2>主要スペック</h2>
+      <table class="spec-table">
+        <tbody>
+          {% for spec in page.specs %}
+            <tr><th>{{ spec.label }}</th><td>{{ spec.value }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endif %}
+
+  {% if page.resources %}
+    <section class="info-block">
+      <h2>関連リソース</h2>
+      <ul>
+        {% for r in page.resources %}
+          <li><a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% if r.note %} - {{ r.note }}{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% assign related = site.contests | where_exp: "c", "c.hardware" %}
+  {% assign matched = "" | split: "" %}
+  {% for c in related %}
+    {% for hw in c.hardware %}
+      {% if hw.slug == page.slug %}
+        {% assign matched = matched | push: c %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  {% if matched.size > 0 %}
+    <section class="info-block">
+      <h2>このハードウェアを使うコンテスト</h2>
+      <ul>
+        {% for c in matched %}
+          <li><a href="{{ c.url | relative_url }}">{{ c.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if content and content != "" %}
+    <section class="info-block">
+      <h2>備考・その他</h2>
+      {{ content }}
+    </section>
+  {% endif %}
+</article>

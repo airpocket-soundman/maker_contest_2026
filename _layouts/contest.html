@@ -1,0 +1,136 @@
+---
+layout: default
+---
+<article class="contest">
+  <header class="contest-header">
+    <p class="breadcrumb"><a href="{{ '/' | relative_url }}">トップ</a> &raquo; コンテスト</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.tagline %}<p class="tagline">{{ page.tagline }}</p>{% endif %}
+    {% if page.official_url %}
+      <p class="official-link"><a href="{{ page.official_url }}" target="_blank" rel="noopener">公式サイトを開く &rarr;</a></p>
+    {% endif %}
+  </header>
+
+  <section class="info-block">
+    <h2>基本情報</h2>
+    <dl class="info-list">
+      <dt>主催者</dt>
+      <dd>{{ page.organizer }}</dd>
+
+      {% if page.cosponsors %}
+        <dt>協賛・協力</dt>
+        <dd>
+          <ul>
+            {% for s in page.cosponsors %}<li>{{ s }}</li>{% endfor %}
+          </ul>
+        </dd>
+      {% endif %}
+
+      <dt>エントリー期間</dt>
+      <dd>
+        {% if page.entry_period.start %}{{ page.entry_period.start }}{% endif %}
+        {% if page.entry_period.end %} 〜 {{ page.entry_period.end }}{% endif %}
+        {% if page.entry_period.note %}<br><small>{{ page.entry_period.note }}</small>{% endif %}
+      </dd>
+
+      {% if page.target_audience %}
+        <dt>対象者</dt>
+        <dd>{{ page.target_audience }}</dd>
+      {% endif %}
+
+      {% if page.submission_format %}
+        <dt>提出物の形式</dt>
+        <dd>{{ page.submission_format }}</dd>
+      {% endif %}
+    </dl>
+  </section>
+
+  {% if page.schedule %}
+    <section class="info-block">
+      <h2>スケジュール</h2>
+      <table class="schedule-table">
+        <thead><tr><th>日付</th><th>イベント</th></tr></thead>
+        <tbody>
+          {% for item in page.schedule %}
+            <tr><td>{{ item.date }}</td><td>{{ item.event }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endif %}
+
+  {% if page.judges %}
+    <section class="info-block">
+      <h2>審査員</h2>
+      <ul>
+        {% for j in page.judges %}
+          <li>
+            {% if j.name %}<strong>{{ j.name }}</strong>{% if j.affiliation %}（{{ j.affiliation }}）{% endif %}{% if j.role %} - {{ j.role }}{% endif %}
+            {% else %}{{ j }}{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if page.criteria %}
+    <section class="info-block">
+      <h2>審査基準</h2>
+      <ul>
+        {% for c in page.criteria %}<li>{{ c }}</li>{% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if page.regulations %}
+    <section class="info-block">
+      <h2>レギュレーション・応募条件</h2>
+      <ul>
+        {% for r in page.regulations %}<li>{{ r }}</li>{% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if page.prizes %}
+    <section class="info-block">
+      <h2>賞金・賞品</h2>
+      <ul class="prize-list">
+        {% for p in page.prizes %}
+          <li>
+            <strong>{{ p.name }}</strong>
+            {% if p.amount %} - {{ p.amount }}{% endif %}
+            {% if p.description %}<br><small>{{ p.description }}</small>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if page.hardware %}
+    <section class="info-block">
+      <h2>使用ハードウェア</h2>
+      <ul>
+        {% for hw in page.hardware %}
+          <li>
+            {% assign hw_page = site.hardware | where: 'slug', hw.slug | first %}
+            {% if hw_page %}
+              <a href="{{ hw_page.url | relative_url }}">{{ hw.name }}</a>
+            {% else %}
+              {{ hw.name }}
+            {% endif %}
+            {% if hw.required %} <span class="badge badge-required">必須</span>{% endif %}
+            {% if hw.recommended %} <span class="badge badge-recommended">推奨</span>{% endif %}
+            {% if hw.note %}<br><small>{{ hw.note }}</small>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  {% if content and content != "" %}
+    <section class="info-block">
+      <h2>備考・その他</h2>
+      {{ content }}
+    </section>
+  {% endif %}
+</article>

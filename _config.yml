@@ -1,0 +1,37 @@
+title: 2026年メイカー向けコンテスト情報
+description: 2026年に開催されるメイカー向けコンテストのレギュレーション・エントリー方法をまとめます
+baseurl: "/maker_contest_2026"
+url: "https://airpocket-soundman.github.io"
+lang: ja
+
+collections:
+  contests:
+    output: true
+    permalink: /contests/:path/
+  hardware:
+    output: true
+    permalink: /hardware/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: contests
+    values:
+      layout: contest
+  - scope:
+      path: ""
+      type: hardware
+    values:
+      layout: hardware
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .gitignore
