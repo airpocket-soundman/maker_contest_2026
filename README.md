@@ -9,7 +9,7 @@ GitHub Pages で公開しています。
 ```
 .
 ├── _config.yml              # Jekyll設定
-├── index.md                 # トップページ(コンテスト・ハードウェア一覧)
+├── index.md                 # トップページ(コンテスト一覧)
 ├── _layouts/                # 共通HTMLテンプレート
 │   ├── default.html         # サイト全体の枠
 │   ├── contest.html         # コンテストページ用
