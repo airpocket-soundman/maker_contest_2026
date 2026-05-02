@@ -110,14 +110,29 @@ layout: default
   {% if page.judges %}
     <section class="info-block">
       <h2>審査員</h2>
-      <ul>
+      <ul class="judges-list">
         {% for j in page.judges %}
-          <li>
-            {% if j.name %}<strong>{{ j.name }}</strong>{% if j.affiliation %}（{{ j.affiliation }}）{% endif %}{% if j.role %} - {{ j.role }}{% endif %}
+          <li class="judge">
+            {% if j.name %}
+              <div class="judge-head">
+                <strong>{{ j.name }}</strong>
+                {% if j.affiliation %}<span class="judge-affil">（{{ j.affiliation }}）</span>{% endif %}
+                {% if j.role %}<span class="judge-role"> - {{ j.role }}</span>{% endif %}
+                {% if j.sns_url %} <a class="judge-sns" href="{{ j.sns_url }}" target="_blank" rel="noopener">{{ j.sns_handle | default: 'SNS' }}</a>{% endif %}
+              </div>
+              {% if j.bio %}<p class="judge-bio">{{ j.bio }}</p>{% endif %}
             {% else %}{{ j }}{% endif %}
           </li>
         {% endfor %}
       </ul>
+    </section>
+  {% endif %}
+
+  {% if page.theme %}
+    <section class="info-block">
+      <h2>テーマ</h2>
+      {% if page.theme.title %}<p class="theme-title"><strong>{{ page.theme.title }}</strong></p>{% endif %}
+      {% if page.theme.body %}<div class="theme-body">{{ page.theme.body | markdownify }}</div>{% endif %}
     </section>
   {% endif %}
 

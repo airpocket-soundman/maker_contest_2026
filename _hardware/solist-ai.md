@@ -25,9 +25,12 @@ resources:
   - name: ローム製品ページ(公式)
     url: https://www.rohm.co.jp/
     note: 最新の製品情報・データシートを参照
-  - name: ROHM EDGE HACK CHALLENGE 2026 ニュース
+  - name: ROHM EDGE HACK CHALLENGE 2026 公式特設サイト
+    url: https://rehc.jp/
+    note: スケジュール・審査員・賞金など最新情報の一次ソース
+  - name: ROHM EDGE HACK CHALLENGE 2026 プレスリリース(ローム)
     url: https://www.rohm.co.jp/news-detail?news-title=2026-04-22_rehc2026
-    note: コンテスト概要およびデバイス提供キャンペーン情報
+    note: コンテスト概要およびデバイス提供キャンペーンの初出
 ---
 
 ## 概要

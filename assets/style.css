@@ -305,3 +305,35 @@ h1 .status-badge { font-size: 0.55em; vertical-align: 0.2em; }
   .info-list dt { margin-top: 0.6rem; }
   .schedule-table th:first-child, .schedule-table td:first-child { width: auto; white-space: normal; }
 }
+
+/* 審査員 */
+.judges-list { list-style: none; padding-left: 0; }
+.judges-list .judge {
+  border-left: 3px solid var(--color-border);
+  padding: 0.5rem 0 0.5rem 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.judge-head { line-height: 1.6; }
+.judge-affil { color: var(--color-muted); }
+.judge-role { color: var(--color-muted); font-size: 0.92em; }
+.judge-sns {
+  display: inline-block;
+  margin-left: 0.4em;
+  font-size: 0.85em;
+  padding: 0.05em 0.5em;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  text-decoration: none;
+}
+.judge-sns:hover { background: #f4f4f4; }
+.judge-bio {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.65;
+}
+
+/* テーマ */
+.theme-title { font-size: 1.05rem; margin: 0 0 0.5rem; }
+.theme-body { color: #333; line-height: 1.7; }
+.theme-body p { margin: 0.4rem 0; }

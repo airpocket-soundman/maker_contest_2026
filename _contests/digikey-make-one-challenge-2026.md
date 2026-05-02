@@ -23,9 +23,24 @@ schedule:
     event: Maker Faire Tokyo 2026にて展示・授賞式
 
 judges:
-  - name: イチケン
-    affiliation: 電子工作系YouTuber
-    role: 特別審査委員
+  - name: イチケン 氏
+    affiliation: 「ものづくり系の動画」人気YouTuber
+    role: 最終審査会 特別審査員
+    sns_handle: "@ichiken_make"
+    sns_url: https://twitter.com/ichiken_make
+    bio: 電子工作、電化製品の解説から電気電子工学に関連する技術解説など、電気電子工学全般の動画を取り扱う「ものづくり系の動画」人気YouTuber。DigiKeyとは日本公式YouTubeチャンネル開設当初から長年にわたりコラボ動画を制作している。授賞式が行われる Maker Faire Tokyo 2026 では授与者としても参加予定。
+  - name: 栗原 一貴 氏
+    affiliation: 津田塾大学 情報科学科 教授 / Coolied, Inc. CTO
+    role: 最終審査会 審査員(外部有識者)
+    sns_handle: "@qurihara"
+    sns_url: https://twitter.com/qurihara
+    bio: 物議を醸すものづくりを得意とする情報科学者。2007年 東京大学大学院 情報理工学系研究科 コンピュータ科学専攻 博士課程修了(PhD)。2007年より産業技術総合研究所 研究員、2013年 主任研究員。2014年 津田塾大学 学芸学部 情報科学科 准教授、2019年 同 教授。2018年より Coolied(クーリード)株式会社 CTO。2019年 米ワシントン大学 客員研究員。2012年 イグノーベル賞、MashupAwards 2016 最優秀賞、2017年 情報処理学会論文賞 等を受賞。著書に「消極性デザイン宣言」。
+  - name: 池澤 あやか 氏
+    affiliation: タレント / ソフトウェアエンジニア
+    role: 最終審査会 審査員(外部有識者)
+    sns_handle: "@ikeay"
+    sns_url: https://twitter.com/ikeay
+    bio: 1991年 東京都出身。第6回「東宝シンデレラ」オーディション審査員特別賞受賞。情報番組をはじめとする TV 番組への出演やメディア媒体への寄稿を行う一方、IT企業に勤めソフトウェアエンジニアとしてアプリケーション開発に携わる。
 
 criteria:
   - 作品の完成度
@@ -109,5 +124,71 @@ ProtoPediaが主催する「DigiKey メイカー支援キャンペーン」と�
 - 公式情報源: [DigiKey公式](https://www.digikey.jp/ja/resources/events/2026/make-one-challenge)、[ProtoPedia イベントページ](https://protopedia.net/event/digikey2026)、[PR TIMES プレスリリース](https://prtimes.jp/main/html/rd/p/000000155.000051273.html)、[一般社団法人MAブログ](https://we-are-ma.jp/blog/digikey-cam/)
 - DigiKeyとして日本初開催の電子工作コンテスト。
 - "ONE(イチ)" をキーワードに、初めての電子工作にチャレンジする方も、自分なりの一作を仕上げたい経験者も対象。
+
+## 最終審査会・審査員 詳細プロフィール
+
+### イチケン 氏 — 「ものづくり系の動画」人気YouTuber
+
+電子工作、電化製品の解説から電気電子工学に関連する技術解説まで、**電気電子工学全般** を扱う「ものづくり系の動画」人気 YouTuber。**DigiKey の日本公式 YouTube チャンネル開設当初から長年にわたりコラボ動画を制作** している、DigiKey とは縁の深い存在。
+
+**チャンネル / 活動**
+- YouTube チャンネル「ICHIKEN Engineering」(2019年4月開設)
+- 公式ブログ: [ichiken-engineering.com](https://ichiken-engineering.com/)
+- 「**イチケンスペシャル**」プレイリストで濃いめの技術検証企画を継続展開
+- TECHNO-FRONTIER 公式アンバサダー就任歴あり
+- 受賞作品の **インタビュー動画** を DigiKey 日本公式 YouTube チャンネルで公開予定
+
+授賞式が行われる Maker Faire Tokyo 2026 では授与者としても参加予定。
+
+SNS: [@ichiken_make](https://twitter.com/ichiken_make) / [YouTube](https://www.youtube.com/@ICHIKEN1)
+
+---
+
+### 栗原 一貴 氏 — 津田塾大学 情報科学科 教授 / Coolied, Inc. CTO
+
+1978年 栃木県宇都宮市生まれ。**2000年** 東京大学工学部 機械情報工学科卒業、**2007年** 東京大学大学院 情報理工学系研究科 コンピュータ科学専攻 博士課程修了(PhD)。
+
+**経歴**
+- 2007年〜 産業技術総合研究所 研究員、2013年〜 主任研究員
+- 2014年〜 津田塾大学 学芸学部 情報科学科 准教授
+- 2018年〜 **Coolied(クーリード)株式会社 CTO**
+- 2019年〜 津田塾大学 情報科学科 教授(現職)
+- 2019年 米ワシントン大学 客員研究員
+
+**研究分野**: ヒューマンコンピュータインタラクション(HCI)全般、エンタテインメントコンピューティング、教育現場における ICT 活用研究。物議を醸す/笑える研究を真面目にやる "アンチ常識" 系の情報科学者として知られる。
+
+**主な受賞**
+- **2012年 イグノーベル賞「音響学賞」** — 発話を遅延フィードバックさせて阻害する装置「**SpeechJammer**」(塚田浩二氏との共同研究)
+- MashupAwards 2016 最優秀賞
+- 2017年 情報処理学会 論文賞
+
+**著書**: 『消極性デザイン宣言』(共著)
+
+> ※ ROHM EDGE HACK CHALLENGE 2026 と DigiKey Make ONE Challenge 2026 の **両コンテストで最終審査員** を務める。
+
+SNS: [@qurihara](https://twitter.com/qurihara) / 公式: [unryu.org](https://www.unryu.org/) / [researchmap](https://researchmap.jp/qurihara)
+
+---
+
+### 池澤 あやか 氏 — タレント / ソフトウェアエンジニア
+
+**1991年7月28日 東京都出身**。慶應義塾大学 環境情報学部 卒業(2014年3月)。
+
+**芸能・タレント活動**
+- 2006年 第6回「東宝シンデレラ」オーディション **審査員特別賞** 受賞
+- 同年 映画『ラフ ROUGH』でデビュー
+- 雑誌『ピチレモン』レギュラーモデル
+- 情報番組をはじめとする TV 番組への出演やメディア媒体への寄稿
+- 所属: 東宝芸能
+
+**エンジニアとしての活動**
+- 慶應義塾大学卒業後、フリーランスのソフトウェアエンジニアとして活動
+- **2022年6月** 日本IBM にテクノロジーエンジニアとして入社(30歳の節目で会社員に転身)
+- IT企業での就業と並行し、エンジニア向けメディア(エンジニアtype 等)へのインタビューや執筆も継続
+- "Ruby の女神" の異名でも知られる
+
+**ハッシュタグ**: 異色のタレント × ソフトウェアエンジニアの「複業」を体現する人物として、メイカー界隈・テック業界で広く知られる。
+
+SNS: [@ikeay](https://twitter.com/ikeay) / [LinkedIn](https://jp.linkedin.com/in/ikeay)
 
 > ⚠️ 本ページの内容は公開情報をもとにまとめた参考情報です。応募前に必ず[公式サイト](https://www.digikey.jp/ja/resources/events/2026/make-one-challenge)で最新情報をご確認ください。

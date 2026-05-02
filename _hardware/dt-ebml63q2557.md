@@ -77,8 +77,12 @@ resources:
   - name: ROHM - Solist-AI™ Solution プロモーション資料 (PDF)
     url: https://fscdn.rohm.com/en/products/databook/catalog/common/N_Solist-AI_Solution_Promotional_materials_EN.pdf
     note: AxlCORE-ODL アーキテクチャ概念図あり
-  - name: ROHM EDGE HACK CHALLENGE 2026 ニュース
+  - name: ROHM EDGE HACK CHALLENGE 2026 公式特設サイト
+    url: https://rehc.jp/
+    note: スケジュール・審査員・賞金など最新情報の一次ソース
+  - name: ROHM EDGE HACK CHALLENGE 2026 プレスリリース(ローム)
     url: https://www.rohm.co.jp/news-detail?news-title=2026-04-22_rehc2026
+    note: コンテスト概要およびデバイス提供キャンペーンの初出
 ---
 
 ## 概要
