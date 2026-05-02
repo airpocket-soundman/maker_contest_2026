@@ -337,3 +337,14 @@ h1 .status-badge { font-size: 0.55em; vertical-align: 0.2em; }
 .theme-title { font-size: 1.05rem; margin: 0 0 0.5rem; }
 .theme-body { color: #333; line-height: 1.7; }
 .theme-body p { margin: 0.4rem 0; }
+
+/* 審査員フェーズ見出し */
+.judges-phase-heading {
+  margin: 1rem 0 0.5rem;
+  padding: 0.2rem 0.6rem;
+  font-size: 1rem;
+  background: #f0f4f8;
+  border-left: 4px solid #5b8def;
+  border-radius: 2px;
+}
+.judges-phase-heading:first-of-type { margin-top: 0; }

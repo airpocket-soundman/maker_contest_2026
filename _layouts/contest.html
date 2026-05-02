@@ -107,24 +107,65 @@ layout: default
     </section>
   {% endif %}
 
-  {% if page.judges %}
+  {% if page.judges or page.judges_preliminary or page.judges_final %}
     <section class="info-block">
       <h2>審査員</h2>
-      <ul class="judges-list">
-        {% for j in page.judges %}
-          <li class="judge">
-            {% if j.name %}
-              <div class="judge-head">
-                <strong>{{ j.name }}</strong>
-                {% if j.affiliation %}<span class="judge-affil">（{{ j.affiliation }}）</span>{% endif %}
-                {% if j.role %}<span class="judge-role"> - {{ j.role }}</span>{% endif %}
-                {% if j.sns_url %} <a class="judge-sns" href="{{ j.sns_url }}" target="_blank" rel="noopener">{{ j.sns_handle | default: 'SNS' }}</a>{% endif %}
-              </div>
-              {% if j.bio %}<p class="judge-bio">{{ j.bio }}</p>{% endif %}
-            {% else %}{{ j }}{% endif %}
-          </li>
-        {% endfor %}
-      </ul>
+
+      {% if page.judges_preliminary %}
+        <h3 class="judges-phase-heading">一次審査 エンジニア審査員</h3>
+        <ul class="judges-list">
+          {% for j in page.judges_preliminary %}
+            <li class="judge">
+              {% if j.name %}
+                <div class="judge-head">
+                  <strong>{{ j.name }}</strong>
+                  {% if j.affiliation %}<span class="judge-affil">（{{ j.affiliation }}）</span>{% endif %}
+                  {% if j.role %}<span class="judge-role"> - {{ j.role }}</span>{% endif %}
+                  {% if j.sns_url %} <a class="judge-sns" href="{{ j.sns_url }}" target="_blank" rel="noopener">{{ j.sns_handle | default: 'SNS' }}</a>{% endif %}
+                </div>
+                {% if j.bio %}<p class="judge-bio">{{ j.bio }}</p>{% endif %}
+              {% else %}{{ j }}{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if page.judges_final %}
+        <h3 class="judges-phase-heading">最終審査会 審査員</h3>
+        <ul class="judges-list">
+          {% for j in page.judges_final %}
+            <li class="judge">
+              {% if j.name %}
+                <div class="judge-head">
+                  <strong>{{ j.name }}</strong>
+                  {% if j.affiliation %}<span class="judge-affil">（{{ j.affiliation }}）</span>{% endif %}
+                  {% if j.role %}<span class="judge-role"> - {{ j.role }}</span>{% endif %}
+                  {% if j.sns_url %} <a class="judge-sns" href="{{ j.sns_url }}" target="_blank" rel="noopener">{{ j.sns_handle | default: 'SNS' }}</a>{% endif %}
+                </div>
+                {% if j.bio %}<p class="judge-bio">{{ j.bio }}</p>{% endif %}
+              {% else %}{{ j }}{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if page.judges %}
+        <ul class="judges-list">
+          {% for j in page.judges %}
+            <li class="judge">
+              {% if j.name %}
+                <div class="judge-head">
+                  <strong>{{ j.name }}</strong>
+                  {% if j.affiliation %}<span class="judge-affil">（{{ j.affiliation }}）</span>{% endif %}
+                  {% if j.role %}<span class="judge-role"> - {{ j.role }}</span>{% endif %}
+                  {% if j.sns_url %} <a class="judge-sns" href="{{ j.sns_url }}" target="_blank" rel="noopener">{{ j.sns_handle | default: 'SNS' }}</a>{% endif %}
+                </div>
+                {% if j.bio %}<p class="judge-bio">{{ j.bio }}</p>{% endif %}
+              {% else %}{{ j }}{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </section>
   {% endif %}
 
