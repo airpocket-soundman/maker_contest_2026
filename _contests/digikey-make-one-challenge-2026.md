@@ -51,10 +51,14 @@ hardware:
   - name: DigiKey取扱製品全般
     required: true
     note: 応募作品にはDigiKey製品を最低1点以上使用する必要があります。
-  - name: NXP評価ボード(エッジAI / 組込みLinux / リアルタイム制御 対応)
-    slug: nxp-eval-boards
+  - name: NXP 推奨評価ボード 4 種(FRDM-MCXC444 / FRDM-MCXN947 / FRDM-IMX91 / IMXRT1050-EVKB)
+    slug: nxp-frdm-eval-boards
     recommended: true
-    note: 一次審査で加点対象となる「おすすめ製品」。
+    note: 一次審査で加点対象となる「おすすめ製品」。比較表・開発環境は詳細ページ参照。
+  - name: その他おすすめ部品・ボード(STM32 / Arduino / Raspberry Pi / Seeed / M5Stack / DFRobot)
+    slug: digikey-recommended-parts
+    recommended: true
+    note: NXP 4 ボード以外の推奨製品 9 件(BLE/Wi-Fi 開発ボード、AI カメラ、環境センサ、モータドライバ等)。
 ---
 
 ## 連動キャンペーン
