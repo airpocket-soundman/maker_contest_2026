@@ -4,7 +4,14 @@ layout: default
 <article class="contest">
   <header class="contest-header">
     <p class="breadcrumb"><a href="{{ '/' | relative_url }}">トップ</a> &raquo; コンテスト</p>
-    <h1>{{ page.title }}</h1>
+    <h1>
+      {{ page.title }}
+      {% if page.entry_period.start and page.entry_period.end %}
+        <span class="status-badge"
+              data-start="{{ page.entry_period.start | date: '%Y-%m-%d' }}T00:00:00+09:00"
+              data-end="{{ page.entry_period.end | date: '%Y-%m-%d' }}T23:59:59+09:00">--</span>
+      {% endif %}
+    </h1>
     {% if page.tagline %}<p class="tagline">{{ page.tagline }}</p>{% endif %}
     {% if page.official_url %}
       <p class="official-link"><a href="{{ page.official_url }}" target="_blank" rel="noopener">公式サイトを開く &rarr;</a></p>
