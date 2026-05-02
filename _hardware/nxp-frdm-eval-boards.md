@@ -63,24 +63,36 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 | 項目 | FRDM-MCXC444 | FRDM-MCXN947 | FRDM-IMX91 | IMXRT1050-EVKB |
 |---|---|---|---|---|
+| 価格目安 (円) | **¥1,750** | **¥4,354** | **¥13,062** | **¥18,572** |
 | 搭載チップ | MCXC444 | MCXN947 | i.MX 91 (アプリケーションプロセッサ) | i.MX RT1052 (クロスオーバー MCU) |
 | コア | Arm Cortex-M0+ | デュアル Arm Cortex-M33 + DSP | Arm Cortex-A55 (シングル) | Arm Cortex-M7 |
-| 最大動作周波数 | 48 MHz | 150 MHz | 1.4 GHz | 600 MHz |
+| 最大動作周波数 | 48 MHz | 150 MHz × 2 | 1.4 GHz | 600 MHz |
 | 内蔵 Flash | 256 KB(*) | 2 MB | (なし、外付け) | (なし、外付け QSPI/HyperFlash) |
 | 内蔵 RAM | 32 KB(*) | 構成可能(フルECC RAM) | (なし、LPDDR4 1GB 外付け) | オンチップ SRAM 最大 512 KB |
 | 外部メモリ | — | — | LPDDR4 1GB / eMMC 8GB / microSD | SDRAM 32MB / HyperFlash 64MB / QSPI 8MB |
-| AI アクセラレータ | なし | **eIQ Neutron NPU** | (CPU で eIQ ライブラリを実行) | CMSIS-NN / TFLite Micro (CPU) |
+| メモリ構成 | 内蔵 SRAM | 内蔵 SRAM 中心 | DDR (大容量) | 外部 SDRAM 可 |
+| AI アクセラレータ | なし(× 軽量モデルのみ CPU) | **eIQ Neutron NPU** ◎ | CPU + eIQ ライブラリ ◎ (Linuxアプリ) | CMSIS-NN / TFLite Micro (CPU) △ |
 | 搭載センサ | 3軸加速度 FXLS8974CFR3、可視光センサ | (なし、拡張ヘッダ経由) | (なし、拡張ヘッダ経由) | (なし、拡張ヘッダ経由) |
-| 主な通信 I/F | USB / I²C / SPI / UART / SLCD | Hi-Speed USB / CAN 2.0 / I3C / 10/100 Ethernet | USB / Ethernet / Wi-Fi 6 / BLE 5.4 / 802.15.4 | USB OTG / Ethernet / CAN / SDIO / I²S / SPDIF |
+| 主な通信 I/F | USB / I²C / SPI / UART / SLCD | Hi-Speed USB / CAN 2.0 / I3C / 10/100 Ethernet | USB / Ethernet (Linux で Wi-Fi 6/BLE/802.15.4 対応) | USB OTG / Ethernet / CAN / SDIO / I²S / SPDIF |
+| 有線通信(優位性) | △ | ◎ (Ethernet / CAN) | ◎ | ◎ |
+| 無線 | 外付け | 外付け | 外付け(Linux で対応) | 外付け |
 | 拡張ヘッダ | Arduino R3 / mikroBUS / Pmod / FRDM | Arduino R3 / mikroBUS / Pmod | 40pin GPIO 拡張 + 2x5 NXP I/F | Arduino R3 (ボードに直接実装) |
 | グラフィックス | SLCD セグメント駆動 | — | (HDMI 等は無し、組込み Linux 側で対応) | パラレル LCD (16/24bit) / カメラ I/F |
-| 想定 OS | ベアメタル / RTOS | ベアメタル / RTOS / Zephyr | **Linux** (Yocto/Buildroot) | ベアメタル / RTOS / Linux |
+| 想定 OS | なし(ベアメタル) | なし / RTOS / Zephyr | **Linux** (Yocto/Buildroot) | なし / RTOS / Linux |
+| 起動時間 | 数 ms | 数 ms | 数秒 (Linux ブート) | 数 ms 〜 |
+| リアルタイム性 | ◎ | ◎ | ×(Linux のため) | ◎ (最強、Cortex-M7 600MHz) |
+| Python 親和性 | △ (MicroPython 限定) | △ (MicroPython / Zephyr) | ◎ (CPython / NumPy / PyTorch 等) | △ (MicroPython 限定) |
+| 開発自由度 | 低 | 中 | 高 (Linux 全般) | 中 |
+| 消費電力傾向 | 低 | 中 | 高 | 高 |
+| 主用途 | 軽量制御・センサ | IoT + AI (NPU 推論) | Linux アプリ・IoT ゲートウェイ | 高速制御 / DSP / グラフィックス |
 | デバッガ | オンボード MCU-Link (CMSIS-DAP) | オンボード MCU-Link (CMSIS-DAP) | オンボードデバッガ + Linux シリアルコンソール | オンボード OpenSDA (DAPLink) |
 | 電源 | USB Type-C | USB Type-C | USB Type-C (PD 対応) | USB micro-B / 5V DC |
 | ロジックレベル | 3.3V CMOS | 3.3V / 1.8V (周辺で切替) | 3.3V CMOS | 3.3V CMOS |
 | ボードサイズ感 | 小型(Freedom 標準) | 小型(Freedom 標準) | 中型(Linux ボード相当) | 中型(EVK 標準) |
 
 (*) FRDM-MCXC444 の MCXC444 チップは Flash 256KB / RAM 32KB が公式値。DigiKey 推奨ページに「Flash 2MB/SRAM 256KB」と記載があるが、これは MCX C シリーズ全体の上限値の表現と思われる。実機の MCXC444 チップは 256KB/32KB。
+
+> 価格は 2026 年時点で確認した DigiKey 日本サイトの参考価格(税抜・1個単価)。為替・在庫により変動するため、購入前に必ず[DigiKey](https://www.digikey.jp/) で最新価格を確認してください。
 
 ## 開発環境(IDE / SDK / RTOS)対応
 
@@ -137,9 +149,11 @@ DigiKey Make ONE Challenge 2026 では、スポンサーである **NXP Semicond
 
 ## 選び方の目安
 
-- **コスト最優先・電池駆動・センサ取り込み中心** → FRDM-MCXC444
-- **エッジ AI 推論を MCU 単体で行いたい** → FRDM-MCXN947 (eIQ Neutron NPU)
-- **Linux ベースで Wi-Fi 6/BLE/Matter 対応の IoT を作る** → FRDM-IMX91
-- **画像処理・モータ制御・グラフィックス UI など演算量重め** → IMXRT1050-EVKB
+- **最安(¥1,750)・電池駆動・センサ取り込み中心** → FRDM-MCXC444
+- **コスパ重視で エッジ AI 推論を MCU 単体で行いたい(¥4,354)** → FRDM-MCXN947 (eIQ Neutron NPU)
+- **Linux ベースで Wi-Fi 6/BLE/Matter 対応の IoT を作る(¥13,062)** → FRDM-IMX91
+- **画像処理・モータ制御・グラフィックス UI など演算量重め(¥18,572)** → IMXRT1050-EVKB
+
+価格幅は約 10 倍あり、用途と予算で選択肢が分かれます。アイデア段階では FRDM-MCXC444 / MCXN947 で試作し、必要に応じて FRDM-IMX91 / IMXRT1050-EVKB にスケールアップするのが定石です。
 
 > ⚠️ 本ページは公開情報をもとにまとめた参考情報です。最新の価格・在庫・仕様は各製品の [NXP 公式ページ](https://www.nxp.com/) および [DigiKey](https://www.digikey.jp/) で確認してください。
