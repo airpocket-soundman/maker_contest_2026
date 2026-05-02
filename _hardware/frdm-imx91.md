@@ -10,10 +10,10 @@ official_url: https://www.nxp.com/design/design-center/development-boards-and-de
 features:
   - i.MX 91 アプリケーションプロセッサ (Cortex-A55、最大 1.4GHz) を搭載
   - LPDDR4 + eMMC 5.1 を実装、microSD スロットも装備
-  - **Murata Type-2EL** モジュール(Wi-Fi 6 + Bluetooth 5.2 + IEEE 802.15.4)を搭載
+  - "**Murata Type-2EL** モジュール(Wi-Fi 6 + Bluetooth 5.2 + IEEE 802.15.4)を搭載"
   - デュアル RGMII Ethernet (TSN 対応) を装備、産業ネットワーク用途に対応
   - 40 ピン (2×20) 拡張 I/O ヘッダ + 2×5 NXP I/F (CAN, ADC×2, I²C/I³C)
-  - **EdgeLock Secure Enclave** 内蔵でセキュアブート/暗号処理/タンパ検出
+  - "**EdgeLock Secure Enclave** 内蔵でセキュアブート/暗号処理/タンパ検出"
   - JTAG (20 ピン) + microUSB UART デバッグ I/F、SDP/UUU 経由で SD/eMMC へ書込み可能
   - DigiKey Make ONE Challenge 2026 で「おすすめ製品」として一次審査の加点対象
 
@@ -33,7 +33,7 @@ specs:
   - label: ストレージ
     value: eMMC 5.1 / microSD / USB ストレージ
   - label: セキュリティ
-    value: **EdgeLock Secure Enclave** (セキュアブート、暗号処理、タンパ検出) / TrustZone-A
+    value: "**EdgeLock Secure Enclave** (セキュアブート、暗号処理、タンパ検出) / TrustZone-A"
   - label: 電源
     value: USB Type-C (PD 対応)
   - label: 動作 OS

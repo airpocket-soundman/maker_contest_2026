@@ -11,7 +11,7 @@ features:
   - i.MX RT1050 クロスオーバー MCU "MIMXRT1052DVL6B" (Arm Cortex-M7 最大 600MHz) を搭載
   - 内蔵 TCM (Tightly-Coupled Memory) 最大 512KB と 32MB SDRAM / 64MB HyperFlash / 8MB QSPI Flash の大規模メモリ構成
   - LCD パラレル(16/24bit)・カメラ・SDIO・Ethernet・USB OTG・I²S・SPDIF など マルチメディア向け I/F を完備
-  - **FXOS8700 6軸モーションセンサ** (加速度+磁気) をオンボード搭載
+  - "**FXOS8700 6軸モーションセンサ** (加速度+磁気) をオンボード搭載"
   - Arduino R3 互換ヘッダ (J22-J25) がボード上に直接実装済(初版 EVK の改良版)
   - オンボード OpenSDA / LPC-Link2 デバッガ搭載 (CMSIS-DAP / DAPLink)、外部 J-Link も使用可
   - NXP DCP (Data Co-Processor) で AES/SHA 暗号アクセラ
@@ -33,7 +33,7 @@ specs:
   - label: AI アクセラレータ
     value: なし(CMSIS-NN / TensorFlow Lite for Microcontrollers を CPU で実行、Cortex-M7 600MHz の高速演算で軽量〜中型モデルが現実的)
   - label: 搭載センサ
-    value: **FXOS8700CQ** 6軸センサ(加速度+磁気)、I²C 接続
+    value: "**FXOS8700CQ** 6軸センサ(加速度+磁気)、I²C 接続"
   - label: 拡張ヘッダ
     value: Arduino R3 (J22-J25、ボードに直接実装) / カメラコネクタ J35 / LCD 用 I/F / SD カードスロット
   - label: デバッグ

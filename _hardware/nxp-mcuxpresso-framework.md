@@ -10,7 +10,7 @@ official_url: https://www.nxp.com/design/design-center/software/development-soft
 features:
   - Eclipse 版 **MCUXpresso IDE** と新世代の **MCUXpresso for VS Code** の二系統を提供。後者は VS Code Marketplace から拡張機能として導入し、NXP 公式が主軸として推進
   - 各 FRDM ボード用の **MCUXpresso SDK** (HAL / ドライバ / サンプル / リンカスクリプト) が同一フレームワーク内で取得可能
-  - **eIQ Toolkit** で TensorFlow / PyTorch / ONNX → TensorFlow Lite → INT8 量子化 → Neutron NPU 最適化まで一気通貫
+  - "**eIQ Toolkit** で TensorFlow / PyTorch / ONNX → TensorFlow Lite → INT8 量子化 → Neutron NPU 最適化まで一気通貫"
   - 組込み Linux 向けに **i.MX Linux BSP (Yocto Project)** を提供。FRDM-IMX91 は `meta-imx-frdm` レイヤー
   - 互換性: Keil MDK / IAR EWARM / SEGGER J-Link / CMSIS-DAP / pyOCD / OpenOCD などの汎用 Arm ツールにも対応
   - DigiKey Make ONE Challenge 2026 の推奨 4 NXP ボードはすべて本フレームワークでカバーされる

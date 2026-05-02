@@ -9,12 +9,12 @@ official_url: https://www.nxp.com/design/design-center/development-boards-and-de
 
 features:
   - MCX N シリーズの旗艦 MCU "MCXN947" を搭載した Freedom フォームファクタ評価ボード
-  - **デュアル Arm Cortex-M33** 150MHz × 2 + DSP コプロセッサ + **eIQ Neutron NPU** 内蔵
+  - "**デュアル Arm Cortex-M33** 150MHz × 2 + DSP コプロセッサ + **eIQ Neutron NPU** 内蔵"
   - eIQ Neutron NPU は INT8 で 4.8 GOPS、CNN/RNN/TCN/Transformer に対応(CPU 比 最大 42 倍高速)
   - Flash 2MB (デュアルバンク)、フル ECC SRAM 最大 512KB、外付け QSPI Flash 拡張可
   - High-Speed USB Type-C / 10/100 Ethernet (QoS) / 2× FlexCAN-FD / 2× I3C / 2× SAI など豊富な I/F
   - Arduino R3 / mikroBUS (J5/J6) / Pmod (J9) / FlexIO LCD ヘッダ / SmartDMA カメラヘッダ
-  - **EdgeLock Secure Subsystem**(セキュアブート・暗号アクセラ・鍵管理)を搭載
+  - "**EdgeLock Secure Subsystem**(セキュアブート・暗号アクセラ・鍵管理)を搭載"
   - オンボード MCU-Link デバッガ(LPC55S69 ベース、CMSIS-DAP 準拠)
   - DigiKey Make ONE Challenge 2026 で「おすすめ製品」として一次審査の加点対象
 
@@ -26,7 +26,7 @@ specs:
   - label: 外部メモリ
     value: 外付け Quad SPI Flash (FlexSPI 経由) 拡張可
   - label: AI アクセラレータ
-    value: **eIQ Neutron NPU** (4.8 GOPS @ 150MHz, INT8 のみ、CNN/RNN/TCN/Transformer 対応)
+    value: "**eIQ Neutron NPU** (4.8 GOPS @ 150MHz, INT8 のみ、CNN/RNN/TCN/Transformer 対応)"
   - label: 通信ペリフェラル
     value: 10× LP Flexcomm(SPI/I²C/UART) / High-Speed USB Type-C / 10/100 Ethernet (QoS) / 2× FlexCAN-FD / 2× I3C / 2× SAI
   - label: 周辺機能
