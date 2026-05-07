@@ -9,3 +9,6 @@ vendor/
 Gemfile.lock
 .DS_Store
 Thumbs.db
+
+# Claude Code ローカル設定
+.claude/settings.local.json
