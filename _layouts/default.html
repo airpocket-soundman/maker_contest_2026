@@ -14,6 +14,7 @@
       <nav class="site-nav">
         <a href="{{ '/' | relative_url }}">トップ</a>
         <a href="{{ '/#contests' | relative_url }}">コンテスト一覧</a>
+        <a href="{{ '/board-logs/frdm-mcxn947/' | relative_url }}">ボード開発記録</a>
       </nav>
     </div>
   </header>
@@ -29,6 +30,15 @@
         <ul class="toc-list">
           <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>サイトトップ</a></li>
         </ul>
+        {% if site.board_logs.size > 0 %}
+          <p class="toc-section-label">ボード開発記録</p>
+          <ul class="toc-list">
+            {% assign sidebar_board_logs = site.board_logs | sort: 'order' %}
+            {% for log in sidebar_board_logs %}
+              <li><a href="{{ log.url | relative_url }}"{% if page.url == log.url %} class="active"{% endif %}>{{ log.short_title | default: log.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
         {% assign sidebar_contests = site.contests | sort: 'entry_period.start' %}
         {% for c in sidebar_contests %}
           <p class="toc-section-label">{{ c.short_title | default: c.title }}</p>

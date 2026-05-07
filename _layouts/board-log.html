@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="board-log">
+  <header class="hardware-header">
+    <p class="breadcrumb"><a href="{{ '/' | relative_url }}">トップ</a> &raquo; ボード開発記録</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.tagline %}<p class="tagline">{{ page.tagline }}</p>{% endif %}
+  </header>
+
+  {% if page.board %}
+    <section class="info-block">
+      <h2>対象ボード</h2>
+      <dl class="info-list">
+        <dt>ボード</dt>
+        <dd>{{ page.board }}</dd>
+        {% if page.category %}
+          <dt>カテゴリ</dt>
+          <dd>{{ page.category }}</dd>
+        {% endif %}
+      </dl>
+    </section>
+  {% endif %}
+
+  {{ content }}
+</article>

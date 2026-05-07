@@ -11,6 +11,9 @@ collections:
   hardware:
     output: true
     permalink: /hardware/:path/
+  board_logs:
+    output: true
+    permalink: /board-logs/:path/
 
 defaults:
   - scope:
@@ -23,6 +26,11 @@ defaults:
       type: hardware
     values:
       layout: hardware
+  - scope:
+      path: ""
+      type: board_logs
+    values:
+      layout: board-log
 
 markdown: kramdown
 kramdown:
@@ -34,4 +42,6 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - .bundle-home
+  - serve-local.ps1
   - .gitignore

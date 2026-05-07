@@ -97,17 +97,15 @@ phases:
 
 ## ローカルで確認する方法
 
-Ruby と Bundler が必要です。
+Ruby と Bundler が必要です。このリポジトリでは `Gemfile` に Jekyll 依存を定義しています。
 
-```bash
-# 初回のみ
-gem install bundler jekyll
+Windows で RubyInstaller 3.3 を `C:\Ruby33-x64` に入れている場合は、プロジェクト直下で以下を実行します。
 
-# プロジェクト直下で
-jekyll serve --baseurl ""
+```powershell
+.\serve-local.ps1
 ```
 
-ブラウザで `http://localhost:4000/` を開いて確認できます。
+ブラウザで `http://127.0.0.1:4000/` を開いて確認できます。
 
 ## GitHub Pages での公開設定
 
