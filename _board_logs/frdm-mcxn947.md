@@ -37,6 +37,7 @@ FRDM-MCXN947 は、NXP の MCX N シリーズ(MCX N947)を搭載した FRDM(Free
 | コネクタ / 部品 | 用途 |
 | --- | --- |
 | Arduino UNO R3 互換ヘッダ | Arduino シールド接続 |
+| Pmod ヘッダ(J7、2×6 ピン) | Digilent Pmod モジュール接続(SPI / I²C 系、Type 2A 互換) |
 | mikroBUS ヘッダ ×2 | mikroe Click Boards 接続 |
 | FlexIO / LCD ヘッダ | NXP LCD 8080 パラレルインターフェース |
 | SmartDMA / Camera ヘッダ | ArduCam 20 ピン DVP カメラモジュール |
@@ -58,7 +59,18 @@ FRDM-MCXN947 で利用できる開発環境は主に **MCUXpresso for VS Code** 
 ### 共通: ハードウェア準備
 
 - USB Type-C ケーブル(データ通信対応のもの) ×1 — まずは **MCU-Link 側** の Type-C ポートに接続する。
-- 初回接続時、Windows のデバイスマネージャに `MCU-LINK` 系の COM ポートが見えれば OK。見えない場合は MCU-Link ファームウェア更新を行う(後述)。
+- 初回接続時、Windows のデバイスマネージャに `MCU-LINK` 系の COM ポートが見えれば OK。
+
+#### 書き込み手段
+
+本ボードでは以下のいずれの方法でもファームウェア書き込みが可能。
+
+| 方法 | 経路 | 主な用途 |
+| --- | --- | --- |
+| **MCU-Link(SWD/CMSIS-DAP)** | MCU-Link 側 Type-C → オンボードデバッガ → SWD | 通常のビルド〜デバッグ。MCUXpresso for VS Code の標準フロー |
+| **USB シリアル(ROM ISP ブートローダ)** | MCU-Link が出す仮想 COM(LPUART 経由)、または MCU 直結 Type-C(USB-HID/MSC ISP) | デバッガなしで書き換えたい場合 / MCU-Link が壊れた時の復旧 / 量産フラッシュ |
+
+> MCX N947 は ROM 内蔵の ISP ブートローダ(`blhost` / MCUBootUtility 等で操作可能)を持つため、SWD を使わなくても USB シリアル経由でファーム書き換えができる。詳細手順とハマり所は実機で試した時点で本セクションに追記する。
 
 ### MCUXpresso for VS Code
 
@@ -76,22 +88,112 @@ FRDM-MCXN947 で利用できる開発環境は主に **MCUXpresso for VS Code** 
 1. **VS Code をインストール**(未導入の場合)。
 2. VS Code の Extensions ビューで `MCUXpresso` を検索し、_MCUXpresso for VS Code_ をインストール。
 3. アクティビティバーに追加された MCUXpresso アイコンを開き、**QUICKSTART PANEL → Open MCUXpresso Installer**。Installer 未導入なら自動でダウンロードが始まる。
-4. Installer を起動し、最低限以下を選択してインストール:
-   - **Software Kits**: 開発で使う SDK(後で SDK Manager 経由でも追加可能)
-   - **Toolchains**: GNU Arm Embedded Toolchain
-   - **Build Tools**: CMake / Ninja
-   - **Debug Probes**: LinkServer(MCU-Link/CMSIS-DAP 対応)、MCU-Link host tooling
-5. VS Code を再起動 → MCUXpresso 拡張の **SDK Repository** から `FRDM-MCXN947` 用 SDK を取得。
-6. 拡張の **Import Example** から `evkmcxn947` 系のサンプル(後述の `hello_world` 等)を取り込み、ビルド → フラッシュ。
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2001.png' | relative_url }}" alt="VS Code の MCUXpresso 拡張 QUICKSTART PANEL。Open MCUXpresso Installer がハイライトされている">
+     <figcaption>図 1: QUICKSTART PANEL から「Open MCUXpresso Installer」を選ぶ</figcaption>
+   </figure>
+4. Installer が起動すると、初回は **使用統計の協力可否ダイアログ**が出るので Accept / Decline どちらかを選ぶ(後から `Usage Statistics` メニューで切替可能)。続いて **Changelog**(更新履歴)が表示されるので OK で閉じる。
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2002.png' | relative_url }}" alt="MCUXpresso Installer 起動直後の Help us to improve ダイアログ。Accept / Decline ボタン">
+     <figcaption>図 2: 起動直後の使用統計ダイアログ(Accept / Decline はあとから変更可能)</figcaption>
+   </figure>
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2003.png' | relative_url }}" alt="MCUXpresso Installer Changelog ダイアログ。Version 26.03.160 の改善点が一覧表示されている">
+     <figcaption>図 3: 続いて表示される Changelog(OK で閉じる)</figcaption>
+   </figure>
+
+5. Installer のメイン画面に到達したら、一覧(**2 画面で全項目を網羅**)から、本ボードの NPU 開発で **必要なものだけ**を選んでインストール:
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2004.png' | relative_url }}" alt="MCUXpresso Installer メイン画面の上半分。Software Kits と Components の前半が見えている">
+     <figcaption>図 4: Installer 画面 1/2(Software Kits / Components 上段)</figcaption>
+   </figure>
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2005.png' | relative_url }}" alt="MCUXpresso Installer メイン画面の下半分。Components のデバッグプローブと Standalone Tools が見えている">
+     <figcaption>図 5: Installer 画面 2/2(デバッグプローブ系と Standalone Tools)</figcaption>
+   </figure>
+
+   | カテゴリ | 項目 | 理由 |
+   | --- | --- | --- |
+   | Software Kits | **MCUXpresso SDK Developer** | FRDM-MCXN947 SDK を扱うため必須 |
+   | Components | **Arm GNU Toolchain** | C/C++ ビルドに必須 |
+   | Components | **Standalone Toolchain Add-ons** | Arm GNU 用 NXP 拡張ヘッダ・ライブラリ |
+   | Components | **LinkServer** | オンボード MCU-Link をデバッグプローブとして使う |
+   | Standalone Tools | **MCUXpresso Configuration Tools** | ピンマックス / クロック / ペリフェラル設定 GUI |
+   | Standalone Tools | **GUI Guider** | LCD ヘッダで HMI を作る時の LVGL ベース設計ツール。画面表示系 |
+   | Standalone Tools | **FreeMASTER** | 推論結果や電流波形をリアルタイム可視化するモニタ。画面表示系 |
+
+   - **Zephyr Developer / Zephyr SDK / Matter Developer** は本ログでは Zephyr 不採用方針のため不要。
+   - **SEGGER J-Link / PEmicro** は外付けプローブを使わない限り不要。
+   - **Secure Provisioning Tool** はセキュアブート / プロビジョニングを扱う段階で追加すれば良い。
+6. **Install** ボタンを押すと、コンポーネントによっては **NXP アカウントでのサインインを要求**される(SDK 系を含むほぼ全部)。
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2006.png' | relative_url }}" alt="NXP Authentication のサインインダイアログ。Email Address 入力欄と CONTINUE / CREATE AN ACCOUNT ボタン">
+     <figcaption>図 6: インストール中に出る NXP アカウントのサインインダイアログ</figcaption>
+   </figure>
+
+   > **注意(回避策)**: このダイアログ内の **CREATE AN ACCOUNT** ボタンからアカウントを作ろうとすると、現状(2026 年時点)バグで完了しないことがある。
+   > **先に [NXP 公式サイト](https://www.nxp.com/) でブラウザからアカウントを作成**しておき、その資格情報でこのダイアログにログインすれば問題なく進める。
+
+7. 各コンポーネントごとに **License Agreement** ダイアログが順次出るので、内容を確認のうえ **I ACCEPT** で進める(コンポーネント数だけ繰り返し出る点に注意)。
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2007.png' | relative_url }}" alt="GUI Guider v1.10.1 の License Agreement ダイアログ。I ACCEPT / DECLINE ボタン">
+     <figcaption>図 7: GUI Guider の License Agreement</figcaption>
+   </figure>
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2008.png' | relative_url }}" alt="FreeMASTER tool 3.2 の License Agreement ダイアログ">
+     <figcaption>図 8: FreeMASTER の License Agreement(同様にコンポーネントごとに出る)</figcaption>
+   </figure>
+
+8. インストールが進むと、最後に **環境変数を更新したので VS Code を再起動するよう促す Warning** が出る。OK で閉じる。
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2009.png' | relative_url }}" alt="MCUXpresso Installer の Warning message。環境変数を更新したので VS Code を再起動するよう促されている。画面下部のログには GUI Guider / FreeMASTER のダウンロード失敗メッセージが見える">
+     <figcaption>図 9: 環境変数更新の警告(画面下にエラーログが出ている場合は要確認)</figcaption>
+   </figure>
+
+   > **実機で発生したインストールエラー(2026 年時点)**: 図 9 の画面下部ログに、**GUI Guider と FreeMASTER のダウンロード URL 取得失敗**が記録されていた:
+   >
+   > ```
+   > [error] Could not get download URL for GUI-GUIDER-SETUP-1.10.1-GA-WIN. Skipping...
+   > [error] Could not get download URL for FMASTERSW: 200: OK. Skipping download...
+   > [error] Error occurred while installing FreeMASTER.
+   > *** Installation error ***
+   > ```
+   >
+   > LinkServer など多くのコンポーネントは正常にインストール済み(✅ 緑チェック)だが、上記 2 つは未インストール状態。**Installer 側の一時的不具合または NXP 配信側の問題**と思われ、後日 Installer の **更新マーク(右上のクラウド/再読み込みアイコン)で再試行**するか、各ツールを **NXP 公式サイトから個別ダウンロード**して導入することで回避可能。
+
+9. VS Code を再起動。再起動後、アクティビティバーの MCUXpresso アイコンを開くと、**IMPORTED REPOSITORIES が空**の初期状態になっている。この時点で `Import Example from Repository` を開いても Repository / Toolchain の選択肢が無く、フォーム上にエラーが出る。
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2010.png' | relative_url }}" alt="VS Code 再起動後の MCUXpresso 拡張。IMPORTED REPOSITORIES が空で、右側の Import Example from Repository フォームには Please select a repository / Please select a toolchain のエラーが出ている">
+     <figcaption>図 10: VS Code 再起動直後の MCUXpresso 拡張(リポジトリ未登録の初期状態)</figcaption>
+   </figure>
+
+10. QUICKSTART PANEL → **Import Repository** を押すと、Import Repository ダイアログが開く。**REMOTE** タブを選び、Repository ドロップダウンから **MCUXpresso SDK**(`https://github.com/nxp-mcuxpresso/mcuxsdk-manifests`)を選ぶ。本ボードでは新世代 MCUXpresso SDK のリポジトリを使う(Legacy 2.x / Zephyr 系 / Matter はここでは選ばない)。
+11. Repository を選ぶと Revision / Name / Location などの入力欄が現れる。
+    - **Revision**: デフォルトの `main` のままで良い(タグ指定したい場合のみ変更)
+    - **Name**: ローカルでの識別名。デフォルト `mcuxsdk` を流用
+    - **Location**: SDK 一式を展開するローカルパス。**ドキュメントリポジトリ(本リポ)とは別の作業ディレクトリ**を指定する(例: `d:\workspace\github`)。SDK は数 GB になるため、Git 管理下のディレクトリに紛れ込ませない
+
+    入力後 **Import** ボタンを押すとリポジトリ取得が始まる。
+
+    <figure>
+      <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2011.png' | relative_url }}" alt="Import Repository ダイアログ。Repository に MCUXpresso SDK、Revision に main、Name に mcuxsdk、Location に d:\workspace\github が入力され、Import ボタンが押せる状態">
+      <figcaption>図 11: Import 直前のダイアログ(Revision / Name / Location 入力済み)</figcaption>
+    </figure>
+
+    Import が完了すると IMPORTED REPOSITORIES に該当リポジトリが現れ、Import Example のフォームでも Repository / Board / Toolchain が選べるようになる。
+12. **Import Example from Repository** で Repository に取得した SDK を選び、Board に `frdmmcxn947`、Template に `hello_world` を指定して取り込む(以降の手順は[Hello World / 動作確認ログ](#a-mcuxpresso-sdk-hello_worlduart-出力)参照)。ビルド → フラッシュで実機動作を確認する。
 
 > 進めながら詰まった点・解決策はこの後の「Hello World / 動作確認ログ」に時系列で残す。
-
-### MCU-Link ファームウェア更新(必要時)
-
-古い FRDM ボードや、JLink モードに切り替えたい場合は MCU-Link ファームウェアの更新を行う。
-
-- 手順は MCUXpresso Installer 同梱の **MCU-Link host tools** を使う(`MCU-LINK` ボリュームに `firmware.bin` を配置するブートローダ手順)。
-- 実際に更新が必要だったかどうか・実施手順の詳細は次節のログに記録する。
 
 ## Hello World / 動作確認ログ
 
@@ -106,9 +208,46 @@ LPUART 経由でシリアル出力する SDK 同梱の定番サンプル。デ�
 #### 手順
 
 1. VS Code → MCUXpresso 拡張 → **IMPORT EXAMPLE FROM REPOSITORY**
-2. ボード `frdmmcxn947` を選び、テンプレートに `hello_world` を入力して取り込む(Cortex-M33 CPU0 用)
-3. ステータスバーまたは QUICKSTART PANEL から **Build** → **Debug**(または Flash)
-4. シリアルターミナル(VS Code 内蔵 Serial Monitor または TeraTerm 等)を **115200 / 8N1** で開く
+2. 各フィールドを以下のように指定する:
+
+   | フィールド | 値 | 補足 |
+   | --- | --- | --- |
+   | Repository | 取り込み済みの `mcuxsdk` (Version: 26.6.0) | [開発環境セットアップ手順 11](#開発環境セットアップ) で取得済み |
+   | Board | `FRDM-MCXN947` | ボード写真と一致を確認 |
+   | Template | `demo_apps/hello_world_cm33_core0` | 候補は[Template 早見表](#template-の選択肢-hello-で検索した時)を参照 |
+   | App type | `Repository application` | ソース配置の違いのみ。詳細は[App type 早見表](#app-type-の選択肢)を参照 |
+   | Name | `frdmmcxn947_hello_world_cm33_core0` | 任意。デフォルトのままでよい |
+   | Toolchain | Arm GNU Toolchain 14.2.Rel1(`Use recommended version (14.2.1)` でも可) | MCUXpresso Installer で導入済み |
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2012.png' | relative_url }}" alt="Import Example from Repository フォーム。Repository に mcuxsdk、Board に FRDM-MCXN947、Template に demo_apps/hello_world_cm33_core0、App type に Repository application、Toolchain に Arm GNU Toolchain 14.2.Rel1 が設定され Import ボタンが押せる状態">
+     <figcaption>図 12: Import 直前の入力済みフォーム(hello_world_cm33_core0 を Repository application として取り込む)</figcaption>
+   </figure>
+
+3. **Import** を押す。プロジェクトが `mcuxsdk/examples/...` 配下に生成され、PROJECTS ビューに現れる。
+4. ステータスバーまたは QUICKSTART PANEL から **Build** → **Debug**(または Flash)。
+   - **Build Configuration** に注意: `debug`(RAM ロード、リセットで消える)/ `flash_debug`(Flash 書き込み、電源オフでも残る)が用意されている。最初は `debug` で十分。残したくなったら `flash_debug` に切り替える。
+5. シリアルターミナル(VS Code 内蔵 Serial Monitor または TeraTerm 等)を **115200 / 8N1** で開く。
+
+##### Template の選択肢(`hello` で検索した時)
+
+| テンプレート | 用途 |
+| --- | --- |
+| **`demo_apps/hello_world_cm33_core0`** | **標準版**。Core0 + LPUART(MCU-Link 経由 COM)で `hello world.`。**最初の疎通確認はこれ** |
+| `demo_apps/hello_world_qspi_xip_cm33_core0` | 外付け QSPI フラッシュから XIP 実行する版 |
+| `demo_apps/hello_world_virtual_com_cm33_core0` | シリアル出力先が MCU 直結 USB の Virtual COM(USB CDC) |
+| `freertos_examples/freertos_hello_cm33_core0` | FreeRTOS タスクから hello world を出す |
+| `multicore_examples/hello_world_primary_core` | Core0 が Core1 を起動するデュアルコア構成 |
+| `trustzone_examples/hello_world_ns_cm33_core0` | TrustZone 分離環境の Non-Secure 側で動く |
+
+##### App type の選択肢
+
+| App type | 中身 | こういう時 |
+| --- | --- | --- |
+| **Repository application** | `mcuxsdk/examples/...` 配下にプロジェクトを作り SDK ソースを参照する(コピーしない) | **疎通確認・実験段階(今ここ)** |
+| **Freestanding application** | SDK の必要ファイルを指定先にコピーして自己完結型に | コンテスト提出物・配布物として独立させる時 |
+
+> RAM 実行 / Flash 書き込みは App type ではなく **Build Configuration**(リンカスクリプト `*_ram.ld` / `*_flash.ld`)で決まる点に注意。
 
 #### シリアル出力サンプル(期待値)
 
@@ -128,22 +267,26 @@ hello world.
 
 - _まだなし。発生したらここに「症状 → 原因 → 対処」を追記する。_
 
-#### 完了チェックリスト
+### B) MCUXpresso SDK: `led_blinky_peripheral`
 
-- [ ] サンプルが取り込めた
-- [ ] ビルドがエラーなく完了した
-- [ ] フラッシュ書き込みが成功した
-- [ ] シリアルターミナルに `hello world.` が表示された
+GPIO で基板上のユーザー LED(RGB の 1 色)を点滅させる、デバッガ・フラッシュ経路の "千本ノック" 用サンプル。
 
-### B) MCUXpresso SDK: `led_blinky`
-
-GPIO で基板上のユーザー LED を点滅させる、デバッガ・フラッシュ経路の "千本ノック" 用サンプル。
+> FRDM-MCXN947 のオンボードユーザー LED は **RGB 3 色 × 1 個**。Zephyr DTS 上のピン配置は Red=GPIO0\_P10 / Green=GPIO0\_P27 / Blue=GPIO1\_P2(いずれも ACTIVE_LOW)。SDK サンプルは通常このうち 1 色だけを点滅させる。
 
 #### 手順
 
-1. MCUXpresso 拡張から `frdmmcxn947` の `led_blinky`(または `gpio_led_output` 系)を取り込む
-2. Build → Flash
-3. ボード上のオンボード LED が約 1 Hz 程度で点滅することを確認
+1. MCUXpresso 拡張 → **IMPORT EXAMPLE** → Repository に `mcuxsdk`、Board に `FRDM-MCXN947`、Template 検索ボックスに `led` と入力すると 3 候補が出るので **`demo_apps/led_blinky_peripheral_cm33_core0`** を選ぶ。
+2. App type: `Repository application` / Toolchain: Arm GNU Toolchain で Import。
+3. Build Configuration `debug` で **Build → Debug**(または Flash)。
+4. ボード上のユーザー LED が約 1 Hz 程度で点滅することを確認。
+
+##### Template の選択肢(`led` で検索した時)
+
+| テンプレート | 用途 |
+| --- | --- |
+| **`demo_apps/led_blinky_peripheral_cm33_core0`** | **標準の点滅デモ**。GPIO ペリフェラル直叩きで LED を周期 ON/OFF。**最初はこれ** |
+| `cmsis_driver_examples/gpio/cmsis_button_toggle_led_cm33_core0` | CMSIS-Driver(ベンダ非依存の標準 API)+ ユーザーボタン押下で LED トグル |
+| `driver_examples/gpio/gpio_led_output_cm33_core0` | SDK GPIO ドライバ(`fsl_gpio.c`)の使い方リファレンス |
 
 #### 実行ログ(実機確認後に追記)
 
@@ -155,22 +298,30 @@ GPIO で基板上のユーザー LED を点滅させる、デバッガ・フラ�
 
 - _まだなし。_
 
-#### 完了チェックリスト
-
-- [ ] LED が周期的に点滅した
-- [ ] リセットスイッチ押下で再スタートする
-
 ### C) NPU を使った "Hello World"(最小推論サンプル)
 
-eIQ Neutron NPU の動作確認用最小プロジェクトとして、SDK 同梱の **`tflm_label_image`(`tflm_label_image_cm33_core0`)** を使う。
-TensorFlow Lite for Microcontrollers + Neutron NPU で、組み込みモデル(MobileNet 系の量子化モデル)に対する 1 枚画像のラベル推論を行うサンプル。
+eIQ Neutron NPU の動作確認用最小プロジェクトとして、SDK 同梱の **`eiq_examples/tflm_label_image_cm33_core0`** を使う。
+TensorFlow Lite for Microcontrollers + Neutron NPU で、組み込みモデル(MobileNet 系の量子化モデル)に対する 1 枚画像のラベル推論を行うサンプル。**外部センサ不要**で、ボードに焼くだけでシリアルに推論結果が出る。
 
 #### 手順
 
-1. MCUXpresso 拡張 → **IMPORT EXAMPLE** → ボード `frdmmcxn947` → テンプレート `label_image` で検索 → `eiq_examples/tflm_label_image_cm33_core0` を取り込む
-2. プロジェクト設定で **NPU(Neutron)バックエンド有効** になっていることを確認(無効の場合は CPU フォールバック実行になる)
-3. Build → Flash → シリアル(115200 / 8N1)で出力を確認
-4. 推論結果のラベル名と推論時間(ms)をログに残す
+1. MCUXpresso 拡張 → **IMPORT EXAMPLE** → Repository に `mcuxsdk`、Board に `FRDM-MCXN947`、Template 検索ボックスに `tflm` と入力 → **`eiq_examples/tflm_label_image_cm33_core0`** を選ぶ。
+2. App type: `Repository application` / Toolchain: Arm GNU Toolchain で Import。
+3. **ビルド**: Build Configuration `debug` または `flash_debug` で Build。TFLM ライブラリの初回コンパイルがあるため数分かかる。ビルドログに `Neutron` / `NPU` 系の文字列が出ているか確認(出ていなければ CPU フォールバック扱い)。
+4. **書き込み + 実行**: Debug または Flash → シリアル(115200 / 8N1)で出力を確認。
+5. 推論結果のラベル名と推論時間(ms)をログに残す。
+
+##### Template の選択肢(`tflm` で検索した時)
+
+| テンプレート | 中身 | 用途 |
+| --- | --- | --- |
+| **`eiq_examples/tflm_label_image_cm33_core0`** | **画像分類**、組み込みモデル + 組み込み画像で 1 枚推論。外部接続不要 | **NPU の最初の動作確認はこれ** |
+| `eiq_examples/tflm_cifar10_cm33_core0` | CIFAR-10 の 10 クラス分類 | 別モデルでの比較計測 |
+| `eiq_examples/tflm_kws_cm33_core0` | Keyword Spotting(キーワード検出)。バンドル PCM データで動く版あり | 音声系の足がかり |
+| `eiq_examples/tflm_lib_cm33_core0` | TFLM ライブラリ自体のビルドサンプル(推論アプリではない) | 通常は不要 |
+| `eiq_examples/tflm_modelrunner_cm33_core0` | 任意モデルを差し込んで動かす汎用ランナー | 自作モデル投入時の土台 |
+
+> カメラ + 推論パイプラインを試すサンプルは別カテゴリで、Template 検索を `mpp` に変えると `eiq_examples/mpp_cm33_core0` 系が出る。NPU の最初の動作確認では使わない。
 
 #### シリアル出力サンプル(イメージ)
 
@@ -194,13 +345,6 @@ Inference time: <NN> ms
 #### つまずき・解決メモ
 
 - _まだなし。NPU 有効化の Kconfig / マクロ名や、Neutron 用 OP サポートで詰まった点を残す想定。_
-
-#### 完了チェックリスト
-
-- [ ] サンプルが取り込めた(NPU 対応版)
-- [ ] ビルド・書き込みが成功した
-- [ ] シリアルに推論結果と推論時間が出力された
-- [ ] NPU vs CPU の推論時間差を把握した
 
 ## AI / NPU 実験ログ
 

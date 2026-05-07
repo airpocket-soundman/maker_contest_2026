@@ -82,6 +82,16 @@
       });
     }
 
+    // ボード開発記録ページの外部リンクを別タブで開く
+    document.querySelectorAll('.board-log a[href^="http"]').forEach(a => {
+      try {
+        if (new URL(a.href).hostname !== location.hostname) {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener noreferrer');
+        }
+      } catch (e) { /* malformed href: ignore */ }
+    });
+
     // アクティブページの H2 見出しをサイドバーに動的に展開
     function buildPageToc() {
       try {
