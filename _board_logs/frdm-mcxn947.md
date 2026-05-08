@@ -181,7 +181,7 @@ FRDM-MCXN947 で利用できる開発環境は主に **MCUXpresso for VS Code** 
 11. Repository を選ぶと Revision / Name / Location などの入力欄が現れる。
     - **Revision**: デフォルトの `main` のままで良い(タグ指定したい場合のみ変更)
     - **Name**: ローカルでの識別名。デフォルト `mcuxsdk` を流用
-    - **Location**: SDK 一式を展開するローカルパス。**ドキュメントリポジトリ(本リポ)とは別の作業ディレクトリ**を指定する(例: `d:\workspace\github`)。SDK は数 GB になるため、Git 管理下のディレクトリに紛れ込ませない
+    - **Location**: SDK 一式を展開するローカルパス。**Git 管理下のディレクトリに紛れ込ませない**(SDK は数 GB ある。サンプル切り出しレポと同じ親ディレクトリに置くと、後段の VS Code 「Source Control」が SDK 側のリポジトリを誤検出する)。推奨は `~/Documents/mcuxsdk` のようにユーザディレクトリ直下。後段で使う環境変数 `MCUXSDK_DIR` にこのパスを設定する
 
     入力後 **Import** ボタンを押すとリポジトリ取得が始まる。
 
@@ -195,51 +195,77 @@ FRDM-MCXN947 で利用できる開発環境は主に **MCUXpresso for VS Code** 
 
 > 進めながら詰まった点・解決策はこの後の「Hello World / 動作確認ログ」に時系列で残す。
 
-## ローカル切り出しリポジトリ ([`FRDM-MCXN947_test`](https://github.com/airpocket-soundman/FRDM-MCXN947_test))
+## ローカル切り出しリポジトリ ([`FRDM-MCXN947_demo`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo))
 
 MCUXpresso for VS Code の **Import Example from Repository** は、SDK ツリー(`mcuxsdk/examples/...`)の **直下** にプロジェクトを生成する。手早く試すには良いが、
 
 - SDK を `git pull` した時に、自分で書き換えた箇所と SDK 由来コードの境目が曖昧になる
 - 「原本(SDK 由来そのまま)」と「改造版」を **並べて diff を取りたい** 時に、SDK 例題ディレクトリと別ブランチを跨ぐ必要があり扱いづらい
 
-ため、**動かしたサンプルを別リポジトリに切り出して、原本と改造版を 2 桁プレフィックス(`00_xxx` / `01_xxx_my` ...)で並べる** 運用にしている。リポジトリは `D:\GitHub\FRDM-MCXN947_test`(本ドキュメントとは別レポ。詳細運用ルールは同レポの `CLAUDE.md` 参照)。
+ため、**動かしたサンプルを別リポジトリに切り出して、原本と改造版を 2 桁プレフィックス(`00_xxx` / `01_xxx_my` ...)で並べる** 運用にしている。リポジトリは [`airpocket-soundman/FRDM-MCXN947_demo`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo)(本ドキュメントとは別レポ。詳細運用ルールは同レポの [`README.md`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/README.md) と [`CLAUDE.md`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/CLAUDE.md) を参照)。
 
-> ⚠ **重要な方針(2026-05 確定)**: 切り出しの際、MCUXpresso Import Example の **App type は改良版で `Freestanding application` を選ぶこと**。Repository application で取り込むと SDK 由来ファイル(`board/hardware_init.c` 等)はローカルコピーが build に反映されず(SDK 側を参照する構成のため)、ボード固有の改造で詰む。原本の取り込みなら Repository でも可。詳細は同レポの [CLAUDE.md「サンプル取り込み方針」](https://github.com/airpocket-soundman/FRDM-MCXN947_test/blob/main/CLAUDE.md#サンプル取り込み方針app-type-の選択) を参照。
+> ⚠ **重要な方針(2026-05 改定)**: 切り出しの際、MCUXpresso Import Example の **App type は原本・改造版とも `Freestanding application` を選ぶ**。Freestanding は SDK 由来ファイル(`board/hardware_init.c`、`pin_mux.[ch]`、リンカスクリプト等)を **すべてローカルにコピー** するため、SDK 側のパス・バージョン依存を最小化できる。Repository application は SDK 側の実体を参照するだけなので、(a) ボード固有の改造が build に反映されず詰む、(b) SDK が更新されると同じプロジェクトの挙動が変わる、(c) 配布時に SDK パスを再現してもらう必要がある、という 3 つの問題が出る。**原本も Freestanding に統一**することで、原本と改造版の diff が「サンプル間の差分」になり読みやすくなる副次効果もある。詳細は同レポの [`CLAUDE.md`「サンプル取り込み方針」](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/CLAUDE.md#サンプル取り込み方針-app-type-の選択) を参照。
+
+### 設計の柱: ローカル絶対パスを排する
+
+複数マシンで開発したり、コンテスト提出物として配布する都合上、SDK の置き場所などの **ローカル固有の絶対パス** はリポジトリにコミットしない方針。具体的には:
+
+- **環境変数 `MCUXSDK_DIR`** を 1 つだけ各マシンで設定する(SDK の west root を指す)。例: `C:\Users\<you>\Documents\mcuxsdk`
+- リポジトリの [`.vscode/settings.json`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/.vscode/settings.json) はその env var を `${env:MCUXSDK_DIR}` で参照する
+- 初回だけ [`scripts/setup.ps1`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/scripts/setup.ps1) を実行すると自動探索 → ユーザスコープの環境変数として永続化してくれる
+- machine-local な上書きが要るときは `.vscode/settings.local.json`(`.gitignore` 済み)に逃がす。共通設定 (`settings.json`) には触らない
 
 ### ディレクトリ構成
 
 新 SDK(MCUX SDK v06、west レイアウト)の物理レイアウトと同じ二分割で揃えると、SDK の更新があっても `app/` と `board/` を上書きコピーするだけで取り込み直せる。
 
 ```
-FRDM-MCXN947_test/
-└─ <NN>_<sample>/
-    ├─ app/                共通アプリ部(SDK の examples/<category>/<example>/ をコピー)
-    │  ├─ CMakeLists.txt
-    │  ├─ CMakePresets.json
-    │  ├─ mcux_include.json   ← 環境変数定義。後述ハマり点を参照
-    │  ├─ <sample>.c
-    │  └─ debug/              CMake Tools が生成するビルド出力(.gitignore 対象)
-    ├─ board/              ボード固有部(SDK の _boards/frdmmcxn947/<category>/<example>/ をコピー)
-    │  ├─ pin_mux.[ch]
+FRDM-MCXN947_demo/
+├─ README.md                  リポジトリ概要 / 初回セットアップ手順
+├─ CLAUDE.md                  詳細規約(命名・App type 選択・取り込み後の必須調整)
+├─ .gitignore
+├─ .vscode/
+│   └─ settings.json          ${env:MCUXSDK_DIR} 経由で SDK を参照(全マシン共通)
+├─ scripts/
+│   └─ setup.ps1              MCUXSDK_DIR を自動検出して永続化(初回 1 回)
+└─ <NN>_<sample>/             サンプル 1 件 = ディレクトリ 1 つ
+    ├─ CMakeLists.txt           アプリ部の CMake 設定
+    ├─ CMakePresets.json        debug / release プリセット
+    ├─ mcux_include.json        環境変数定義(env var 化済み。後述ハマり点を参照)
+    ├─ Kconfig / prj.conf       アプリ Kconfig(必須)
+    ├─ <sample>.c (.cpp)        アプリソース
+    ├─ readme.md                SDK 由来 README
+    ├─ debug/                   CMake Tools が生成するビルド出力(.gitignore 対象)
+    ├─ .vscode/                 mcuxpresso-tools.json / launch / tasks / settings 等
+    ├─ frdmmcxn947_cm33_core0/  ボード固有部(SDK の _boards/frdmmcxn947/<category>/<example>/ 由来)
+    │  ├─ board_files.cmake
     │  ├─ <sample>.mex
-    │  ├─ reconfig.cmake
-    │  └─ cm33_core0/         Core 専用ファイル(hardware_init.c, prj.conf, app.h など)
-    └─ README.md           由来 SDK パス・動作確認結果・改造ポイント・はまり点を記録
+    │  ├─ Kconfig.trace / prj.conf
+    │  ├─ cm33_core0/         Core 専用ファイル(app.h, hardware_init.c)
+    │  ├─ frdmmcxn947/         ボード共通(board.[ch], clock_config.[ch], 各種 *_config.h)
+    │  └─ <sample>/           ペリフェラル / pin_mux 等のサンプル固有
+    └─ README.md             由来 SDK パス・動作確認結果・改造ポイント・はまり点を記録
 ```
 
 ### ビルド・書き込み手順(VS Code + CMake Tools)
 
-1. VS Code で `D:\GitHub\FRDM-MCXN947_test` をフォルダとして開く(全サンプルを 1 ワークスペースで扱う)。
-2. **CMake Tools** 拡張が `<sample>/app/CMakePresets.json` を自動検出する。コマンドパレットから **CMake: Select Configure Preset** で対象サンプルの `debug` を選ぶ。
-3. **CMake: Configure** → **CMake: Build** で `.elf` / `.bin` / `.hex` が `<sample>/app/debug/` 配下に生成される。
+0. **(初回のみ)** リポジトリ clone 後に `pwsh -File scripts/setup.ps1` を実行して `MCUXSDK_DIR` を設定 → VS Code を再起動。
+1. VS Code で `FRDM-MCXN947_demo` レポをフォルダとして開く(全サンプルを 1 ワークスペースで扱う)。
+2. **CMake Tools** 拡張が `<sample>/CMakePresets.json` を自動検出する。コマンドパレットから **CMake: Select Configure Preset** で対象サンプルの `debug` を選ぶ。
+3. **CMake: Configure** → **CMake: Build** で `.elf` / `.bin` / `.hex` が `<sample>/debug/` 配下に生成される。
 4. 書き込みは MCUXpresso 拡張の Flash アクション、または LinkServer の CLI から実行。経路は **MCU-Link USB(J17)** → オンボードデバッガ → SWD。
 5. シリアルは MCU-Link 側 VCOM を **115200 / 8N1** で開く(`hello_world_virtual_com` 系のみ J11 直結 USB を併用)。
 
 ### サンプル切り出し時に **必ず追加で揃える** 3 ファイル
 
-SDK ツリーから `app/` と `board/` を物理コピーしただけでは、MCUXpresso for VS Code 拡張の管理下に乗らない / Kconfig の必須ファイルが不足していて configure が通らない、の 2 重の落とし穴がある。新規切り出しの定型作業として以下を確認・調整する。
+Freestanding import 直後はローカル絶対パスを含む。新規切り出しの定型作業として以下を確認・調整する。
 
-#### 1. `<sample>/app/.vscode/mcuxpresso-tools.json` を SDK プロジェクト形式に書き換える
+> **SDK 26.6.0 + Freestanding import 時点の状況** (2026-05 確認):
+> - 項目 1 (`mcuxpresso-tools.json` の `projectType`) → 自動で `sdk-v2-freestanding` になる。確認のみで OK
+> - 項目 2 (`prj.conf` 集約) → `hello_world` / `led_blinky_peripheral` / `tflm_label_image` では自動生成済み。古い SDK や別系統サンプルで欠ける場合のみ集約
+> - 項目 3 (`mcux_include.json` のローカル絶対パス sanitize) → **必ず手動。コミット前必須**
+
+#### 1. `<sample>/.vscode/mcuxpresso-tools.json` を SDK プロジェクト形式に書き換える
 
 PROJECTS パネルでバッジが「**MCUXpresso SDK 26.6.0**」と「**CMake**」のどちらで表示されるかは、このファイルの `projectType` で決まる。SDK プロジェクトとして認識されないと拡張からの Flash / Debug が効かない。
 
@@ -250,7 +276,7 @@ PROJECTS パネルでバッジが「**MCUXpresso SDK 26.6.0**」と「**CMake**�
 
 正しい例:
 
-```json
+```jsonc
 {
   "version": "25.3",
   "toolchainPath": "${userHome}/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi",
@@ -259,7 +285,10 @@ PROJECTS パネルでバッジが「**MCUXpresso SDK 26.6.0**」と「**CMake**�
   "multicoreType": "none",
   "projectType": "sdk-v2-freestanding",
   "sdk": {
-    "path": "d:\\GitHub\\mcuxsdk",
+    // 注: ${env:MCUXSDK_DIR} を MCUXpresso 拡張がそのまま受け付けない場合は、
+    //     このファイルを .gitignore に入れて per-machine 扱いにし、
+    //     CMake 引数オーバーライド (.vscode/settings.json) を正本とする。
+    "path": "${env:MCUXSDK_DIR}",
     "version": "26.6.0",
     "boardId": "frdmmcxn947",
     "deviceId": "MCXN947",
@@ -269,9 +298,9 @@ PROJECTS パネルでバッジが「**MCUXpresso SDK 26.6.0**」と「**CMake**�
 }
 ```
 
-#### 2. `<sample>/app/prj.conf` が無い時は **board/cm33_core0/prj.conf を集約して作る**
+#### 2. `<sample>/prj.conf` が無い時は **frdmmcxn947_cm33_core0/prj.conf を集約して作る**
 
-SDK のサンプルによっては app 側に `prj.conf` が **存在しない**(例: `demo_apps/led_blinky_peripheral/`)。その状態でビルドすると Kconfig 段階で
+SDK のサンプルによっては app 側に `prj.conf` が **存在しない**ことがある。その状態でビルドすると Kconfig 段階で
 
 ```
 FileNotFoundError: '<APP_DIR>/prj.conf'
@@ -289,62 +318,53 @@ CONFIG_MCUX_PRJSEG_module.board.pinmux_project_folder=y
 
 > hello_world の場合は board レベル `prj.conf`(`pinmux_board_core_folder=y`)も存在するので、それも併せて集約する。
 
-#### 3. `mcux_include.json` の `SdkRootDirPath` が空のまま
+#### 3. `mcux_include.json` のローカル絶対パス sanitize **(コミット前必須)**
 
-サンプルを SDK ツリーから手でコピーして切り出した直後、`<sample>/app/mcux_include.json` の `debug-env` / `release-env` 内 `SdkRootDirPath` が **空文字のまま** になっていることがある(SDK 側のテンプレートが原因)。
+Freestanding import 直後、`<sample>/mcux_include.json` の `debug-env` / `release-env` 内に **ローカル絶対パスがハードコード**される(`C:/Users/<your_user>/.mcuxpressotools/...`、`c:/Users/<your_user>/Documents/mcuxsdk` など)。これを CMake preset の env var 構文 `$env{...}` に書き換えてからコミットする。
 
-```json
-"environment": {
-  "ARMGCC_DIR": "C:/Users/yamas/.mcuxpressotools/arm-gnu-toolchain-14.2.rel1-mingw-w64-x86_64-arm-none-eabi",
-  "SdkRootDirPath": "",   // ← これが空だと configure が壊れる
-  ...
+| Before(絶対パス) | After(env var) |
+| --- | --- |
+| `C:/Users/<you>/.mcuxpressotools` | `$env{USERPROFILE}/.mcuxpressotools` |
+| `c:/Users/<you>/Documents/mcuxsdk` | `$env{MCUXSDK_DIR}` |
+
+PowerShell でレポルートからまとめて sanitize する例:
+
+```powershell
+Get-ChildItem -Path . -Filter mcux_include.json -Recurse | ForEach-Object {
+    $c = Get-Content $_.FullName -Raw
+    $c = $c -replace [regex]::Escape("$env:USERPROFILE\.mcuxpressotools".Replace('\','/')), '$env{USERPROFILE}/.mcuxpressotools'
+    $c = $c -replace [regex]::Escape($env:MCUXSDK_DIR), '$env{MCUXSDK_DIR}'
+    [System.IO.File]::WriteAllText($_.FullName, $c, (New-Object System.Text.UTF8Encoding $false))
+    Write-Host "Sanitized: $($_.FullName)"
 }
 ```
 
-この状態で CMake: Configure を回すと、生成される cmake コマンドラインが
+**保険**: ワークスペース [`.vscode/settings.json`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/.vscode/settings.json) で同じ変数を `cmake.configureArgs` の `-D` で上書き済みなので、万一 `mcux_include.json` の値が空文字に正規化されたり古いままでも CMake の最終値で救える(同じ `-DVAR=...` が複数あると最後の値が cache に入る)。
+
+**ビルドが通らない時のチェックリスト**:
+
+1. `pwsh -File scripts/setup.ps1` を実行して `MCUXSDK_DIR` を設定済みか / VS Code を再起動済みか
+2. `<sample>/debug/` (古い CMakeCache) を削除して再 Configure
+   - CMake Tools の `cmake.skipConfigureWhenCachePresent` が ON のままだと、壊れたキャッシュでスキップされ続け、修正したつもりでも反映されない
+3. configure ログの末尾が `-DSdkRootDirPath=<MCUXSDK_DIR>/mcuxsdk -DCMAKE_TOOLCHAIN_FILE=<MCUXSDK_DIR>/mcuxsdk/cmake/toolchain/armgcc.cmake` で締められていて、`-- Build files have been written to:` が出れば正常
+
+##### 症状例(過去事例): `SdkRootDirPath` が空文字に正規化される
+
+MCUXpresso for VS Code 拡張のプリセット コントローラが、何らかの操作後に `mcux_include.json` の `SdkRootDirPath` を **空文字に書き戻す** ケースが報告されている(2026 時点)。その状態で Configure を回すと cmake コマンドラインが
 
 ```
 -DSdkRootDirPath=/mcuxsdk
 -DCMAKE_TOOLCHAIN_FILE=/mcuxsdk/cmake/toolchain/armgcc.cmake
 ```
 
-のように **ドライブ無しの絶対パス `/mcuxsdk` で展開され、toolchain が見つからず終了コード 1 で死ぬ**。VS Code 上の症状はそっけなく、CMake のログに configure のエラーが出た後、Build/Debug を試した時に
+のように **ドライブ無しの絶対パス `/mcuxsdk` で展開され、toolchain が見つからず終了コード 1 で死ぬ**。VS Code 上の症状はそっけなく、CMake のログに configure エラーが出た後、Build / Debug を試した時に
 
 ```
 [main] 起動する実行可能ファイル ターゲットが見つかりませんでした。
 [main] プログラムは実行されません
 ```
 
-としか出ない。**configure が死んでいるからターゲットが生成されていない、というのが本当の原因。**
-
-#### 対処: ワークスペース `.vscode/settings.json` で `cmake.configureArgs` 上書き
-
-`mcux_include.json` を直接書き換えても、`CMakeUserPresets.json` で `inherits` 上書きしても、**MCUXpresso for VS Code 拡張のプリセット コントローラがあらゆる preset ファイル内の `SdkRootDirPath` を空文字に正規化して書き戻す**(2026 時点)。preset レイヤで戦うのは無理。
-
-代わりに CMake Tools 拡張のワークスペース設定で **cmake コマンドラインに `-D` を追加して上書き** する。これは preset が評価された後に追加引数として渡され、cmake は同じ `-DVAR=...` が複数ある場合 **最後の値が cache に入る**ため、preset 由来の壊れた値を上書きできる。
-
-`<repo-root>/.vscode/settings.json`(`.gitignore` 対象):
-
-```json
-{
-  "cmake.configureArgs": [
-    "-DSdkRootDirPath=d:/GitHub/mcuxsdk/mcuxsdk",
-    "-DCMAKE_TOOLCHAIN_FILE=d:/GitHub/mcuxsdk/mcuxsdk/cmake/toolchain/armgcc.cmake"
-  ],
-  "cmake.environment": {
-    "SdkRootDirPath": "d:/GitHub/mcuxsdk"
-  }
-}
-```
-
-手順:
-
-1. 上記 `<repo-root>/.vscode/settings.json` を作る(初回 1 回だけ)。
-2. **古い壊れた CMakeCache を消す**: `<sample>/app/debug/` をディレクトリごと削除する。
-   - CMake Tools の `cmake.skipConfigureWhenCachePresent` が ON のままだと、壊れたキャッシュでスキップされ続け、修正したつもりでも反映されない。
-3. VS Code で **CMake: Configure → Build** を再実行。configure ログの末尾が `-DSdkRootDirPath=d:/GitHub/mcuxsdk/mcuxsdk -DCMAKE_TOOLCHAIN_FILE=d:/GitHub/mcuxsdk/mcuxsdk/cmake/toolchain/armgcc.cmake` で締められていて、`-- Build files have been written to:` が出れば正常。
-
-> なお、本セクション #1(`mcuxpresso-tools.json` を `sdk-v2-freestanding` 化)を先に済ませると、拡張が SDK プロジェクトと認識して `mcux_include.json` の `SdkRootDirPath` を再上書きしなくなる可能性がある(未検証)。検証次第ここに追記する。
+としか出ない。**configure が死んでいるからターゲットが生成されていない、というのが本当の原因。** preset レイヤで `mcux_include.json` を書き換えても拡張に再上書きされて意味がない。だからこそ「ワークスペース `cmake.configureArgs` で `-D` 上書き」を **正本** として固定し、preset 側は env var 化したうえで保険扱いにしている。
 
 ## Hello World / 動作確認ログ
 
@@ -366,16 +386,17 @@ LPUART 経由でシリアル出力する SDK 同梱の定番サンプル。デ�
    | Repository | 取り込み済みの `mcuxsdk` (Version: 26.6.0) | [開発環境セットアップ手順 11](#開発環境セットアップ) で取得済み |
    | Board | `FRDM-MCXN947` | ボード写真と一致を確認 |
    | Template | `demo_apps/hello_world_cm33_core0` | 候補は[Template 早見表](#template-の選択肢-hello-で検索した時)を参照 |
-   | App type | `Repository application` | ソース配置の違いのみ。詳細は[App type 早見表](#app-type-の選択肢)を参照 |
-   | Name | `frdmmcxn947_hello_world_cm33_core0` | 任意。デフォルトのままでよい |
+   | App type | **`Freestanding application`** | SDK 由来ファイルをローカルにコピーして自己完結化。詳細は[App type 早見表](#app-type-の選択肢) |
+   | Name | `00_hello_world` | サンプル切り出しレポの命名規約 `<NN>_<sample>`(原本) |
+   | Location | `…/FRDM-MCXN947_demo` | サンプル切り出しレポのルートを指定。直下に `00_hello_world/` が生成される |
    | Toolchain | Arm GNU Toolchain 14.2.Rel1(`Use recommended version (14.2.1)` でも可) | MCUXpresso Installer で導入済み |
 
    <figure>
-     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2012.png' | relative_url }}" alt="Import Example from Repository フォーム。Repository に mcuxsdk、Board に FRDM-MCXN947、Template に demo_apps/hello_world_cm33_core0、App type に Repository application、Toolchain に Arm GNU Toolchain 14.2.Rel1 が設定され Import ボタンが押せる状態">
-     <figcaption>図 12: Import 直前の入力済みフォーム(hello_world_cm33_core0 を Repository application として取り込む)</figcaption>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2013.png' | relative_url }}" alt="Import Example from Repository フォーム。Repository に c:\Users\yamashita_y00031\Documents\mcuxsdk、Board に FRDM-MCXN947、Template に demo_apps/hello_world_cm33_core0、App type に Freestanding application、Name に 00_hello_world、Location に c:\Users\yamashita_y00031\Documents\github\FRDM-MCXN947_demo、Toolchain に Arm GNU Toolchain 14.2.Rel1 が設定され Import ボタンが押せる状態">
+     <figcaption>図 13: Import 直前の入力済みフォーム(hello_world を Freestanding application として FRDM-MCXN947_demo 直下に取り込む)</figcaption>
    </figure>
 
-3. **Import** を押す。プロジェクトが `mcuxsdk/examples/...` 配下に生成され、PROJECTS ビューに現れる。
+3. **Import** を押す。指定した Location 直下(ここでは `FRDM-MCXN947_demo/00_hello_world/`)に CMake 設定 / アプリソース / `frdmmcxn947_cm33_core0/`(ボード固有部)を含む自己完結プロジェクトが生成され、PROJECTS ビューに現れる。続いて [取り込み後の必須調整 3 項目](#サンプル切り出し時に-必ず追加で揃える-3-ファイル) を確認。
 4. ステータスバーまたは QUICKSTART PANEL から **Build** → **Debug**(または Flash)。
    - **Build Configuration** に注意: `debug`(RAM ロード、リセットで消える)/ `flash_debug`(Flash 書き込み、電源オフでも残る)が用意されている。最初は `debug` で十分。残したくなったら `flash_debug` に切り替える。
 5. シリアルターミナル(VS Code 内蔵 Serial Monitor または TeraTerm 等)を **115200 / 8N1** で開く。
@@ -393,12 +414,12 @@ LPUART 経由でシリアル出力する SDK 同梱の定番サンプル。デ�
 
 ##### App type の選択肢
 
-| App type | 中身 | こういう時 |
+| App type | 中身 | このレポでの使いどころ |
 | --- | --- | --- |
-| **Repository application** | `mcuxsdk/examples/...` 配下にプロジェクトを作り SDK ソースを参照する(コピーしない) | 疎通確認・原本そのまま動かすだけ |
-| **Freestanding application** | SDK の必要ファイルを指定先にコピーして自己完結型に | **改造版を作る時 / コンテスト提出物・配布物として独立させる時** |
+| **`Freestanding application`**(推奨) | SDK の必要ファイル(`board/`, `app/`, リンカスクリプト等)を指定先に **コピー** して自己完結型に | **原本も改造版も全部これ**。配布・diff・改造のすべてで扱いやすい |
+| `Repository application` | `mcuxsdk/examples/...` 配下にプロジェクトを作り SDK ソースを **参照する**(コピーしない) | 一時的な疎通確認のみ。本レポには通常入れない |
 
-> ⚠ **改造版を作る時は Freestanding 必須**: Repository application は SDK ファイルを **参照しているだけ** なので、コピー先 `board/hardware_init.c` 等を編集しても **build に反映されない**(SDK 側の正本が拾われる)。SysTick 周波数を変える・追加 pin mux を設定する・別クロック源を選ぶなどの改造で詰む。Freestanding なら SDK 由来ファイルがすべてローカルにコピーされ、`board/` 含めて全部編集が効く。実例は [FRDM-MCXN947_test リポジトリ](https://github.com/airpocket-soundman/FRDM-MCXN947_test) の `11_led_blinky_peripheral` を参照(初版で踏んだ罠と回避策が README に残してある)。
+> ⚠ **このレポは原本・改造版とも Freestanding に統一**: Repository application は SDK ファイルを参照しているだけなので、(a) コピー先 `board/hardware_init.c` 等を編集しても build に反映されない(SDK 側の正本が拾われる)、(b) SDK 更新で同じプロジェクトの挙動が変わる、(c) 配布時に SDK パスを再現してもらう必要がある。Freestanding なら SDK 由来ファイルがすべてローカルにコピーされ、`board/` 含めて全部編集が効くうえ、原本と改造版の diff が「サンプル間の純粋な差分」として読める。実例は [`FRDM-MCXN947_demo` リポジトリ](https://github.com/airpocket-soundman/FRDM-MCXN947_demo) の各 `<NN>_<sample>` / `<NN>_<sample>_my` を参照。
 
 > RAM 実行 / Flash 書き込みは App type ではなく **Build Configuration**(リンカスクリプト `*_ram.ld` / `*_flash.ld`)で決まる点に注意。
 
@@ -429,9 +450,10 @@ GPIO で基板上のユーザー LED(RGB の 1 色)を点滅させる、デバ�
 #### 手順
 
 1. MCUXpresso 拡張 → **IMPORT EXAMPLE** → Repository に `mcuxsdk`、Board に `FRDM-MCXN947`、Template 検索ボックスに `led` と入力すると 3 候補が出るので **`demo_apps/led_blinky_peripheral_cm33_core0`** を選ぶ。
-2. App type: `Repository application` / Toolchain: Arm GNU Toolchain で Import。
-3. Build Configuration `debug` で **Build → Debug**(または Flash)。
-4. ボード上のユーザー LED が約 1 Hz 程度で点滅することを確認。
+2. App type: **`Freestanding application`** / Name: `10_led_blinky_peripheral` / Location: `…/FRDM-MCXN947_demo` / Toolchain: Arm GNU Toolchain で Import。
+3. [取り込み後の必須調整 3 項目](#サンプル切り出し時に-必ず追加で揃える-3-ファイル) を確認(特に `mcux_include.json` の絶対パス sanitize)。
+4. Build Configuration `debug` で **Build → Debug**(または Flash)。
+5. ボード上のユーザー LED が約 1 Hz 程度で点滅することを確認。
 
 ##### Template の選択肢(`led` で検索した時)
 
@@ -459,10 +481,11 @@ TensorFlow Lite for Microcontrollers + Neutron NPU で、組み込みモデル(M
 #### 手順
 
 1. MCUXpresso 拡張 → **IMPORT EXAMPLE** → Repository に `mcuxsdk`、Board に `FRDM-MCXN947`、Template 検索ボックスに `tflm` と入力 → **`eiq_examples/tflm_label_image_cm33_core0`** を選ぶ。
-2. App type: `Repository application` / Toolchain: Arm GNU Toolchain で Import。
-3. **ビルド**: Build Configuration `debug` または `flash_debug` で Build。TFLM ライブラリの初回コンパイルがあるため数分かかる。ビルドログに `Neutron` / `NPU` 系の文字列が出ているか確認(出ていなければ CPU フォールバック扱い)。
-4. **書き込み + 実行**: Debug または Flash → シリアル(115200 / 8N1)で出力を確認。
-5. 推論結果のラベル名と推論時間(ms)をログに残す。
+2. App type: **`Freestanding application`** / Name: `20_tflm_label_image` / Location: `…/FRDM-MCXN947_demo` / Toolchain: Arm GNU Toolchain で Import。
+3. [取り込み後の必須調整 3 項目](#サンプル切り出し時に-必ず追加で揃える-3-ファイル) を確認。
+4. **ビルド**: Build Configuration `debug` または `flash_debug` で Build。TFLM ライブラリの初回コンパイルがあるため数分かかる。ビルドログに `Neutron` / `NPU` 系の文字列が出ているか確認(出ていなければ CPU フォールバック扱い)。
+5. **書き込み + 実行**: Debug または Flash → シリアル(115200 / 8N1)で出力を確認。
+6. 推論結果のラベル名と推論時間(ms)をログに残す。
 
 ##### Template の選択肢(`tflm` で検索した時)
 
