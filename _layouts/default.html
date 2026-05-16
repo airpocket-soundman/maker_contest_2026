@@ -41,9 +41,14 @@
         {% endif %}
         {% assign sidebar_contests = site.contests | sort: 'entry_period.start' %}
         {% for c in sidebar_contests %}
+          {% assign c_slug = c.path | split: '/' | last | split: '.' | first %}
           <p class="toc-section-label">{{ c.short_title | default: c.title }}</p>
           <ul class="toc-list">
             <li><a href="{{ c.url | relative_url }}" class="toc-contest{% if page.url == c.url %} active{% endif %}">コンテスト概要</a></li>
+            {% assign related_events = site.event_logs | where: 'related_contest', c_slug | sort: 'order' %}
+            {% for ev in related_events %}
+              <li><a href="{{ ev.url | relative_url }}"{% if page.url == ev.url %} class="active"{% endif %}>{{ ev.short_title | default: ev.title }}</a></li>
+            {% endfor %}
             {% if c.hardware %}
               {% for hw_ref in c.hardware %}
                 {% if hw_ref.slug and hw_ref.slug != "" %}

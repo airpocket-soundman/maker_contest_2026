@@ -1,0 +1,60 @@
+---
+layout: default
+---
+<article class="event-log">
+  <header class="hardware-header">
+    <p class="breadcrumb">
+      <a href="{{ '/' | relative_url }}">トップ</a>
+      {% if page.related_contest %}
+        {% for c in site.contests %}
+          {% assign c_slug = c.path | split: '/' | last | split: '.' | first %}
+          {% if c_slug == page.related_contest %}
+            &raquo; <a href="{{ c.url | relative_url }}">{{ c.short_title | default: c.title }}</a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      &raquo; イベントログ
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.tagline %}<p class="tagline">{{ page.tagline }}</p>{% endif %}
+  </header>
+
+  <section class="info-block">
+    <h2>イベント情報</h2>
+    <dl class="info-list">
+      {% if page.event_type %}
+        <dt>種別</dt>
+        <dd>{{ page.event_type }}</dd>
+      {% endif %}
+      {% if page.organizer %}
+        <dt>主催</dt>
+        <dd>{{ page.organizer }}</dd>
+      {% endif %}
+      {% if page.venue %}
+        <dt>会場</dt>
+        <dd>{{ page.venue }}</dd>
+      {% endif %}
+      {% if page.event_date %}
+        <dt>開催日</dt>
+        <dd>{{ page.event_date }}</dd>
+      {% endif %}
+      {% if page.related_contest %}
+        <dt>関連コンテスト</dt>
+        <dd>
+          {% for c in site.contests %}
+            {% assign c_slug = c.path | split: '/' | last | split: '.' | first %}
+            {% if c_slug == page.related_contest %}
+              <a href="{{ c.url | relative_url }}">{{ c.title }}</a>
+            {% endif %}
+          {% endfor %}
+        </dd>
+      {% endif %}
+      {% if page.official_url %}
+        <dt>公式URL</dt>
+        <dd><a href="{{ page.official_url }}" target="_blank" rel="noopener">{{ page.official_url }}</a></dd>
+      {% endif %}
+    </dl>
+  </section>
+
+  {{ content }}
+</article>

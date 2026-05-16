@@ -14,6 +14,9 @@ collections:
   board_logs:
     output: true
     permalink: /board-logs/:path/
+  event_logs:
+    output: true
+    permalink: /event-logs/:path/
 
 defaults:
   - scope:
@@ -31,6 +34,11 @@ defaults:
       type: board_logs
     values:
       layout: board-log
+  - scope:
+      path: ""
+      type: event_logs
+    values:
+      layout: event-log
 
 markdown: kramdown
 kramdown:
