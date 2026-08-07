@@ -332,8 +332,8 @@ h3 a:hover {{ color:var(--series-1); }}
 <div class="wrap">
 <header>
 <h1>M5Stack Global Innovation Contest 2026 エントリー作品サマリ(全{TOTAL}作品)</h1>
-<p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全9ページ / 最終更新: <strong>2026-08-07 14:01 JST</strong>(締切まで約27時間)</p>
-<p>現在のエントリー数は <strong>{TOTAL}件</strong>。締切前日の駆け込みが始まっており、8/6昼(UTC)以降の新規投稿は{NEW_N}件です(NEWバッジ)。なお2件(StampFly 3D Flight Recorder、Water Drop Survival)が公開後にコンテストカテゴリから取り下げられたため、一覧・集計から除外しています。番号は公開日の新しい順です。</p>
+<p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全9ページ / 最終更新: <strong>2026-08-07 17:18 JST</strong>(締切まで約24時間)</p>
+<p>現在のエントリー数は <strong>{TOTAL}件</strong>。締切前日の駆け込みが始まっており、8/6昼(UTC)以降の新規投稿は{NEW_N}件です(NEWバッジ)。なお1件(Water Drop Survival)は公開後にコンテストカテゴリから取り下げられたため、一覧・集計から除外しています(StampFly 3D Flight Recorderは一時取り下げ後、8/7に復帰)。番号は公開日の新しい順です。</p>
 
 <p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。画像は各作品の公開ページのカバー画像(Hackster CDN)を参照しています。</p>
 

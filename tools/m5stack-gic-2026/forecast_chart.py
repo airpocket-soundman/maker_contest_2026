@@ -103,7 +103,7 @@ html = f'''
 応募締切は公式サイト記載の <strong>2026-08-07 23:59 PST</strong>(= {dl_jst:%Y-%m-%d %H:%M} JST)。8月の米西海岸は実際にはPDT(UTC-7)のため、表記どおりPSTと解釈した場合より締切が1時間早い可能性があります(全モデルともPST表記どおりを採用)。
 3モデルとも同一の観測データ(2026年の日別投稿数、および前年2025年大会=最終192件の投稿時刻リスト)から独立に算出しています。観測値はいずれも <strong>143件</strong> です。
 </p>
-<p class="sub"><strong>経過メモ</strong>(予測値は算出時点の記録として固定):<br>・8/7 07:55 JST — 142件。前夜から新規0件、1件(StampFly)がカテゴリ取り下げ。<br>・8/7 12:16 JST — <strong>162件</strong>。駆け込み開始、約14時間で+20件(8/6 21:15〜8/7 10:49 JST公開)。締切まで残り約29時間での必要増分は Codex +55 / Opus +34 / Fable +23。現在のペースが続けば3モデルとも射程内で、ラッシュの規模が Codex(2025年再現)と Fable(前倒し割引)のどちらに近いかが決まり手になります。<br>・8/7 14:01 JST — <strong>162件</strong>。新規1件(Makerchip Decorder)、1件(Water Drop Survival)がカテゴリ取り下げで差し引きゼロ。残り約27時間、必要増分は Codex +55 / Opus +34 / Fable +23。</p>
+<p class="sub"><strong>経過メモ</strong>(予測値は算出時点の記録として固定):<br>・8/7 07:55 JST — 142件。前夜から新規0件、1件(StampFly)がカテゴリ取り下げ。<br>・8/7 12:16 JST — <strong>162件</strong>。駆け込み開始、約14時間で+20件(8/6 21:15〜8/7 10:49 JST公開)。締切まで残り約29時間での必要増分は Codex +55 / Opus +34 / Fable +23。現在のペースが続けば3モデルとも射程内で、ラッシュの規模が Codex(2025年再現)と Fable(前倒し割引)のどちらに近いかが決まり手になります。<br>・8/7 14:01 JST — <strong>162件</strong>。新規1件(Makerchip Decorder)、1件(Water Drop Survival)がカテゴリ取り下げで差し引きゼロ。残り約27時間、必要増分は Codex +55 / Opus +34 / Fable +23。<br>・8/7 17:18 JST — <strong>163件</strong>。一時取り下げされていたStampFly 3D Flight Recorderがカテゴリに復帰(+1)。新規投稿はなし。残り約24時間、必要増分は Codex +54 / Opus +33 / Fable +22。</p>
 
 <table class="mtable"><thead><tr><th>モデル</th><th>予測値</th><th>レンジ</th><th>算出時刻</th><th>一言でいうと</th></tr></thead><tbody>
 <tr><td><span class="dot3"></span>Codex (gpt-5.6-sol)</td><td>{pc['prediction']}</td><td>{pc['lo']}〜{pc['hi']}</td><td>{H.escape(pc['as_of_jst'])} JST</td><td class="dsc">2025年の伸び率をほぼそのまま適用(ラッシュ再現前提)</td></tr>
