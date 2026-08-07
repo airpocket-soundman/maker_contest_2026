@@ -19,12 +19,13 @@ def parse(path):
 
 
 summaries = {}
-for p in ['m5stack_contest_2026_entries.md', 'new_summaries.md', 'new_summaries3.md', 'new_summaries4.md', 'new_summaries5.md']:
+for p in ['m5stack_contest_2026_entries.md', 'new_summaries.md', 'new_summaries3.md', 'new_summaries4.md', 'new_summaries5.md', 'new_summaries6.md']:
     summaries.update(parse(p))
 print('summaries:', len(summaries))
 
-order = [l.strip() for l in open('order_new3.txt') if l.strip()]
+order = [l.strip() for l in open('order_new4.txt') if l.strip()]
 newest = set(l.strip() for l in open('urls_new5.txt') if l.strip())
+newest.add('/NDenchi/makerchip-decorder-e972f0')
 withdrawn = set(l.strip() for l in open('withdrawn.txt') if l.strip())
 missing = [u for u in order if u not in summaries]
 print('missing summaries:', missing)
@@ -37,7 +38,7 @@ lic_old = json.load(open('licenses.json'))
 for i, u in enumerate(urls_old, 1):
     img_by_url[u] = H.unescape(imgs_old.get(str(i), ''))
     lic_by_url[u] = lic_old.get(str(i), '')
-for f in ['projects2.json', 'projects3.json', 'projects4.json', 'projects5.json']:
+for f in ['projects2.json', 'projects3.json', 'projects4.json', 'projects5.json', 'projects6.json']:
     for o in json.load(open(f, encoding='utf-8')):
         u = o['url'].replace('https://www.hackster.io', '')
         img_by_url[u] = o['img']
