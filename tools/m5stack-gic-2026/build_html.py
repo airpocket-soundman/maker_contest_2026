@@ -140,6 +140,8 @@ for i, (k, v) in enumerate(rows):
 # ---------------- Charts D-G: parts & technology ----------------
 tech = json.load(open('tech_agg.json', encoding='utf-8'))
 FORECAST = open('forecast_section.html', encoding='utf-8').read()
+VERIFY = open('verify_section.html', encoding='utf-8').read()
+FINAL_R = json.load(open('final_result.json', encoding='utf-8'))
 PRED = json.load(open('prediction.json', encoding='utf-8'))
 PRED_F = json.load(open('prediction_fable.json', encoding='utf-8'))
 PRED_C = json.load(open('codex_result.json', encoding='utf-8'))
@@ -332,14 +334,15 @@ h3 a:hover {{ color:var(--series-1); }}
 <div class="wrap">
 <header>
 <h1>M5Stack Global Innovation Contest 2026 エントリー作品サマリ(全{TOTAL}作品)</h1>
-<p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全9ページ / 最終更新: <strong>2026-08-07 17:18 JST</strong>(締切まで約24時間)</p>
-<p>現在のエントリー数は <strong>{TOTAL}件</strong>。締切前日の駆け込みが始まっており、8/6昼(UTC)以降の新規投稿は{NEW_N}件です(NEWバッジ)。なお1件(Water Drop Survival)は公開後にコンテストカテゴリから取り下げられたため、一覧・集計から除外しています(StampFly 3D Flight Recorderは一時取り下げ後、8/7に復帰)。番号は公開日の新しい順です。</p>
+<p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全12ページ / 最終更新: <strong>2026-08-10 21:38 JST</strong>(応募締切後の確定版)</p>
+<p>応募は <strong>2026-08-07 23:59 PST</strong> に締め切られ、<strong>締切までに公開された作品は {FINAL_R['final_at_deadline']}件</strong> で確定しました。全体の約4割にあたる93件が最後の48時間に集中しています。NEWバッジ({NEW_N}件)は前回更新(8/7 17:18)以降に把握した分です。番号は公開日の新しい順。</p>
+<p>※ 公開後にコンテストカテゴリから取り下げられた6件は一覧・集計から除外しています。締切後に公開された1件も集計対象外です。</p>
 
 <p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。画像は各作品の公開ページのカバー画像(Hackster CDN)を参照しています。</p>
 
 <div class="tiles">
   <div class="tile"><div class="v">{TOTAL}</div><div class="k">エントリー総数</div></div>
-  <div class="tile"><div class="v">{NEW_N}</div><div class="k">前回比 増加</div></div>
+  <div class="tile"><div class="v">{FINAL_R['final_at_deadline']}</div><div class="k">締切時点の確定値</div></div>
   <div class="tile"><div class="v">{n_countries}</div><div class="k">投稿者の所在国数</div></div>
   <div class="tile"><div class="v">{peak['n']}</div><div class="k">日別最多({peak['date'][5:].replace('-', '/')})</div></div>
   <div class="tile"><div class="v">{PRED['central']:.0f}</div><div class="k">最終予測(Opus 5)</div></div>
@@ -373,6 +376,8 @@ h3 a:hover {{ color:var(--series-1); }}
 </svg>
 </div>
 </figure>
+
+{VERIFY}
 
 {FORECAST}
 
