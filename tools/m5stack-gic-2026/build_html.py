@@ -335,14 +335,14 @@ h3 a:hover {{ color:var(--series-1); }}
 <header>
 <h1>M5Stack Global Innovation Contest 2026 エントリー作品サマリ(全{TOTAL}作品)</h1>
 <p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全12ページ / 最終更新: <strong>2026-08-10 21:38 JST</strong>(応募締切後の確定版)</p>
-<p>応募は <strong>2026-08-07 23:59 PST</strong> に締め切られ、<strong>締切までに公開された作品は {FINAL_R['final_at_deadline']}件</strong> で確定しました。全体の約4割にあたる93件が最後の48時間に集中しています。NEWバッジ({NEW_N}件)は前回更新(8/7 17:18)以降に把握した分です。番号は公開日の新しい順。</p>
-<p>※ 公開後にコンテストカテゴリから取り下げられた6件は一覧・集計から除外しています。締切後に公開された1件も集計対象外です。</p>
+<p>応募は <strong>2026-08-07 23:59 PST</strong> に締め切られ、コンテストカテゴリの掲載作品は <strong>{FINAL_R['listed_total']}件</strong> で確定しました。全体の約4割にあたる93件が最後の48時間に集中しています。NEWバッジ({NEW_N}件)は前回更新(8/7 17:18)以降に把握した分です。番号は公開日の新しい順。</p>
+<p>※ カテゴリに掲載されている作品はすべて集計対象としています(公開日が締切後の1件、ページ削除済みで公開日が取れない3件を含む)。一方、公開後にカテゴリから取り下げられて現在は掲載されていない5件は除外しています。</p>
 
 <p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。画像は各作品の公開ページのカバー画像(Hackster CDN)を参照しています。</p>
 
 <div class="tiles">
   <div class="tile"><div class="v">{TOTAL}</div><div class="k">エントリー総数</div></div>
-  <div class="tile"><div class="v">{FINAL_R['final_at_deadline']}</div><div class="k">締切時点の確定値</div></div>
+  <div class="tile"><div class="v">{FINAL_R['listed_total']}</div><div class="k">確定応募数</div></div>
   <div class="tile"><div class="v">{n_countries}</div><div class="k">投稿者の所在国数</div></div>
   <div class="tile"><div class="v">{peak['n']}</div><div class="k">日別最多({peak['date'][5:].replace('-', '/')})</div></div>
   <div class="tile"><div class="v">{PRED['central']:.0f}</div><div class="k">最終予測(Opus 5)</div></div>

@@ -6,7 +6,7 @@ p = json.load(open('prediction.json', encoding='utf-8'))
 pf = json.load(open('prediction_fable.json', encoding='utf-8'))
 pc = json.load(open('codex_result.json', encoding='utf-8'))
 
-FINAL = fr['final_at_deadline']
+FINAL = fr['listed_total']
 NOW_N = fr['category_now']
 daily = fr['daily_final']
 
@@ -37,8 +37,9 @@ html = f'''
 <h2>答え合わせ: 締切後の確定値と予測の評価</h2>
 <p class="sub">
 締切(2026-08-07 23:59 PST = 08-08 16:59 JST)を過ぎたため、確定値との突き合わせを行いました。
-<strong>締切までに公開された作品は {FINAL} 件</strong>(集計時点でカテゴリに載っている {NOW_N} 件のうち、締切後公開が {fr['after_deadline']} 件、
-ページ削除済みで日付不明が {fr['undated']} 件。削除分は締切前の応募とみなして {FINAL} に含めています)。
+<strong>コンテストカテゴリに掲載された応募作品は {FINAL} 件</strong>で確定しました
+(うち締切後に公開日が付いているものが {fr['after_deadline']} 件、ページ削除済みで公開日を取得できないものが {fr['undated']} 件ありますが、
+主催者のカテゴリに載っている以上は応募として扱い、すべて集計対象に含めています)。
 </p>
 
 <table class="mtable"><thead><tr><th>順位</th><th>モデル</th><th>予測</th><th>レンジ</th><th>誤差</th><th>誤差率</th><th>評価</th></tr></thead>
@@ -62,7 +63,7 @@ html = f'''
 <div class="tiles" style="align-items:flex-start">
 <table class="mtable"><thead><tr><th>日付(UTC)</th><th>投稿数</th></tr></thead><tbody>{bars}</tbody></table>
 </div>
-<p class="sub">8/9の1件は締切後の公開で、集計対象からは外しています(2025年大会にも締切後の追加登録が数件ありました)。</p>
+<p class="sub">8/9付の1件は公開日が締切を過ぎていますが、カテゴリに掲載されているため集計に含めています(2025年大会でも締切後の追加登録が数件ありました)。</p>
 '''
 open('verify_section.html', 'w', encoding='utf-8').write(html)
 print('verify section written; FINAL =', FINAL)
