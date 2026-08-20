@@ -511,7 +511,7 @@ bj.onclick = () => {{ fj = !fj; apply(); }};
 const imgBtn = document.getElementById('imgtog');
 function applyImg() {{
   const off = localStorage.getItem('gic26_noimg') === '1';
-  document.body.classList.toggle('noimg', off);
+  document.body.classList.toggle('hidethumbs', off);
   imgBtn.classList.toggle('off', off);
   imgBtn.textContent = off ? '画像を表示' : '画像を隠す';
 }}
