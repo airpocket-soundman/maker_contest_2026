@@ -191,6 +191,33 @@
   }
 
   /* ---------- 起動 ---------- */
+  function b64e(o) {
+    return btoa(unescape(encodeURIComponent(JSON.stringify(o))))
+      .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function b64d(t) {
+    t = t.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(decodeURIComponent(escape(atob(t))));
+  }
+  function consumeSetupLink() {
+    var m = (location.hash || '').match(/gicsetup=([A-Za-z0-9_\-]+)/);
+    if (!m) return false;
+    try {
+      var cfg = b64d(m[1]);
+      if (cfg.t) localStorage.setItem(LS_TOKEN, cfg.t);
+      if (cfg.g) localStorage.setItem(LS_GIST, cfg.g);
+      history.replaceState(null, '', location.pathname + location.search);
+      return true;
+    } catch (e) { return false; }
+  }
+  function shareLink() {
+    if (!token() || !gistId()) { alert('先にトークンとGist IDを設定してください'); return; }
+    var url = location.origin + location.pathname + '#gicsetup=' + b64e({ t: token(), g: gistId() });
+    navigator.clipboard.writeText(url).then(function () {
+      setStatus('ok', '招待リンクをコピーしました — 他の2人に送ってください(開くだけで設定完了)');
+    }, function () { prompt('このリンクをコピーして他の2人に送ってください', url); });
+  }
+
   function init() {
     $$('#grid .card input[type=checkbox][data-p]').forEach(function (cb) {
       cb.addEventListener('change', function () {
@@ -226,14 +253,17 @@
         applyFilter();
       });
     });
+    var viaLink = consumeSetupLink();
     $('#tok').value = token();
     $('#gistid').value = gistId();
+    if (viaLink) setStatus('busy', '招待リンクの設定を取り込みました');
     $('#savecfg').addEventListener('click', function () {
       localStorage.setItem(LS_TOKEN, $('#tok').value.trim());
       localStorage.setItem(LS_GIST, $('#gistid').value.trim());
       load();
     });
     $('#mkgist').addEventListener('click', createGist);
+    $('#sharelink').addEventListener('click', shareLink);
     $('#cfgtog').addEventListener('click', function () { $('#synccfg').classList.toggle('open'); });
     $('#resync').addEventListener('click', load);
     window.addEventListener('beforeunload', function (e) {

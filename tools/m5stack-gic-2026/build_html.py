@@ -456,6 +456,7 @@ h3 a:hover {{ color:var(--series-1); }}
     <label>Gist ID <input type="text" class="gid" id="gistid" placeholder="共有するGistのID"></label>
     <button id="savecfg">保存して同期</button>
     <button id="mkgist">新規Gistを作成</button>
+    <button id="sharelink">招待リンクをコピー</button>
     <span style="color:var(--muted);font-size:.76rem">トークンとIDはこのブラウザ内(localStorage)にのみ保存されます。IDは3人で共有してください。</span>
   </div>
 </div>
