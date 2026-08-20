@@ -161,8 +161,18 @@
     });
   }
 
+  function commitFields() {
+    var t = $('#tok'), g = $('#gistid');
+    if (t && t.value.trim()) localStorage.setItem(LS_TOKEN, t.value.trim());
+    if (g) localStorage.setItem(LS_GIST, g.value.trim());
+  }
+
   function createGist() {
-    if (!token()) { alert('先にトークンを入力してください'); return; }
+    commitFields();
+    if (!token()) {
+      setStatus('ng', 'トークンが空です — GitHubトークン欄に貼り付けてから押してください');
+      return;
+    }
     setStatus('busy', 'Gistを作成中…');
     var files = {};
     files[FILE] = { content: JSON.stringify({ items: stripTouched(state), updatedAt: new Date().toISOString() }, null, 1) };
@@ -172,7 +182,8 @@
     }).then(function (g) {
       localStorage.setItem(LS_GIST, g.id);
       $('#gistid').value = g.id;
-      setStatus('ok', 'Gistを作成しました: ' + g.id + ' — このIDを他の2人にも共有してください');
+      state = state; cacheLocal();
+      setStatus('ok', 'Gistを作成しました(ID: ' + g.id + ')— 「招待リンクをコピー」で他の2人に配れます');
     }).catch(function (e) { setStatus('ng', '作成失敗: ' + e.message); });
   }
 
@@ -211,6 +222,7 @@
     } catch (e) { return false; }
   }
   function shareLink() {
+    commitFields();
     if (!token() || !gistId()) { alert('先にトークンとGist IDを設定してください'); return; }
     var url = location.origin + location.pathname + '#gicsetup=' + b64e({ t: token(), g: gistId() });
     navigator.clipboard.writeText(url).then(function () {
@@ -258,8 +270,11 @@
     $('#gistid').value = gistId();
     if (viaLink) setStatus('busy', '招待リンクの設定を取り込みました');
     $('#savecfg').addEventListener('click', function () {
-      localStorage.setItem(LS_TOKEN, $('#tok').value.trim());
-      localStorage.setItem(LS_GIST, $('#gistid').value.trim());
+      commitFields();
+      if (!gistId()) {
+        setStatus('ng', 'Gist IDが空です — 「新規Gistを作成」を押すか、共有されたIDを入力してください');
+        return;
+      }
       load();
     });
     $('#mkgist').addEventListener('click', createGist);
