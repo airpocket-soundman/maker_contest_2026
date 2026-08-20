@@ -142,6 +142,9 @@ tech = json.load(open('tech_agg.json', encoding='utf-8'))
 FORECAST = open('forecast_section.html', encoding='utf-8').read()
 VERIFY = open('verify_section.html', encoding='utf-8').read()
 FINAL_R = json.load(open('final_result.json', encoding='utf-8'))
+MARKS_CSS = open('marks.css', encoding='utf-8').read()
+MARKS_JS = open('marks.js', encoding='utf-8').read()
+PEOPLE = [('higedaruma', 'ひげだるま'), ('banno', 'ばんの'), ('airpocket', 'airpocket')]
 PRED = json.load(open('prediction.json', encoding='utf-8'))
 PRED_F = json.load(open('prediction_fable.json', encoding='utf-8'))
 PRED_C = json.load(open('codex_result.json', encoding='utf-8'))
@@ -188,8 +191,16 @@ for e in m:
     via = (f'<p class="via" title="{H.escape(e["country_via"])}">所在国の根拠: '
            f'{H.escape(e["country_via"])}</p>') if e.get('country_via') else ''
     pub = e['published'][:10] if e['published'] else '—'
+    key = e['url'].replace('https://www.hackster.io', '')
+    marks_boxes = ''.join(
+        f'<label><input type="checkbox" data-p="{pid}">{H.escape(pname)}</label>'
+        for pid, pname in PEOPLE)
+    marks_memos = ''.join(
+        f'<div class="memo"><span>{H.escape(pname)}</span>'
+        f'<textarea data-p="{pid}" rows="1" placeholder="メモ"></textarea></div>'
+        for pid, pname in PEOPLE)
     cards.append(f'''
-<article class="card{' isnew' if e['is_new'] else ''}" data-new="{str(e['is_new']).lower()}" data-c="{cc or 'NA'}" id="p{e['n']}">
+<article class="card{' isnew' if e['is_new'] else ''}" data-new="{str(e['is_new']).lower()}" data-c="{cc or 'NA'}" data-k="{key}" id="p{e['n']}">
   <div class="thumb">{imgtag}{badge}</div>
   <div class="body">
     <h3><span class="num">{e['n']}</span> <a href="{e['url']}" target="_blank" rel="noopener">{H.escape(e['title'])}</a></h3>
@@ -197,6 +208,12 @@ for e in m:
     {via}
     <p><span class="label">概要</span>{H.escape(e['gaiyo'])}</p>
     <p><span class="label">オリジナリティ</span>{H.escape(e['orig'])}</p>
+    <div class="marks">
+      <div class="mkrow">{marks_boxes}
+        <button type="button" class="memotog">メモを書く</button>
+      </div>
+      <div class="memos">{marks_memos}</div>
+    </div>
   </div>
 </article>''')
 
@@ -328,15 +345,17 @@ h3 a:hover {{ color:var(--series-1); }}
 .body p {{ font-size:.87rem; margin:8px 0; }}
 .label {{ display:inline-block; font-size:.71rem; font-weight:700; color:var(--series-1);
   border:1px solid var(--series-1); border-radius:4px; padding:0 6px; margin-right:6px; vertical-align:1px; }}
+{MARKS_CSS}
 </style>
 </head>
 <body class="viz-root">
 <div class="wrap">
 <header>
 <h1>M5Stack Global Innovation Contest 2026 エントリー作品サマリ(全{TOTAL}作品)</h1>
-<p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全12ページ / 最終更新: <strong>2026-08-10 21:38 JST</strong>(応募締切後の確定版)</p>
-<p>応募は <strong>2026-08-07 23:59 PST</strong> に締め切られ、コンテストカテゴリの掲載作品は <strong>{FINAL_R['listed_total']}件</strong> で確定しました。全体の約4割にあたる93件が最後の48時間に集中しています。NEWバッジ({NEW_N}件)は前回更新(8/7 17:18)以降に把握した分です。番号は公開日の新しい順。</p>
-<p>※ カテゴリに掲載されている作品はすべて集計対象としています(公開日が締切後の1件、ページ削除済みで公開日が取れない3件を含む)。一方、公開後にカテゴリから取り下げられて現在は掲載されていない5件は除外しています。</p>
+<p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全12ページ / 最終更新: <strong>2026-08-20 15:56 JST</strong>(締切後・審査期間中)</p>
+<p>応募は <strong>2026-08-07 23:59 PST</strong> に締め切られましたが、審査期間(8/28まで)の現在もカテゴリへの登録は増えており、掲載作品は <strong>{FINAL_R['listed_total']}件</strong> になりました。全体の約4割が締切直前の48時間に集中しています。NEWバッジ({NEW_N}件)は前回更新(8/10)以降の追加分です。番号は公開日の新しい順。</p>
+<p>※ カテゴリに掲載されている作品はすべて集計対象としています(公開日が締切後の{FINAL_R['after_deadline']}件、ページ削除済みで公開日が取れない{FINAL_R['undated']}件を含む)。一方、公開後にカテゴリから取り下げられて現在は掲載されていない8件は除外しています。</p>
+<p>※ カードの「ひげだるま / ばんの / airpocket」のチェックとメモは、同期設定でGitHub Gistを指定すると3人で共有・端末をまたいで保存されます(未設定の場合はこの端末にのみ保存)。</p>
 
 <p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。画像は各作品の公開ページのカバー画像(Hackster CDN)を参照しています。</p>
 
@@ -420,6 +439,23 @@ h3 a:hover {{ color:var(--series-1); }}
 <div class="controls">
   <button id="fnew">NEW({NEW_N}件)のみ表示</button>
   <button id="fjp">日本の投稿者のみ表示</button>
+  <span style="color:var(--muted)">|</span>
+  <button class="fbtn" id="f_higedaruma">ひげだるま</button>
+  <button class="fbtn" id="f_banno">ばんの</button>
+  <button class="fbtn" id="f_airpocket">airpocket</button>
+</div>
+
+<div id="syncbar">
+  <span><span class="dot" id="syncdot"></span><span id="syncmsg">準備中…</span></span>
+  <button id="resync">再同期</button>
+  <button id="cfgtog">同期設定</button>
+  <div id="synccfg">
+    <label>GitHubトークン(gist権限のみ) <input type="password" id="tok" placeholder="ghp_… / github_pat_…"></label>
+    <label>Gist ID <input type="text" class="gid" id="gistid" placeholder="共有するGistのID"></label>
+    <button id="savecfg">保存して同期</button>
+    <button id="mkgist">新規Gistを作成</button>
+    <span style="color:var(--muted);font-size:.76rem">トークンとIDはこのブラウザ内(localStorage)にのみ保存されます。IDは3人で共有してください。</span>
+  </div>
 </div>
 </header>
 </div>
@@ -457,13 +493,20 @@ function apply() {{
   bn.classList.toggle('on', fn); bj.classList.toggle('on', fj);
   bn.textContent = fn ? 'すべて表示({TOTAL}件)' : 'NEW({NEW_N}件)のみ表示';
   bj.textContent = fj ? '所在国で絞らない' : '日本の投稿者のみ表示';
+  window.__applyCardFilters();
+}}
+window.__applyCardFilters = function () {{
   document.querySelectorAll('#grid .card').forEach(c => {{
-    const ok = (!fn || c.dataset.new === 'true') && (!fj || c.dataset.c === 'JP');
+    const ok = (!fn || c.dataset.new === 'true') && (!fj || c.dataset.c === 'JP')
+               && c.dataset.mfilter !== 'hide';
     c.style.display = ok ? '' : 'none';
   }});
-}}
+}};
 bn.onclick = () => {{ fn = !fn; apply(); }};
 bj.onclick = () => {{ fj = !fj; apply(); }};
+</script>
+<script>
+{MARKS_JS}
 </script>
 </body>
 </html>'''

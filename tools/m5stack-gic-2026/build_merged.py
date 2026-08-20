@@ -19,12 +19,12 @@ def parse(path):
 
 
 summaries = {}
-for p in ['m5stack_contest_2026_entries.md', 'new_summaries.md', 'new_summaries3.md', 'new_summaries4.md', 'new_summaries5.md', 'new_summaries6.md', 'new_summaries7.md']:
+for p in ['m5stack_contest_2026_entries.md', 'new_summaries.md', 'new_summaries3.md', 'new_summaries4.md', 'new_summaries5.md', 'new_summaries6.md', 'new_summaries7.md', 'new_summaries8.md']:
     summaries.update(parse(p))
 print('summaries:', len(summaries))
 
-order = [l.strip() for l in open('order_final.txt') if l.strip()]
-newest = set(l.strip() for l in open('urls_new7.txt') if l.strip())
+order = [l.strip() for l in open('order_v2.txt') if l.strip()]
+newest = set(l.strip() for l in open('urls_new8.txt') if l.strip())
 withdrawn = set(l.strip() for l in open('withdrawn.txt') if l.strip())
 missing = [u for u in order if u not in summaries]
 print('missing summaries:', missing)
@@ -37,11 +37,22 @@ lic_old = json.load(open('licenses.json'))
 for i, u in enumerate(urls_old, 1):
     img_by_url[u] = H.unescape(imgs_old.get(str(i), ''))
     lic_by_url[u] = lic_old.get(str(i), '')
-for f in ['projects2.json', 'projects3.json', 'projects4.json', 'projects5.json', 'projects6.json', 'projects7.json']:
+for f in ['projects2.json', 'projects3.json', 'projects4.json', 'projects5.json', 'projects6.json', 'projects7.json', 'projects8.json']:
     for o in json.load(open(f, encoding='utf-8')):
         u = o['url'].replace('https://www.hackster.io', '')
         img_by_url[u] = o['img']
         lic_by_url[u] = o['license']
+
+
+ALIAS = {'/wheelbot/wheelbot-robotic-drive-and-steering-unit-for-amrs-c4fa26':
+         '/wheelbot/wheelbot-the-autonomous-wheel-for-autonomous-mobile-robots-c4fa26'}
+for new_u, old_u in ALIAS.items():
+    if new_u not in summaries and old_u in summaries:
+        summaries[new_u] = dict(summaries[old_u], url='https://www.hackster.io' + new_u)
+    if not img_by_url.get(new_u) and img_by_url.get(old_u):
+        img_by_url[new_u] = img_by_url[old_u]
+    if not lic_by_url.get(new_u) and lic_by_url.get(old_u):
+        lic_by_url[new_u] = lic_by_url[old_u]
 
 meta = json.load(open('meta.json', encoding='utf-8'))
 traced = json.load(open('traced.json', encoding='utf-8'))
