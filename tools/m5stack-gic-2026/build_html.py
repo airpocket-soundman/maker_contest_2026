@@ -1,4 +1,5 @@
-import json, html as H, datetime as dt
+import sys, json, html as H, datetime as dt
+PLAIN = '--plain' in sys.argv   # 画像なし・Gist連携なし・チェック欄なしの独立版
 from collections import Counter
 
 m = json.load(open('merged2.json', encoding='utf-8'))
@@ -142,8 +143,11 @@ tech = json.load(open('tech_agg.json', encoding='utf-8'))
 FORECAST = open('forecast_section.html', encoding='utf-8').read()
 VERIFY = open('verify_section.html', encoding='utf-8').read()
 FINAL_R = json.load(open('final_result.json', encoding='utf-8'))
-MARKS_CSS = open('marks.css', encoding='utf-8').read()
-MARKS_JS = open('marks.js', encoding='utf-8').read()
+MARKS_CSS = '' if PLAIN else open('marks.css', encoding='utf-8').read()
+MARKS_JS = '' if PLAIN else open('marks.js', encoding='utf-8').read()
+if PLAIN:
+    MARKS_CSS = ('.newb.inline {{ position:static; display:inline-block;'
+                 ' margin-right:6px; vertical-align:2px; }}')
 PEOPLE = [('higedaruma', 'ひげだるま'), ('banno', 'ばんの'), ('airpocket', 'airpocket')]
 PRED = json.load(open('prediction.json', encoding='utf-8'))
 PRED_F = json.load(open('prediction_fable.json', encoding='utf-8'))
@@ -192,28 +196,33 @@ for e in m:
            f'{H.escape(e["country_via"])}</p>') if e.get('country_via') else ''
     pub = e['published'][:10] if e['published'] else '—'
     key = e['url'].replace('https://www.hackster.io', '')
-    marks_boxes = ''.join(
-        f'<label><input type="checkbox" data-p="{pid}">{H.escape(pname)}</label>'
-        for pid, pname in PEOPLE)
-    marks_memos = ''.join(
-        f'<div class="memo"><span>{H.escape(pname)}</span>'
-        f'<textarea data-p="{pid}" rows="1" placeholder="メモ"></textarea></div>'
-        for pid, pname in PEOPLE)
+    if PLAIN:
+        thumb_html = ''
+        marks_html = ''
+        inline_badge = '<span class="newb inline">NEW</span> ' if e['is_new'] else ''
+    else:
+        thumb_html = f'<div class="thumb">{imgtag}{badge}</div>'
+        inline_badge = ''
+        _boxes = ''.join(
+            f'<label><input type="checkbox" data-p="{pid}">{H.escape(pname)}</label>'
+            for pid, pname in PEOPLE)
+        _memos = ''.join(
+            f'<div class="memo"><span>{H.escape(pname)}</span>'
+            f'<textarea data-p="{pid}" rows="1" placeholder="メモ"></textarea></div>'
+            for pid, pname in PEOPLE)
+        marks_html = ('<div class="marks"><div class="mkrow">' + _boxes +
+                      '<button type="button" class="memotog">メモを書く</button></div>'
+                      '<div class="memos">' + _memos + '</div></div>')
     cards.append(f'''
 <article class="card{' isnew' if e['is_new'] else ''}" data-new="{str(e['is_new']).lower()}" data-c="{cc or 'NA'}" data-k="{key}" id="p{e['n']}">
-  <div class="thumb">{imgtag}{badge}</div>
+  {thumb_html}
   <div class="body">
-    <h3><span class="num">{e['n']}</span> <a href="{e['url']}" target="_blank" rel="noopener">{H.escape(e['title'])}</a></h3>
+    <h3><span class="num">{e['n']}</span> {inline_badge}<a href="{e['url']}" target="_blank" rel="noopener">{H.escape(e['title'])}</a></h3>
     <p class="meta">{H.escape(e['author_name'])} ・ {H.escape(flag)} ・ {pub} ・ {H.escape(e['license'])}</p>
     {via}
     <p><span class="label">概要</span>{H.escape(e['gaiyo'])}</p>
     <p><span class="label">オリジナリティ</span>{H.escape(e['orig'])}</p>
-    <div class="marks">
-      <div class="mkrow">{marks_boxes}
-        <button type="button" class="memotog">メモを書く</button>
-      </div>
-      <div class="memos">{marks_memos}</div>
-    </div>
+    {marks_html}
   </div>
 </article>''')
 
@@ -221,6 +230,56 @@ lic_html = ''.join(f'<tr><td>{H.escape(k)}</td><td>{v}</td></tr>' for k, v in li
 ctry_html = ''.join(
     f'<tr><td>{H.escape("未設定" if k == "(未設定)" else NAME.get(k, k))}</td>'
     f'<td>{by_auth.get(k, 0)}</td><td>{v}</td></tr>' for k, v in by_proj)
+
+MARKS_NOTE = '' if PLAIN else (
+    '<p>※ カードの「ひげだるま / ばんの / airpocket」のチェックとメモは、'
+    '同期設定でGitHub Gistを指定すると3人で共有・端末をまたいで保存されます'
+    '(未設定の場合はこの端末にのみ保存)。</p>')
+
+IMG_NOTE = (
+    f'<p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。'
+    'このページは作品画像を掲載せず、作品名・概要・出典リンクのみで構成しています。'
+    '各作品の写真や詳細は、タイトルのリンク先(Hackster.ioの作者ページ)でご覧ください。</p>'
+    if PLAIN else
+    f'<p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。'
+    '画像は各作品の公開ページのカバー画像(Hackster CDN)を参照しています。</p>')
+
+EXTRA_CONTROLS = '' if PLAIN else """  <span style="color:var(--muted)">|</span>
+  <button class="fbtn" id="f_higedaruma">ひげだるま</button>
+  <button class="fbtn" id="f_banno">ばんの</button>
+  <button class="fbtn" id="f_airpocket">airpocket</button>
+  <span style="color:var(--muted)">|</span>
+  <button id="imgtog">画像を隠す</button>"""
+
+SYNCBAR = '' if PLAIN else """<div id="syncbar">
+  <span><span class="dot" id="syncdot"></span><span id="syncmsg">準備中…</span></span>
+  <button id="resync">再同期</button>
+  <button id="cfgtog">同期設定</button>
+  <div id="synccfg">
+    <label>GitHubトークン(gist権限のみ) <input type="password" id="tok" placeholder="ghp_… / github_pat_…"></label>
+    <label>Gist ID <input type="text" class="gid" id="gistid" placeholder="共有するGistのID"></label>
+    <button id="savecfg">保存して同期</button>
+    <button id="mkgist">新規Gistを作成</button>
+    <button id="sharelink">招待リンクをコピー</button>
+    <span style="color:var(--muted);font-size:.76rem">トークンとIDはこのブラウザ内(localStorage)にのみ保存されます。IDは3人で共有してください。</span>
+  </div>
+</div>"""
+
+IMGTOG_JS = '' if PLAIN else """
+const imgBtn = document.getElementById('imgtog');
+function applyImg() {
+  const off = localStorage.getItem('gic26_noimg') === '1';
+  document.body.classList.toggle('hidethumbs', off);
+  imgBtn.classList.toggle('off', off);
+  imgBtn.textContent = off ? '画像を表示' : '画像を隠す';
+}
+imgBtn.onclick = () => {
+  localStorage.setItem('gic26_noimg',
+    localStorage.getItem('gic26_noimg') === '1' ? '0' : '1');
+  applyImg();
+};
+applyImg();
+"""
 
 first, last = series[0]['date'], series[-1]['date']
 peak = max(series, key=lambda r: r['n'])
@@ -355,9 +414,9 @@ h3 a:hover {{ color:var(--series-1); }}
 <p>出典: Hackster.io M5Stackコミュニティ コンテストカテゴリ(category_id=595)全12ページ / 最終更新: <strong>2026-08-20 15:56 JST</strong>(締切後・審査期間中)</p>
 <p>応募は <strong>2026-08-07 23:59 PST</strong> に締め切られましたが、審査期間(8/28まで)の現在もカテゴリへの登録は増えており、掲載作品は <strong>{FINAL_R['listed_total']}件</strong> になりました。全体の約4割が締切直前の48時間に集中しています。NEWバッジ({NEW_N}件)は前回更新(8/10)以降の追加分です。番号は公開日の新しい順。</p>
 <p>※ カテゴリに掲載されている作品はすべて集計対象としています(公開日が締切後の{FINAL_R['after_deadline']}件、ページ削除済みで公開日が取れない{FINAL_R['undated']}件を含む)。一方、公開後にカテゴリから取り下げられて現在は掲載されていない8件は除外しています。</p>
-<p>※ カードの「ひげだるま / ばんの / airpocket」のチェックとメモは、同期設定でGitHub Gistを指定すると3人で共有・端末をまたいで保存されます(未設定の場合はこの端末にのみ保存)。</p>
+{MARKS_NOTE}
 
-<p>※ {DEL_NOTE} は作者によりページ削除済み(HTTP 410)のため、内容・投稿日とも取得できていません。画像は各作品の公開ページのカバー画像(Hackster CDN)を参照しています。</p>
+{IMG_NOTE}
 
 <div class="tiles">
   <div class="tile"><div class="v">{TOTAL}</div><div class="k">エントリー総数</div></div>
@@ -439,27 +498,10 @@ h3 a:hover {{ color:var(--series-1); }}
 <div class="controls">
   <button id="fnew">NEW({NEW_N}件)のみ表示</button>
   <button id="fjp">日本の投稿者のみ表示</button>
-  <span style="color:var(--muted)">|</span>
-  <button class="fbtn" id="f_higedaruma">ひげだるま</button>
-  <button class="fbtn" id="f_banno">ばんの</button>
-  <button class="fbtn" id="f_airpocket">airpocket</button>
-  <span style="color:var(--muted)">|</span>
-  <button id="imgtog">画像を隠す</button>
+{EXTRA_CONTROLS}
 </div>
 
-<div id="syncbar">
-  <span><span class="dot" id="syncdot"></span><span id="syncmsg">準備中…</span></span>
-  <button id="resync">再同期</button>
-  <button id="cfgtog">同期設定</button>
-  <div id="synccfg">
-    <label>GitHubトークン(gist権限のみ) <input type="password" id="tok" placeholder="ghp_… / github_pat_…"></label>
-    <label>Gist ID <input type="text" class="gid" id="gistid" placeholder="共有するGistのID"></label>
-    <button id="savecfg">保存して同期</button>
-    <button id="mkgist">新規Gistを作成</button>
-    <button id="sharelink">招待リンクをコピー</button>
-    <span style="color:var(--muted);font-size:.76rem">トークンとIDはこのブラウザ内(localStorage)にのみ保存されます。IDは3人で共有してください。</span>
-  </div>
-</div>
+{SYNCBAR}
 </header>
 </div>
 <main id="grid">{''.join(cards)}</main>
@@ -508,19 +550,7 @@ window.__applyCardFilters = function () {{
 bn.onclick = () => {{ fn = !fn; apply(); }};
 bj.onclick = () => {{ fj = !fj; apply(); }};
 
-const imgBtn = document.getElementById('imgtog');
-function applyImg() {{
-  const off = localStorage.getItem('gic26_noimg') === '1';
-  document.body.classList.toggle('hidethumbs', off);
-  imgBtn.classList.toggle('off', off);
-  imgBtn.textContent = off ? '画像を表示' : '画像を隠す';
-}}
-imgBtn.onclick = () => {{
-  localStorage.setItem('gic26_noimg',
-    localStorage.getItem('gic26_noimg') === '1' ? '0' : '1');
-  applyImg();
-}};
-applyImg();
+{IMGTOG_JS}
 </script>
 <script>
 {MARKS_JS}
@@ -528,8 +558,9 @@ applyImg();
 </body>
 </html>'''
 
-open('m5stack_contest_2026_entries.html', 'w', encoding='utf-8').write(page)
-print('html bytes:', len(page.encode('utf-8')), 'cards:', len(cards))
+OUT = 'm5stack_contest_2026_entries_plain.html' if PLAIN else 'm5stack_contest_2026_entries.html'
+open(OUT, 'w', encoding='utf-8').write(page)
+print(('PLAIN ' if PLAIN else '') + 'html bytes:', len(page.encode('utf-8')), 'cards:', len(cards), '->', OUT)
 
 # ---------------- Markdown ----------------
 md = [f'''# M5Stack Global Innovation Contest 2026 エントリー作品サマリ
