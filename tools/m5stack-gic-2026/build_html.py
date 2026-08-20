@@ -443,6 +443,8 @@ h3 a:hover {{ color:var(--series-1); }}
   <button class="fbtn" id="f_higedaruma">ひげだるま</button>
   <button class="fbtn" id="f_banno">ばんの</button>
   <button class="fbtn" id="f_airpocket">airpocket</button>
+  <span style="color:var(--muted)">|</span>
+  <button id="imgtog">画像を隠す</button>
 </div>
 
 <div id="syncbar">
@@ -504,6 +506,20 @@ window.__applyCardFilters = function () {{
 }};
 bn.onclick = () => {{ fn = !fn; apply(); }};
 bj.onclick = () => {{ fj = !fj; apply(); }};
+
+const imgBtn = document.getElementById('imgtog');
+function applyImg() {{
+  const off = localStorage.getItem('gic26_noimg') === '1';
+  document.body.classList.toggle('noimg', off);
+  imgBtn.classList.toggle('off', off);
+  imgBtn.textContent = off ? '画像を表示' : '画像を隠す';
+}}
+imgBtn.onclick = () => {{
+  localStorage.setItem('gic26_noimg',
+    localStorage.getItem('gic26_noimg') === '1' ? '0' : '1');
+  applyImg();
+}};
+applyImg();
 </script>
 <script>
 {MARKS_JS}
