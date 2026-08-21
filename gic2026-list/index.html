@@ -107,6 +107,10 @@ mark.hit { background:rgba(235,104,52,.3); color:inherit; border-radius:2px; pad
 button { font:inherit; font-size:.86rem; padding:5px 14px; border-radius:20px; cursor:pointer;
   border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary); }
 button.on { background:var(--series-1); color:#fff; border-color:var(--series-1); }
+select { font:inherit; font-size:.86rem; padding:5px 12px; border-radius:20px;
+  cursor:pointer; border:1px solid var(--border);
+  background:var(--surface-1); color:var(--text-primary); max-width:min(260px,60vw); }
+select.on { background:var(--series-1); color:#fff; border-color:var(--series-1); }
 main { display:grid; grid-template-columns:repeat(auto-fill,minmax(480px,1fr)); gap:18px;
   max-width:1080px; margin:0 auto; padding:14px 20px 60px; }
 @media (max-width:560px) { main { grid-template-columns:1fr; } }
@@ -291,7 +295,7 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
 </div>
 <figure>
 <svg width="676" height="602" role="img" aria-label="所在国別の作品数">
-  <g transform="translate(0,6)"><text class="clab" x="108" y="11" text-anchor="end">日本</text><rect class="bar" x="116" y="0" width="288.9" height="13" rx="3"></rect><rect class="bar2" x="406.88888888888886" y="0" width="5.6" height="13" rx="3"></rect><rect class="bar3" x="414.4444444444444" y="0" width="105.6" height="13" rx="3"></rect><text class="cval" x="527.0" y="11">144 <tspan class="cval2">(うち追跡 2 / 調査 38)</tspan></text><text class="clab" x="108" y="33" text-anchor="end">未設定</text><rect class="bar muted" x="116" y="22" width="102.8" height="13" rx="3"></rect><text class="cval" x="225.8" y="33">37</text><text class="clab" x="108" y="55" text-anchor="end">アメリカ</text><rect class="bar" x="116" y="44" width="36.1" height="13" rx="3"></rect><text class="cval" x="159.1" y="55">13</text><text class="clab" x="108" y="77" text-anchor="end">中国</text><rect class="bar" x="116" y="66" width="27.8" height="13" rx="3"></rect><rect class="bar2" x="145.77777777777777" y="66" width="8.3" height="13" rx="3"></rect><text class="cval" x="161.1" y="77">13 <tspan class="cval2">(うち追跡 3)</tspan></text><text class="clab" x="108" y="99" text-anchor="end">インド</text><rect class="bar" x="116" y="88" width="8.3" height="13" rx="3"></rect><rect class="bar2" x="126.33333333333333" y="88" width="5.6" height="13" rx="3"></rect><text class="cval" x="138.9" y="99">5 <tspan class="cval2">(うち追跡 2)</tspan></text><text class="clab" x="108" y="121" text-anchor="end">ブラジル</text><rect class="bar" x="116" y="110" width="11.1" height="13" rx="3"></rect><text class="cval" x="134.1" y="121">4</text><text class="clab" x="108" y="143" text-anchor="end">ベルギー</text><rect class="bar" x="116" y="132" width="11.1" height="13" rx="3"></rect><text class="cval" x="134.1" y="143">4</text><text class="clab" x="108" y="165" text-anchor="end">ドイツ</text><rect class="bar" x="116" y="154" width="8.3" height="13" rx="3"></rect><text class="cval" x="131.3" y="165">3</text><text class="clab" x="108" y="187" text-anchor="end">フランス</text><rect class="bar" x="116" y="176" width="5.6" height="13" rx="3"></rect><rect class="bar2" x="123.55555555555556" y="176" width="2.8" height="13" rx="3"></rect><text class="cval" x="133.3" y="187">3 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="209" text-anchor="end">オーストラリア</text><rect class="bar" x="116" y="198" width="5.6" height="13" rx="3"></rect><text class="cval" x="128.6" y="209">2</text><text class="clab" x="108" y="231" text-anchor="end">アルゼンチン</text><rect class="bar" x="116" y="220" width="5.6" height="13" rx="3"></rect><text class="cval" x="128.6" y="231">2</text><text class="clab" x="108" y="253" text-anchor="end">PT</text><rect class="bar" x="116" y="242" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="253">1</text><text class="clab" x="108" y="275" text-anchor="end">MX</text><rect class="bar" x="116" y="264" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="275">1</text><text class="clab" x="108" y="297" text-anchor="end">デンマーク</text><rect class="bar2" x="116" y="286" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="297">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="319" text-anchor="end">ポーランド</text><rect class="bar2" x="116" y="308" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="319">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="341" text-anchor="end">タイ</text><rect class="bar2" x="116" y="330" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="341">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="363" text-anchor="end">カナダ</text><rect class="bar" x="116" y="352" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="363">1</text><text class="clab" x="108" y="385" text-anchor="end">カンボジア</text><rect class="bar" x="116" y="374" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="385">1</text><text class="clab" x="108" y="407" text-anchor="end">ルーマニア</text><rect class="bar" x="116" y="396" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="407">1</text><text class="clab" x="108" y="429" text-anchor="end">チェコ</text><rect class="bar" x="116" y="418" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="429">1</text><text class="clab" x="108" y="451" text-anchor="end">バーレーン</text><rect class="bar" x="116" y="440" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="451">1</text><text class="clab" x="108" y="473" text-anchor="end">キリバス</text><rect class="bar" x="116" y="462" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="473">1</text><text class="clab" x="108" y="495" text-anchor="end">クロアチア</text><rect class="bar" x="116" y="484" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="495">1</text><text class="clab" x="108" y="517" text-anchor="end">スペイン</text><rect class="bar2" x="116" y="506" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="517">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="539" text-anchor="end">台湾</text><rect class="bar" x="116" y="528" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="539">1</text><text class="clab" x="108" y="561" text-anchor="end">フィンランド</text><rect class="bar" x="116" y="550" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="561">1</text><text class="clab" x="108" y="583" text-anchor="end">オランダ</text><rect class="bar" x="116" y="572" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="583">1</text></g>
+  <g transform="translate(0,6)"><text class="clab" x="108" y="11" text-anchor="end">日本</text><rect class="bar" x="116" y="0" width="288.9" height="13" rx="3"></rect><rect class="bar2" x="406.88888888888886" y="0" width="5.6" height="13" rx="3"></rect><rect class="bar3" x="414.4444444444444" y="0" width="105.6" height="13" rx="3"></rect><text class="cval" x="527.0" y="11">144 <tspan class="cval2">(うち追跡 2 / 調査 38)</tspan></text><text class="clab" x="108" y="33" text-anchor="end">未設定</text><rect class="bar muted" x="116" y="22" width="102.8" height="13" rx="3"></rect><text class="cval" x="225.8" y="33">37</text><text class="clab" x="108" y="55" text-anchor="end">アメリカ</text><rect class="bar" x="116" y="44" width="36.1" height="13" rx="3"></rect><text class="cval" x="159.1" y="55">13</text><text class="clab" x="108" y="77" text-anchor="end">中国</text><rect class="bar" x="116" y="66" width="27.8" height="13" rx="3"></rect><rect class="bar2" x="145.77777777777777" y="66" width="8.3" height="13" rx="3"></rect><text class="cval" x="161.1" y="77">13 <tspan class="cval2">(うち追跡 3)</tspan></text><text class="clab" x="108" y="99" text-anchor="end">インド</text><rect class="bar" x="116" y="88" width="8.3" height="13" rx="3"></rect><rect class="bar2" x="126.33333333333333" y="88" width="5.6" height="13" rx="3"></rect><text class="cval" x="138.9" y="99">5 <tspan class="cval2">(うち追跡 2)</tspan></text><text class="clab" x="108" y="121" text-anchor="end">ブラジル</text><rect class="bar" x="116" y="110" width="11.1" height="13" rx="3"></rect><text class="cval" x="134.1" y="121">4</text><text class="clab" x="108" y="143" text-anchor="end">ベルギー</text><rect class="bar" x="116" y="132" width="11.1" height="13" rx="3"></rect><text class="cval" x="134.1" y="143">4</text><text class="clab" x="108" y="165" text-anchor="end">ドイツ</text><rect class="bar" x="116" y="154" width="8.3" height="13" rx="3"></rect><text class="cval" x="131.3" y="165">3</text><text class="clab" x="108" y="187" text-anchor="end">フランス</text><rect class="bar" x="116" y="176" width="5.6" height="13" rx="3"></rect><rect class="bar2" x="123.55555555555556" y="176" width="2.8" height="13" rx="3"></rect><text class="cval" x="133.3" y="187">3 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="209" text-anchor="end">オーストラリア</text><rect class="bar" x="116" y="198" width="5.6" height="13" rx="3"></rect><text class="cval" x="128.6" y="209">2</text><text class="clab" x="108" y="231" text-anchor="end">アルゼンチン</text><rect class="bar" x="116" y="220" width="5.6" height="13" rx="3"></rect><text class="cval" x="128.6" y="231">2</text><text class="clab" x="108" y="253" text-anchor="end">ポルトガル</text><rect class="bar" x="116" y="242" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="253">1</text><text class="clab" x="108" y="275" text-anchor="end">メキシコ</text><rect class="bar" x="116" y="264" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="275">1</text><text class="clab" x="108" y="297" text-anchor="end">デンマーク</text><rect class="bar2" x="116" y="286" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="297">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="319" text-anchor="end">ポーランド</text><rect class="bar2" x="116" y="308" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="319">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="341" text-anchor="end">タイ</text><rect class="bar2" x="116" y="330" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="341">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="363" text-anchor="end">カナダ</text><rect class="bar" x="116" y="352" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="363">1</text><text class="clab" x="108" y="385" text-anchor="end">カンボジア</text><rect class="bar" x="116" y="374" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="385">1</text><text class="clab" x="108" y="407" text-anchor="end">ルーマニア</text><rect class="bar" x="116" y="396" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="407">1</text><text class="clab" x="108" y="429" text-anchor="end">チェコ</text><rect class="bar" x="116" y="418" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="429">1</text><text class="clab" x="108" y="451" text-anchor="end">バーレーン</text><rect class="bar" x="116" y="440" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="451">1</text><text class="clab" x="108" y="473" text-anchor="end">キリバス</text><rect class="bar" x="116" y="462" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="473">1</text><text class="clab" x="108" y="495" text-anchor="end">クロアチア</text><rect class="bar" x="116" y="484" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="495">1</text><text class="clab" x="108" y="517" text-anchor="end">スペイン</text><rect class="bar2" x="116" y="506" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="517">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="539" text-anchor="end">台湾</text><rect class="bar" x="116" y="528" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="539">1</text><text class="clab" x="108" y="561" text-anchor="end">フィンランド</text><rect class="bar" x="116" y="550" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="561">1</text><text class="clab" x="108" y="583" text-anchor="end">オランダ</text><rect class="bar" x="116" y="572" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="583">1</text></g>
 </svg>
 </figure>
 
@@ -313,7 +317,7 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
 
 <details><summary>国別の内訳(投稿者数 / 作品数)とライセンス内訳を表で見る</summary>
 <div class="tiles" style="align-items:flex-start">
-<table><thead><tr><th>所在国</th><th>投稿者</th><th>作品</th></tr></thead><tbody><tr><td>日本</td><td>132</td><td>144</td></tr><tr><td>未設定</td><td>33</td><td>37</td></tr><tr><td>アメリカ</td><td>12</td><td>13</td></tr><tr><td>中国</td><td>13</td><td>13</td></tr><tr><td>インド</td><td>5</td><td>5</td></tr><tr><td>ブラジル</td><td>4</td><td>4</td></tr><tr><td>ベルギー</td><td>3</td><td>4</td></tr><tr><td>ドイツ</td><td>3</td><td>3</td></tr><tr><td>フランス</td><td>3</td><td>3</td></tr><tr><td>オーストラリア</td><td>2</td><td>2</td></tr><tr><td>アルゼンチン</td><td>1</td><td>2</td></tr><tr><td>PT</td><td>1</td><td>1</td></tr><tr><td>MX</td><td>1</td><td>1</td></tr><tr><td>デンマーク</td><td>1</td><td>1</td></tr><tr><td>ポーランド</td><td>1</td><td>1</td></tr><tr><td>タイ</td><td>1</td><td>1</td></tr><tr><td>カナダ</td><td>1</td><td>1</td></tr><tr><td>カンボジア</td><td>1</td><td>1</td></tr><tr><td>ルーマニア</td><td>1</td><td>1</td></tr><tr><td>チェコ</td><td>1</td><td>1</td></tr><tr><td>バーレーン</td><td>1</td><td>1</td></tr><tr><td>キリバス</td><td>1</td><td>1</td></tr><tr><td>クロアチア</td><td>1</td><td>1</td></tr><tr><td>スペイン</td><td>1</td><td>1</td></tr><tr><td>台湾</td><td>1</td><td>1</td></tr><tr><td>フィンランド</td><td>1</td><td>1</td></tr><tr><td>オランダ</td><td>1</td><td>1</td></tr></tbody></table>
+<table><thead><tr><th>所在国</th><th>投稿者</th><th>作品</th></tr></thead><tbody><tr><td>日本</td><td>132</td><td>144</td></tr><tr><td>未設定</td><td>33</td><td>37</td></tr><tr><td>アメリカ</td><td>12</td><td>13</td></tr><tr><td>中国</td><td>13</td><td>13</td></tr><tr><td>インド</td><td>5</td><td>5</td></tr><tr><td>ブラジル</td><td>4</td><td>4</td></tr><tr><td>ベルギー</td><td>3</td><td>4</td></tr><tr><td>ドイツ</td><td>3</td><td>3</td></tr><tr><td>フランス</td><td>3</td><td>3</td></tr><tr><td>オーストラリア</td><td>2</td><td>2</td></tr><tr><td>アルゼンチン</td><td>1</td><td>2</td></tr><tr><td>ポルトガル</td><td>1</td><td>1</td></tr><tr><td>メキシコ</td><td>1</td><td>1</td></tr><tr><td>デンマーク</td><td>1</td><td>1</td></tr><tr><td>ポーランド</td><td>1</td><td>1</td></tr><tr><td>タイ</td><td>1</td><td>1</td></tr><tr><td>カナダ</td><td>1</td><td>1</td></tr><tr><td>カンボジア</td><td>1</td><td>1</td></tr><tr><td>ルーマニア</td><td>1</td><td>1</td></tr><tr><td>チェコ</td><td>1</td><td>1</td></tr><tr><td>バーレーン</td><td>1</td><td>1</td></tr><tr><td>キリバス</td><td>1</td><td>1</td></tr><tr><td>クロアチア</td><td>1</td><td>1</td></tr><tr><td>スペイン</td><td>1</td><td>1</td></tr><tr><td>台湾</td><td>1</td><td>1</td></tr><tr><td>フィンランド</td><td>1</td><td>1</td></tr><tr><td>オランダ</td><td>1</td><td>1</td></tr></tbody></table>
 <table><thead><tr><th>ライセンス</th><th>作品</th></tr></thead><tbody><tr><td>MIT</td><td>109</td></tr><tr><td>ライセンス表示なし</td><td>53</td></tr><tr><td>GPL3+</td><td>51</td></tr><tr><td>Apache-2.0</td><td>14</td></tr><tr><td>CC BY-NC</td><td>7</td></tr><tr><td>CC BY</td><td>7</td></tr><tr><td>LGPL</td><td>2</td></tr><tr><td>CC BY-NC-SA</td><td>1</td></tr><tr><td>CERN-OHL2</td><td>1</td></tr><tr><td>MPL-2.0</td><td>1</td></tr></tbody></table>
 </div>
 </details>
@@ -327,7 +331,9 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
   <span id="qhit" role="status" aria-live="polite"></span>
   <span style="color:var(--muted)">|</span>
   <button id="fnew">NEW(12件)のみ表示</button>
-  <button id="fjp">日本の投稿者のみ表示</button>
+  <select id="fc" aria-label="所在国で絞り込み">
+    <option value="">所在国: すべて</option>
+<option value="JP">日本(144)</option><option value="US">アメリカ(13)</option><option value="CN">中国(13)</option><option value="IN">インド(5)</option><option value="BR">ブラジル(4)</option><option value="BE">ベルギー(4)</option><option value="DE">ドイツ(3)</option><option value="FR">フランス(3)</option><option value="AU">オーストラリア(2)</option><option value="AR">アルゼンチン(2)</option><option value="PT">ポルトガル(1)</option><option value="MX">メキシコ(1)</option><option value="DK">デンマーク(1)</option><option value="PL">ポーランド(1)</option><option value="TH">タイ(1)</option><option value="CA">カナダ(1)</option><option value="KH">カンボジア(1)</option><option value="RO">ルーマニア(1)</option><option value="CZ">チェコ(1)</option><option value="BH">バーレーン(1)</option><option value="KI">キリバス(1)</option><option value="HR">クロアチア(1)</option><option value="ES">スペイン(1)</option><option value="TW">台湾(1)</option><option value="FI">フィンランド(1)</option><option value="NL">オランダ(1)</option><option value="NA">未設定(37)</option>  </select>
 
 </div>
 
@@ -966,7 +972,7 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
   
   <div class="body">
     <h3><span class="num">58</span> <a href="https://www.hackster.io/paulofsemblano/lilo-training-assistant-built-on-the-m5stack-core-s3-9a77bc" target="_blank" rel="noopener">LiLo – Training Assistant built on the M5Stack Core S3</a></h3>
-    <p class="meta">Paulo Semblano ・ PT ・ 2026-08-07 ・ GPL3+</p>
+    <p class="meta">Paulo Semblano ・ ポルトガル ・ 2026-08-07 ・ GPL3+</p>
     
     <p><span class="label">概要</span>M5Stack CoreS3単体で完結するインターバルトレーニング補助デバイス。ワーク/レストの状態を「色(何を)」「10個のRGB LEDバーの残量(どれだけ)」「音(いつ)」の3チャンネルで伝え、画面を見なくてもハングボードトレーニングやサーキットトレーニングを進行できる。CoreS3のディスプレイ、スピーカー、近接センサー、IMU、ESP-NOWを活用し、M5Go Bottom3でバッテリーとLEDを追加。アプリもネット接続も不要。</p>
     <p><span class="label">オリジナリティ</span>2台目をESP-NOWで連携させると反応速度ゲームやバランスパッドに変化し、ソロのタイマーが家族対戦ゲームになる点が秀逸。3歳から88歳まで全員が遊べるよう、難易度を固定せず閾値や時間ウィンドウを可変にする「同じゲームを各人のペースに合わせる」設計思想を貫いている。</p>
@@ -1043,7 +1049,7 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
   
   <div class="body">
     <h3><span class="num">65</span> <a href="https://www.hackster.io/daniel142/i-40-performance-kpi-2017dd" target="_blank" rel="noopener">i.40 performance kpi</a></h3>
-    <p class="meta">Daniel ・ MX ・ 2026-08-07 ・ ライセンス表示なし</p>
+    <p class="meta">Daniel ・ メキシコ ・ 2026-08-07 ・ ライセンス表示なし</p>
     
     <p><span class="label">概要</span>製造現場のエッジからクラウドまでを繋ぐリアルタイムKPIダッシュボードのソリューション。M5Stack ESP32 Basic CoreにI2C Hub(TCA9548A)を介して複数のToF測距ユニットを接続し、生産ラインのワーク有無や滞留時間を非接触で計測、REST API経由のクラウド送信を行う。センサーごとの距離範囲、サイクルタイム、サンプル数、判定率などを構造体で細かく設定できる。</p>
     <p><span class="label">オリジナリティ</span>既存のPLC機能に手を加えない非侵襲的な方式で、PLC単体では取りきれない稼働指標を補完的に取得するという産業現場の実情に即したアプローチ。ブローカーを介さず直接クラウドへ送る構成で、OEE(部品有無・実稼働)の算出モードを切り替えられる点も実務志向。</p>
@@ -3068,14 +3074,15 @@ document.querySelectorAll('svg [data-d]').forEach(el => {
     if (cx) { cx.style.opacity = 0; cdot.style.opacity = 0; }
   });
 });
-let fn = false, fj = false;
-const bn = document.getElementById('fnew'), bj = document.getElementById('fjp');
+let fn = false;
+const bn = document.getElementById('fnew'), fc = document.getElementById('fc');
 function apply() {
-  bn.classList.toggle('on', fn); bj.classList.toggle('on', fj);
+  bn.classList.toggle('on', fn);
+  fc.classList.toggle('on', !!fc.value);
   bn.textContent = fn ? 'すべて表示(246件)' : 'NEW(12件)のみ表示';
-  bj.textContent = fj ? '所在国で絞らない' : '日本の投稿者のみ表示';
   window.__applyCardFilters();
 }
+fc.addEventListener('change', apply);
 const CARDS = [].slice.call(document.querySelectorAll('#grid .card'));
 const qbox = document.getElementById('q'), qclear = document.getElementById('qclear'),
       qhit = document.getElementById('qhit');
@@ -3139,14 +3146,15 @@ window.__applyCardFilters = function () {
   clearMarks();
   let hits = 0;
   CARDS.forEach(c => {
-    const ok = (!fn || c.dataset.new === 'true') && (!fj || c.dataset.c === 'JP')
+    const ok = (!fn || c.dataset.new === 'true')
+               && (!fc.value || c.dataset.c === fc.value)
                && c.dataset.mfilter !== 'hide'
                && terms.every(t => c.__s.indexOf(t) >= 0);
     c.style.display = ok ? '' : 'none';
     if (ok) hits++;
   });
-  qhit.textContent = terms.length ? hits + ' 件ヒット' : '';
-  qhit.classList.toggle('none', terms.length > 0 && hits === 0);
+  qhit.textContent = hits < 246 ? '表示 ' + hits + ' / 246 件' : '';
+  qhit.classList.toggle('none', hits === 0);
   qclear.style.display = qbox.value ? '' : 'none';
   if (terms.length) CARDS.forEach(c => { if (c.style.display !== 'none') markAll(c.querySelector('.body')); });
 };
@@ -3169,7 +3177,6 @@ document.addEventListener('keydown', ev => {
 });
 qclear.style.display = 'none';
 bn.onclick = () => { fn = !fn; apply(); };
-bj.onclick = () => { fj = !fj; apply(); };
 
 
 </script>

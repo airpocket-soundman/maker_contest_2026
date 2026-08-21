@@ -106,6 +106,12 @@ for i, r in enumerate(series):
 
 # ---------------- Chart C: countries (profile-declared vs traced) ----------------
 _as = st.get('auth_src', {})
+_cc_rows = ([r for r in by_proj if r[0] != '(未設定)']
+            + [r for r in by_proj if r[0] == '(未設定)'])   # 未設定は末尾に
+CC_OPTS = ''.join(
+    f'<option value="{'NA' if k == '(未設定)' else k}">'
+    f'{"未設定" if k == "(未設定)" else NAME.get(k, k)}({v})</option>'
+    for k, v in _cc_rows)
 A_PROF, A_TRAC = _as.get('profile', 0), _as.get('traced', 0)
 A_MAN, A_NONE = _as.get('manual', 0), _as.get('', 0)
 src = st['by_proj_src']
@@ -404,6 +410,10 @@ mark.hit {{ background:rgba(235,104,52,.3); color:inherit; border-radius:2px; pa
 button {{ font:inherit; font-size:.86rem; padding:5px 14px; border-radius:20px; cursor:pointer;
   border:1px solid var(--border); background:var(--surface-1); color:var(--text-primary); }}
 button.on {{ background:var(--series-1); color:#fff; border-color:var(--series-1); }}
+select {{ font:inherit; font-size:.86rem; padding:5px 12px; border-radius:20px;
+  cursor:pointer; border:1px solid var(--border);
+  background:var(--surface-1); color:var(--text-primary); max-width:min(260px,60vw); }}
+select.on {{ background:var(--series-1); color:#fff; border-color:var(--series-1); }}
 main {{ display:grid; grid-template-columns:repeat(auto-fill,minmax(480px,1fr)); gap:18px;
   max-width:1080px; margin:0 auto; padding:14px 20px 60px; }}
 @media (max-width:560px) {{ main {{ grid-template-columns:1fr; }} }}
@@ -530,7 +540,9 @@ h3 a:hover {{ color:var(--series-1); }}
   <span id="qhit" role="status" aria-live="polite"></span>
   <span style="color:var(--muted)">|</span>
   <button id="fnew">NEW({NEW_N}件)のみ表示</button>
-  <button id="fjp">日本の投稿者のみ表示</button>
+  <select id="fc" aria-label="所在国で絞り込み">
+    <option value="">所在国: すべて</option>
+{CC_OPTS}  </select>
 {EXTRA_CONTROLS}
 </div>
 
@@ -565,14 +577,15 @@ document.querySelectorAll('svg [data-d]').forEach(el => {{
     if (cx) {{ cx.style.opacity = 0; cdot.style.opacity = 0; }}
   }});
 }});
-let fn = false, fj = false;
-const bn = document.getElementById('fnew'), bj = document.getElementById('fjp');
+let fn = false;
+const bn = document.getElementById('fnew'), fc = document.getElementById('fc');
 function apply() {{
-  bn.classList.toggle('on', fn); bj.classList.toggle('on', fj);
+  bn.classList.toggle('on', fn);
+  fc.classList.toggle('on', !!fc.value);
   bn.textContent = fn ? 'すべて表示({TOTAL}件)' : 'NEW({NEW_N}件)のみ表示';
-  bj.textContent = fj ? '所在国で絞らない' : '日本の投稿者のみ表示';
   window.__applyCardFilters();
 }}
+fc.addEventListener('change', apply);
 const CARDS = [].slice.call(document.querySelectorAll('#grid .card'));
 const qbox = document.getElementById('q'), qclear = document.getElementById('qclear'),
       qhit = document.getElementById('qhit');
@@ -636,14 +649,15 @@ window.__applyCardFilters = function () {{
   clearMarks();
   let hits = 0;
   CARDS.forEach(c => {{
-    const ok = (!fn || c.dataset.new === 'true') && (!fj || c.dataset.c === 'JP')
+    const ok = (!fn || c.dataset.new === 'true')
+               && (!fc.value || c.dataset.c === fc.value)
                && c.dataset.mfilter !== 'hide'
                && terms.every(t => c.__s.indexOf(t) >= 0);
     c.style.display = ok ? '' : 'none';
     if (ok) hits++;
   }});
-  qhit.textContent = terms.length ? hits + ' 件ヒット' : '';
-  qhit.classList.toggle('none', terms.length > 0 && hits === 0);
+  qhit.textContent = hits < {TOTAL} ? '表示 ' + hits + ' / {TOTAL} 件' : '';
+  qhit.classList.toggle('none', hits === 0);
   qclear.style.display = qbox.value ? '' : 'none';
   if (terms.length) CARDS.forEach(c => {{ if (c.style.display !== 'none') markAll(c.querySelector('.body')); }});
 }};
@@ -666,7 +680,6 @@ document.addEventListener('keydown', ev => {{
 }});
 qclear.style.display = 'none';
 bn.onclick = () => {{ fn = !fn; apply(); }};
-bj.onclick = () => {{ fj = !fj; apply(); }};
 
 {IMGTOG_JS}
 </script>
@@ -695,7 +708,7 @@ md = [f'''# M5Stack Global Innovation Contest 2026 エントリー作品サマ�
 - 日別最多: {peak['date']} の {peak['n']}件
 - 週別の投稿数(週の月曜日 → 件数): ''' + ', '.join(f'{k} {v}' for k, v in st['weekly']) + '''
 
-## 投稿者の所在国(Hacksterプロフィール登録値)
+## 投稿者の所在国(プロフィール登録値 + 追跡・調査による補完)
 
 | 所在国 | 投稿者数 | 作品数 |
 |---|---|---|
@@ -703,8 +716,10 @@ md = [f'''# M5Stack Global Innovation Contest 2026 エントリー作品サマ�
     f'| {"未設定" if k == "(未設定)" else NAME.get(k, k)} | {by_auth.get(k, 0)} | {v} |'
     for k, v in by_proj) + f'''
 
-登録のある投稿者は87名で、所在国は{n_countries}か国。45名は国を登録しておらず「未設定」。
-プロフィールページにSNSリンクは公開されていないため、SNS経由での補完はできませんでした。
+所在国が判明している投稿者は{A_PROF + A_TRAC + A_MAN}名で、{n_countries}か国。
+内訳はHacksterプロフィールの登録値が{A_PROF}名、作品ページのGitHub・個人サイトを辿って
+確認できたものが{A_TRAC}名、別途の調査で確認できたものが{A_MAN}名。
+残る{A_NONE}名は手がかりが無いか本人と断定できず「未設定」です。
 
 ## ライセンス内訳
 
