@@ -48,6 +48,7 @@ svg { display:block; }
 .bar { fill:var(--series-1); }
 .bar.muted { fill:var(--baseline); }
 .bar2 { fill:var(--series-2); }
+.bar3 { fill:var(--series-3); }
 .cval2 { fill:var(--muted); font-size:10px; }
 .fband { fill:var(--series-2); opacity:.16; }
 .fcen { fill:none; stroke:var(--series-2); stroke-width:2.5; }
@@ -281,15 +282,16 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
 
 
 <h2>投稿者の所在国別 作品数</h2>
-<p class="sub">Hacksterプロフィールの登録国(country_iso2)を一次情報とし、未登録だった45名については作品ページに書かれたGitHub・個人サイトを辿って本人アカウントと確認できた12名を「追跡で判明」として加えています。他人のライブラリのリポジトリを参照しているだけのものは除外しました。いずれも本人が公開している所在地であり、国籍そのものではありません。残る33名は手がかりが無いか本人と断定できず「未設定」です。</p>
+<p class="sub">Hacksterプロフィールの登録国(country_iso2)を一次情報(145名)とし、未登録だった著者のうち作品ページのGitHub・個人サイトを辿って本人アカウントと確認できた12名を「追跡で判明」、別途の調査で所在国を確認できた37名を「調査で判明」として加えています。他人のライブラリのリポジトリを参照しているだけのものは除外しました。いずれも本人が公開している所在地であり、国籍そのものではありません。残る33名は手がかりが無いか本人と断定できず「未設定」です。</p>
 <div class="legend">
   <span><i class="key" style="background:var(--series-1)"></i>プロフィール登録値</span>
   <span><i class="key" style="background:var(--series-2)"></i>追跡で判明</span>
+  <span><i class="key" style="background:var(--series-3)"></i>調査で判明</span>
   <span><i class="key" style="background:var(--baseline)"></i>未設定</span>
 </div>
 <figure>
 <svg width="676" height="602" role="img" aria-label="所在国別の作品数">
-  <g transform="translate(0,6)"><text class="clab" x="108" y="11" text-anchor="end">日本</text><rect class="bar" x="116" y="0" width="392.5" height="13" rx="3"></rect><rect class="bar2" x="510.45283018867923" y="0" width="7.5" height="13" rx="3"></rect><text class="cval" x="525.0" y="11">106 <tspan class="cval2">(うち追跡 2)</tspan></text><text class="clab" x="108" y="33" text-anchor="end">未設定</text><rect class="bar muted" x="116" y="22" width="283.0" height="13" rx="3"></rect><text class="cval" x="406.0" y="33">75</text><text class="clab" x="108" y="55" text-anchor="end">アメリカ</text><rect class="bar" x="116" y="44" width="49.1" height="13" rx="3"></rect><text class="cval" x="172.1" y="55">13</text><text class="clab" x="108" y="77" text-anchor="end">中国</text><rect class="bar" x="116" y="66" width="37.7" height="13" rx="3"></rect><rect class="bar2" x="155.73584905660377" y="66" width="11.3" height="13" rx="3"></rect><text class="cval" x="174.1" y="77">13 <tspan class="cval2">(うち追跡 3)</tspan></text><text class="clab" x="108" y="99" text-anchor="end">インド</text><rect class="bar" x="116" y="88" width="11.3" height="13" rx="3"></rect><rect class="bar2" x="129.32075471698113" y="88" width="7.5" height="13" rx="3"></rect><text class="cval" x="143.9" y="99">5 <tspan class="cval2">(うち追跡 2)</tspan></text><text class="clab" x="108" y="121" text-anchor="end">ブラジル</text><rect class="bar" x="116" y="110" width="15.1" height="13" rx="3"></rect><text class="cval" x="138.1" y="121">4</text><text class="clab" x="108" y="143" text-anchor="end">ベルギー</text><rect class="bar" x="116" y="132" width="15.1" height="13" rx="3"></rect><text class="cval" x="138.1" y="143">4</text><text class="clab" x="108" y="165" text-anchor="end">ドイツ</text><rect class="bar" x="116" y="154" width="11.3" height="13" rx="3"></rect><text class="cval" x="134.3" y="165">3</text><text class="clab" x="108" y="187" text-anchor="end">フランス</text><rect class="bar" x="116" y="176" width="7.5" height="13" rx="3"></rect><rect class="bar2" x="125.54716981132076" y="176" width="3.8" height="13" rx="3"></rect><text class="cval" x="136.3" y="187">3 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="209" text-anchor="end">オーストラリア</text><rect class="bar" x="116" y="198" width="7.5" height="13" rx="3"></rect><text class="cval" x="130.5" y="209">2</text><text class="clab" x="108" y="231" text-anchor="end">アルゼンチン</text><rect class="bar" x="116" y="220" width="7.5" height="13" rx="3"></rect><text class="cval" x="130.5" y="231">2</text><text class="clab" x="108" y="253" text-anchor="end">PT</text><rect class="bar" x="116" y="242" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="253">1</text><text class="clab" x="108" y="275" text-anchor="end">MX</text><rect class="bar" x="116" y="264" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="275">1</text><text class="clab" x="108" y="297" text-anchor="end">デンマーク</text><rect class="bar2" x="116" y="286" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="297">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="319" text-anchor="end">ポーランド</text><rect class="bar2" x="116" y="308" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="319">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="341" text-anchor="end">タイ</text><rect class="bar2" x="116" y="330" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="341">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="363" text-anchor="end">カナダ</text><rect class="bar" x="116" y="352" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="363">1</text><text class="clab" x="108" y="385" text-anchor="end">カンボジア</text><rect class="bar" x="116" y="374" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="385">1</text><text class="clab" x="108" y="407" text-anchor="end">ルーマニア</text><rect class="bar" x="116" y="396" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="407">1</text><text class="clab" x="108" y="429" text-anchor="end">チェコ</text><rect class="bar" x="116" y="418" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="429">1</text><text class="clab" x="108" y="451" text-anchor="end">バーレーン</text><rect class="bar" x="116" y="440" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="451">1</text><text class="clab" x="108" y="473" text-anchor="end">キリバス</text><rect class="bar" x="116" y="462" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="473">1</text><text class="clab" x="108" y="495" text-anchor="end">クロアチア</text><rect class="bar" x="116" y="484" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="495">1</text><text class="clab" x="108" y="517" text-anchor="end">スペイン</text><rect class="bar2" x="116" y="506" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="517">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="539" text-anchor="end">台湾</text><rect class="bar" x="116" y="528" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="539">1</text><text class="clab" x="108" y="561" text-anchor="end">フィンランド</text><rect class="bar" x="116" y="550" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="561">1</text><text class="clab" x="108" y="583" text-anchor="end">オランダ</text><rect class="bar" x="116" y="572" width="3.8" height="13" rx="3"></rect><text class="cval" x="126.8" y="583">1</text></g>
+  <g transform="translate(0,6)"><text class="clab" x="108" y="11" text-anchor="end">日本</text><rect class="bar" x="116" y="0" width="288.9" height="13" rx="3"></rect><rect class="bar2" x="406.88888888888886" y="0" width="5.6" height="13" rx="3"></rect><rect class="bar3" x="414.4444444444444" y="0" width="105.6" height="13" rx="3"></rect><text class="cval" x="527.0" y="11">144 <tspan class="cval2">(うち追跡 2 / 調査 38)</tspan></text><text class="clab" x="108" y="33" text-anchor="end">未設定</text><rect class="bar muted" x="116" y="22" width="102.8" height="13" rx="3"></rect><text class="cval" x="225.8" y="33">37</text><text class="clab" x="108" y="55" text-anchor="end">アメリカ</text><rect class="bar" x="116" y="44" width="36.1" height="13" rx="3"></rect><text class="cval" x="159.1" y="55">13</text><text class="clab" x="108" y="77" text-anchor="end">中国</text><rect class="bar" x="116" y="66" width="27.8" height="13" rx="3"></rect><rect class="bar2" x="145.77777777777777" y="66" width="8.3" height="13" rx="3"></rect><text class="cval" x="161.1" y="77">13 <tspan class="cval2">(うち追跡 3)</tspan></text><text class="clab" x="108" y="99" text-anchor="end">インド</text><rect class="bar" x="116" y="88" width="8.3" height="13" rx="3"></rect><rect class="bar2" x="126.33333333333333" y="88" width="5.6" height="13" rx="3"></rect><text class="cval" x="138.9" y="99">5 <tspan class="cval2">(うち追跡 2)</tspan></text><text class="clab" x="108" y="121" text-anchor="end">ブラジル</text><rect class="bar" x="116" y="110" width="11.1" height="13" rx="3"></rect><text class="cval" x="134.1" y="121">4</text><text class="clab" x="108" y="143" text-anchor="end">ベルギー</text><rect class="bar" x="116" y="132" width="11.1" height="13" rx="3"></rect><text class="cval" x="134.1" y="143">4</text><text class="clab" x="108" y="165" text-anchor="end">ドイツ</text><rect class="bar" x="116" y="154" width="8.3" height="13" rx="3"></rect><text class="cval" x="131.3" y="165">3</text><text class="clab" x="108" y="187" text-anchor="end">フランス</text><rect class="bar" x="116" y="176" width="5.6" height="13" rx="3"></rect><rect class="bar2" x="123.55555555555556" y="176" width="2.8" height="13" rx="3"></rect><text class="cval" x="133.3" y="187">3 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="209" text-anchor="end">オーストラリア</text><rect class="bar" x="116" y="198" width="5.6" height="13" rx="3"></rect><text class="cval" x="128.6" y="209">2</text><text class="clab" x="108" y="231" text-anchor="end">アルゼンチン</text><rect class="bar" x="116" y="220" width="5.6" height="13" rx="3"></rect><text class="cval" x="128.6" y="231">2</text><text class="clab" x="108" y="253" text-anchor="end">PT</text><rect class="bar" x="116" y="242" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="253">1</text><text class="clab" x="108" y="275" text-anchor="end">MX</text><rect class="bar" x="116" y="264" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="275">1</text><text class="clab" x="108" y="297" text-anchor="end">デンマーク</text><rect class="bar2" x="116" y="286" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="297">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="319" text-anchor="end">ポーランド</text><rect class="bar2" x="116" y="308" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="319">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="341" text-anchor="end">タイ</text><rect class="bar2" x="116" y="330" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="341">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="363" text-anchor="end">カナダ</text><rect class="bar" x="116" y="352" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="363">1</text><text class="clab" x="108" y="385" text-anchor="end">カンボジア</text><rect class="bar" x="116" y="374" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="385">1</text><text class="clab" x="108" y="407" text-anchor="end">ルーマニア</text><rect class="bar" x="116" y="396" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="407">1</text><text class="clab" x="108" y="429" text-anchor="end">チェコ</text><rect class="bar" x="116" y="418" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="429">1</text><text class="clab" x="108" y="451" text-anchor="end">バーレーン</text><rect class="bar" x="116" y="440" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="451">1</text><text class="clab" x="108" y="473" text-anchor="end">キリバス</text><rect class="bar" x="116" y="462" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="473">1</text><text class="clab" x="108" y="495" text-anchor="end">クロアチア</text><rect class="bar" x="116" y="484" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="495">1</text><text class="clab" x="108" y="517" text-anchor="end">スペイン</text><rect class="bar2" x="116" y="506" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="517">1 <tspan class="cval2">(うち追跡 1)</tspan></text><text class="clab" x="108" y="539" text-anchor="end">台湾</text><rect class="bar" x="116" y="528" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="539">1</text><text class="clab" x="108" y="561" text-anchor="end">フィンランド</text><rect class="bar" x="116" y="550" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="561">1</text><text class="clab" x="108" y="583" text-anchor="end">オランダ</text><rect class="bar" x="116" y="572" width="2.8" height="13" rx="3"></rect><text class="cval" x="125.8" y="583">1</text></g>
 </svg>
 </figure>
 
@@ -311,7 +313,7 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
 
 <details><summary>国別の内訳(投稿者数 / 作品数)とライセンス内訳を表で見る</summary>
 <div class="tiles" style="align-items:flex-start">
-<table><thead><tr><th>所在国</th><th>投稿者</th><th>作品</th></tr></thead><tbody><tr><td>日本</td><td>95</td><td>106</td></tr><tr><td>未設定</td><td>70</td><td>75</td></tr><tr><td>アメリカ</td><td>12</td><td>13</td></tr><tr><td>中国</td><td>13</td><td>13</td></tr><tr><td>インド</td><td>5</td><td>5</td></tr><tr><td>ブラジル</td><td>4</td><td>4</td></tr><tr><td>ベルギー</td><td>3</td><td>4</td></tr><tr><td>ドイツ</td><td>3</td><td>3</td></tr><tr><td>フランス</td><td>3</td><td>3</td></tr><tr><td>オーストラリア</td><td>2</td><td>2</td></tr><tr><td>アルゼンチン</td><td>1</td><td>2</td></tr><tr><td>PT</td><td>1</td><td>1</td></tr><tr><td>MX</td><td>1</td><td>1</td></tr><tr><td>デンマーク</td><td>1</td><td>1</td></tr><tr><td>ポーランド</td><td>1</td><td>1</td></tr><tr><td>タイ</td><td>1</td><td>1</td></tr><tr><td>カナダ</td><td>1</td><td>1</td></tr><tr><td>カンボジア</td><td>1</td><td>1</td></tr><tr><td>ルーマニア</td><td>1</td><td>1</td></tr><tr><td>チェコ</td><td>1</td><td>1</td></tr><tr><td>バーレーン</td><td>1</td><td>1</td></tr><tr><td>キリバス</td><td>1</td><td>1</td></tr><tr><td>クロアチア</td><td>1</td><td>1</td></tr><tr><td>スペイン</td><td>1</td><td>1</td></tr><tr><td>台湾</td><td>1</td><td>1</td></tr><tr><td>フィンランド</td><td>1</td><td>1</td></tr><tr><td>オランダ</td><td>1</td><td>1</td></tr></tbody></table>
+<table><thead><tr><th>所在国</th><th>投稿者</th><th>作品</th></tr></thead><tbody><tr><td>日本</td><td>132</td><td>144</td></tr><tr><td>未設定</td><td>33</td><td>37</td></tr><tr><td>アメリカ</td><td>12</td><td>13</td></tr><tr><td>中国</td><td>13</td><td>13</td></tr><tr><td>インド</td><td>5</td><td>5</td></tr><tr><td>ブラジル</td><td>4</td><td>4</td></tr><tr><td>ベルギー</td><td>3</td><td>4</td></tr><tr><td>ドイツ</td><td>3</td><td>3</td></tr><tr><td>フランス</td><td>3</td><td>3</td></tr><tr><td>オーストラリア</td><td>2</td><td>2</td></tr><tr><td>アルゼンチン</td><td>1</td><td>2</td></tr><tr><td>PT</td><td>1</td><td>1</td></tr><tr><td>MX</td><td>1</td><td>1</td></tr><tr><td>デンマーク</td><td>1</td><td>1</td></tr><tr><td>ポーランド</td><td>1</td><td>1</td></tr><tr><td>タイ</td><td>1</td><td>1</td></tr><tr><td>カナダ</td><td>1</td><td>1</td></tr><tr><td>カンボジア</td><td>1</td><td>1</td></tr><tr><td>ルーマニア</td><td>1</td><td>1</td></tr><tr><td>チェコ</td><td>1</td><td>1</td></tr><tr><td>バーレーン</td><td>1</td><td>1</td></tr><tr><td>キリバス</td><td>1</td><td>1</td></tr><tr><td>クロアチア</td><td>1</td><td>1</td></tr><tr><td>スペイン</td><td>1</td><td>1</td></tr><tr><td>台湾</td><td>1</td><td>1</td></tr><tr><td>フィンランド</td><td>1</td><td>1</td></tr><tr><td>オランダ</td><td>1</td><td>1</td></tr></tbody></table>
 <table><thead><tr><th>ライセンス</th><th>作品</th></tr></thead><tbody><tr><td>MIT</td><td>109</td></tr><tr><td>ライセンス表示なし</td><td>53</td></tr><tr><td>GPL3+</td><td>51</td></tr><tr><td>Apache-2.0</td><td>14</td></tr><tr><td>CC BY-NC</td><td>7</td></tr><tr><td>CC BY</td><td>7</td></tr><tr><td>LGPL</td><td>2</td></tr><tr><td>CC BY-NC-SA</td><td>1</td></tr><tr><td>CERN-OHL2</td><td>1</td></tr><tr><td>MPL-2.0</td><td>1</td></tr></tbody></table>
 </div>
 </details>
@@ -333,12 +335,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
 </header>
 </div>
 <main id="grid">
-<article class="card isnew" data-new="true" data-c="NA" data-k="/yukima77/jump-the-mat-ae4567" id="p1">
+<article class="card isnew" data-new="true" data-c="JP" data-k="/yukima77/jump-the-mat-ae4567" id="p1">
   
   <div class="body">
     <h3><span class="num">1</span> <span class="newb inline">NEW</span> <a href="https://www.hackster.io/yukima77/jump-the-mat-ae4567" target="_blank" rel="noopener">Jump the Mat</a></h3>
-    <p class="meta">yukima77 ・ 所在国 未設定 ・ 2026-08-07 ・ MIT</p>
-    
+    <p class="meta">yukima77 ・ 日本(調査) ・ 2026-08-07 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack AtomS3Uと感圧式ジャンプマットを組み合わせた、低コストな運動能力測定デバイス。マット上でジャンプするだけで滞空時間・接地時間・跳躍高さ(h = g×t²/8)・RSI(Reactive Strength Index)を算出する。測定結果はAtomS3UのUSB HIDキーボード機能でPCに自動入力され、ExcelやGoogleスプレッドシートにそのまま記録できる。</p>
     <p><span class="label">オリジナリティ</span>専用ソフトやドライバを一切必要とせず、HIDキーボードとして「数値を打ち込む」だけでWindows/macOS問わずあらゆるアプリに連携できる点が独創的。高価な市販測定システムを学校や地域スポーツクラブでも手が届く価格に置き換えた発想と、踏切ミスや着地バウンドによる誤検出をタイミング閾値でフィルタする工夫も光る。</p>
     
@@ -388,12 +390,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card isnew" data-new="true" data-c="NA" data-k="/enyahirokazu/m5stack-amy-synth-a-26-key-cores3-instrument-c5d9b0" id="p6">
+<article class="card isnew" data-new="true" data-c="JP" data-k="/enyahirokazu/m5stack-amy-synth-a-26-key-cores3-instrument-c5d9b0" id="p6">
   
   <div class="body">
     <h3><span class="num">6</span> <span class="newb inline">NEW</span> <a href="https://www.hackster.io/enyahirokazu/m5stack-amy-synth-a-26-key-cores3-instrument-c5d9b0" target="_blank" rel="noopener">M5Stack AMY Synth: a 26-Key CoreS3 Instrument</a></h3>
-    <p class="meta">Hirokazu Enya ・ 所在国 未設定 ・ 2026-08-10 ・ MIT</p>
-    
+    <p class="meta">Hirokazu Enya ・ 日本(調査) ・ 2026-08-10 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack CoreS3-SEをオープンソースのソフトウェアシンセエンジンAMYで駆動する、26鍵の演奏可能な電子楽器。ダイオードマトリクス鍵盤＋鍵ごとのNeoPixel、MCP23S17によるI/O拡張、タッチ画面でのパッチ選択、UART MIDI入力、ジョイスティックによるピッチベンド、PCM5102 I2S DACからのステレオライン出力を備える。バーチャルアナログ・FM・PCM各方式のプリセットを搭載し、KiCadとレーザーカッターで筐体・基板まで自作している。</p>
     <p><span class="label">オリジナリティ</span>AMYのリファレンス機と同じESP32-S3でも移植は自動ではないという前提に立ち、CoreS3内蔵のディスプレイ・タッチ・各種バスと外部DAC・リアルタイム合成を共存させる競合解決そのものをプロジェクトの核に据えた点が技術的に価値が高い。単なるテストトーンではなく「押した鍵が確実に鳴り、離せば確実に止まる」実用楽器としての完成度を目標とし、電源投入時のビジュアル自己診断まで作り込んでいる。</p>
     
@@ -443,12 +445,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/akagawaaki/nori-remover-transporter-80c2cf" id="p11">
+<article class="card" data-new="false" data-c="JP" data-k="/akagawaaki/nori-remover-transporter-80c2cf" id="p11">
   
   <div class="body">
     <h3><span class="num">11</span> <a href="https://www.hackster.io/akagawaaki/nori-remover-transporter-80c2cf" target="_blank" rel="noopener">Nori Remover &amp; Transporter</a></h3>
-    <p class="meta">aka aki ・ 所在国 未設定 ・ 2026-08-09 ・ ライセンス表示なし</p>
-    
+    <p class="meta">aka aki ・ 日本(調査) ・ 2026-08-09 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>ふりかけに入っている海苔だけを取り除いて、残りのふりかけを白米の上まで運んで注いでくれるマシン。M5Stack BugC2(4輪走行ユニット)とM5StickC PLUS2を2台、joyCコントローラ、180度サーボを組み合わせ、ESP-NOWで無線操縦する構成になっている。遠心力で海苔を吹き飛ばし、サーボで注ぐ動作を行う。</p>
     <p><span class="label">オリジナリティ</span>「海苔が苦手な人でもふりかけご飯を楽しみたい」という極めてニッチな悩みを、遠心力による分離という物理現象で解決した発想が独創的。サーボを1度ずつ動かして突入電流による電源落ちを防ぐ、モーター速度変化時のみ命令送信して処理落ちを避けるなど、実装上の工夫も丁寧に作り込まれている。</p>
     
@@ -476,23 +478,23 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/shintaros/stackchan-link-physical-approval-for-ai-coding-agents-eab494" id="p14">
+<article class="card" data-new="false" data-c="JP" data-k="/shintaros/stackchan-link-physical-approval-for-ai-coding-agents-eab494" id="p14">
   
   <div class="body">
     <h3><span class="num">14</span> <a href="https://www.hackster.io/shintaros/stackchan-link-physical-approval-for-ai-coding-agents-eab494" target="_blank" rel="noopener">StackChan Link: Physical Approval for AI Coding Agents</a></h3>
-    <p class="meta">Shintaros ・ 所在国 未設定 ・ 2026-08-08 ・ MIT</p>
-    
+    <p class="meta">Shintaros ・ 日本(調査) ・ 2026-08-08 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>AIコーディングエージェント(OpenAI Codex、Claude Code、GitHub Copilot)が出す「実行してよいですか?」という承認要求を、卓上ロボットStack-chan(CoreS3＋サーボ2個)がタッチ操作で受け付けるフィジカル承認デバイス。どのエージェントが何を求めているかを画面に表示し、大きなYES/NOタッチ領域と残り承認時間を提示する。PC側の軽量な連携ツールとローカルWi-Fi経由のHTTPサーバ(http://stackchan.local)で通信し、承認時はうなずき、拒否時は首を振るなど身体動作でも応答する。</p>
     <p><span class="label">オリジナリティ</span>複数エージェントを並列稼働させると承認待ちのウィンドウを探し回るはめになる、という実体験の課題を「許可ダイアログを人間のもとへ届ける」という発想で解決した点が秀逸。無味乾燥な確認ダイアログに顔とサーボ2軸と身振りを与え、料理中や会議中でも一瞥とワンタップで対応できる体験に変えている。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/ogawa3427/music-accelerator-e0076e" id="p15">
+<article class="card" data-new="false" data-c="JP" data-k="/ogawa3427/music-accelerator-e0076e" id="p15">
   
   <div class="body">
     <h3><span class="num">15</span> <a href="https://www.hackster.io/ogawa3427/music-accelerator-e0076e" target="_blank" rel="noopener">Music Accelerator</a></h3>
-    <p class="meta">ogawa3427 ・ 所在国 未設定 ・ 2026-08-08 ・ MIT</p>
-    
+    <p class="meta">ogawa3427 ・ 日本(調査) ・ 2026-08-08 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>中国発の「Life Accelerator」(タバコを8本同時に吸える装置)を改造して作った、非常に滑らかな演奏ができる楽器。M5Stack StampS3に高輝度白色LED×8とフォトダイオードによるセンサアレイを自作し、Unit MIDI経由でMIDI出力する。CoreS3をリモートコントローラとしても使用する。</p>
     <p><span class="label">オリジナリティ</span>LEDを点滅させ、点灯時の値から消灯時の値を引くことで環境光成分をキャンセルし、指の反射光だけを安定して取り出すという光学センシング手法が巧み。ネタ的なガジェットである「Life Accelerator」の筐体を楽器に転用するという発想の飛躍そのものがユニークである。</p>
     
@@ -553,12 +555,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/yoshilogs/kawaii-home-studio-6faf20" id="p21">
+<article class="card" data-new="false" data-c="JP" data-k="/yoshilogs/kawaii-home-studio-6faf20" id="p21">
   
   <div class="body">
     <h3><span class="num">21</span> <a href="https://www.hackster.io/yoshilogs/kawaii-home-studio-6faf20" target="_blank" rel="noopener">Kawaii Home Studio</a></h3>
-    <p class="meta">Yoshi ・ 所在国 未設定 ・ 2026-08-08 ・ Apache-2.0</p>
-    
+    <p class="meta">Yoshi ・ 日本(調査) ・ 2026-08-08 ・ Apache-2.0</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack CoreS3ベースの卓上ロボット「スタックチャン」の顔と動きを、PC上のGUIツール(顔エディタ、モーションレコーダ、タイムライン+3Dプレビュー)でデザインするオーサリング環境。作ったモーションはPythonスクリプトでヘッダ化して別のESP32ボードに焼き込み、そのボードがBLE経由でスタックチャン本体を動かす。さらにOpenHomeの音声エージェントがシリアル経由で状態語(idle/listening/thinking/happyなど)を送り、会話に合わせて表情と首振りが変化する。</p>
     <p><span class="label">オリジナリティ</span>スタックチャン純正ファームウェアを一切書き換えずに機能を「追加」する設計が最大の特徴で、ESP32ボードを外せば普通のスタックチャンに戻る。非公開のESP-NOW/BLEプロトコルを公式ソースとフラッシュダンプの照合で解析し、音声エージェント側は8つの単語だけを扱う抽象化にしたため、3度の実装方式変更(USB→ESP-NOW→BLE)を通じて上位層のコードを変えずに済んでいる。</p>
     
@@ -608,23 +610,23 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/kurumariond5rc/kuruma-logger-61a752" id="p26">
+<article class="card" data-new="false" data-c="JP" data-k="/kurumariond5rc/kuruma-logger-61a752" id="p26">
   
   <div class="body">
     <h3><span class="num">26</span> <a href="https://www.hackster.io/kurumariond5rc/kuruma-logger-61a752" target="_blank" rel="noopener">Kuruma-Logger</a></h3>
-    <p class="meta">kuruma rio ・ 所在国 未設定 ・ 2026-08-08 ・ Apache-2.0</p>
-    
+    <p class="meta">kuruma rio ・ 日本(調査) ・ 2026-08-08 ・ Apache-2.0</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>サーキット走行を楽しむ愛好家向けの、M5Stackで作るDIY走行データロガー。M5Stack CoreS3-SEにGNSSモジュールとUnit Mini CANを組み合わせ、CAN経由の運転操作情報(アクセル・ブレーキ等)とGPS位置情報を統合して計測する。計測データはRaceChronoへの転送とmicroSDカードへの保存に対応し、ソフトウェアはFreeRTOSベースでOTAアップデートが可能。</p>
     <p><span class="label">オリジナリティ</span>自分の運転技術向上のために作ったものを製品レベルまで磨き上げ、Webインストーラを用意してソフトウェアが苦手な人でも導入できるようにした点。実際にサーキットを走るユーザーからのフィードバックを受けてOTAで即座に改良を反映する開発サイクルを回しており、シフトアップインジケータ機能はユーザーの声から生まれている。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/matsuge8/charmdial-a-pocket-spotify-controller-with-rfid-music-charm-c42f50" id="p27">
+<article class="card" data-new="false" data-c="JP" data-k="/matsuge8/charmdial-a-pocket-spotify-controller-with-rfid-music-charm-c42f50" id="p27">
   
   <div class="body">
     <h3><span class="num">27</span> <a href="https://www.hackster.io/matsuge8/charmdial-a-pocket-spotify-controller-with-rfid-music-charm-c42f50" target="_blank" rel="noopener">CharmDial: A Pocket Spotify Controller with RFID Music Charm</a></h3>
-    <p class="meta">matsuge8 ・ 所在国 未設定 ・ 2026-08-08 ・ GPL3+</p>
-    
+    <p class="meta">matsuge8 ・ 日本(調査) ・ 2026-08-08 ・ GPL3+</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5DialとMIFARE Classic製のRFIDチャームを使った、ポケットサイズのSpotifyコントローラ。チャームをM5Dialにかざすとタグ UIDがローカルのFlaskリレーサーバへ送られ、Spotify Web API経由で対応するプレイリスト/アルバム/アーティスト/曲を再生する。ダイヤル回転で5秒刻みのシーク・プレビュー、押下で確定や再生モード切替、長押しでモードメニューを呼び出せる。</p>
     <p><span class="label">オリジナリティ</span>イヤホンで既に賄える再生・音量操作ではなく「何を聴くか選ぶ」という残された不便さに絞って解決した着眼点が秀逸。3Dプリントケースとストラップ型ホルダで、アルバムジャケット風シールを貼ったRFIDタグを「持ち歩ける音楽のお守り」という物理オブジェクトに仕立てており、Spotify認証情報は端末に置かずリレーサーバ側に留める設計も配慮されている。</p>
     
@@ -641,12 +643,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/20418sk/nod-pat-stack-chan-d0b898" id="p29">
+<article class="card" data-new="false" data-c="JP" data-k="/20418sk/nod-pat-stack-chan-d0b898" id="p29">
   
   <div class="body">
     <h3><span class="num">29</span> <a href="https://www.hackster.io/20418sk/nod-pat-stack-chan-d0b898" target="_blank" rel="noopener">Nod &amp; Pat Stack-chan</a></h3>
-    <p class="meta">20418sk ・ 所在国 未設定 ・ 2026-08-07 ・ ライセンス表示なし</p>
-    
+    <p class="meta">20418sk ・ 日本(調査) ・ 2026-08-07 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5StackChan(K151)上で動く、単体完結型のかわいい話し相手ロボット。人の声の「音の有無とタイミング」だけをトリガとして使い、うなずき・表情変化・光・なでる操作への反応といった非言語的リアクションを返す。音声の文字起こしや意味解析、録音ファイルの生成、外部サービスへの送信を一切行わず、ファーム書き込み後はWi-Fi設定もアカウントもスマホアプリもクラウドも不要で動作する。</p>
     <p><span class="label">オリジナリティ</span>「話を聞いてもらえた感じ」を得るのに言葉の意味理解は必要か、という問いを起点にしたプライバシー・バイ・デザインのアプローチが独創的。すべてを理解しようとするAIデバイスが増えるなか、あえて理解しないコンパニオンという逆張りの設計思想を採り、公式ファーム/BSPからの流用箇所とライセンス表記を明示するオープンソース作法も丁寧。</p>
     
@@ -663,23 +665,23 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/taru_sake/ikura-kun-transit-ic-balance-reader-2067e3" id="p31">
+<article class="card" data-new="false" data-c="JP" data-k="/taru_sake/ikura-kun-transit-ic-balance-reader-2067e3" id="p31">
   
   <div class="body">
     <h3><span class="num">31</span> <a href="https://www.hackster.io/taru_sake/ikura-kun-transit-ic-balance-reader-2067e3" target="_blank" rel="noopener">Ikura-kun: Transit IC Balance Reader</a></h3>
-    <p class="meta">たるい ・ 所在国 未設定 ・ 2026-08-07 ・ ライセンス表示なし</p>
-    
+    <p class="meta">たるい ・ 日本(調査) ・ 2026-08-07 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>SuicaなどのFeliCa交通系ICカードをかざすと、残高を日本語音声で読み上げてくれる小型デバイス。M5Stack Atom VoiceS3RとUnit NFC(ST25R3916)をI2Cで接続し、システムコード0x0003でポーリングして残高ブロックを読み出す。残高を日本語の読みに変換し、マイコン上のローカルTTSでPCM音声を生成して内蔵スピーカーから再生する完全スタンドアロン構成。</p>
     <p><span class="label">オリジナリティ</span>クラウドを一切使わずマイコン単体でFeliCa読み取りから日本語音声合成までを完結させている点が独創的。カードが載ったままの間は再読み上げしない滞在検知など、実用上の細かな作り込みも光る。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/iitatemadeina/retro-train-speedometer-info-display-for-car-9f463d" id="p32">
+<article class="card" data-new="false" data-c="JP" data-k="/iitatemadeina/retro-train-speedometer-info-display-for-car-9f463d" id="p32">
   
   <div class="body">
     <h3><span class="num">32</span> <a href="https://www.hackster.io/iitatemadeina/retro-train-speedometer-info-display-for-car-9f463d" target="_blank" rel="noopener">Retro Train Speedometer &amp; Info Display for car</a></h3>
-    <p class="meta">Keita Sobue ・ 所在国 未設定 ・ 2026-08-07 ・ MIT</p>
-    
+    <p class="meta">Keita Sobue ・ 日本(調査) ・ 2026-08-07 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>日本の鉄道(名鉄パノラマカーや新幹線)の車内案内表示器を模した、車載用のレトロ表示デバイス。M5Stack CoreS3にGNSS/GPSモジュールとDIN Baseを積み、GPS実速度に加えて天気・RSSニュースをスクロール表示する。CoreS3のデュアルコアを活用し、Core0が通信とJSON処理、Core1が25FPS以上の描画を担当してUIが固まらない設計。</p>
     <p><span class="label">オリジナリティ</span>速度値を浮動小数の物理演算で滑らかに「転がす」ことでアナログ的な鉄道メーターの質感を再現し、消灯セグメント「888」を薄く描く「ゴーストLED」表現や、スクロール後に2秒間の完全な暗転を挟む本物の案内表示器のテンポまで作り込んでいる。プログラミング未経験者が生成AIの助けで短期間に完成させた点もユニーク。</p>
     
@@ -696,12 +698,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/kenogi1025/i-am-bomb-defuser-970c4c" id="p34">
+<article class="card" data-new="false" data-c="JP" data-k="/kenogi1025/i-am-bomb-defuser-970c4c" id="p34">
   
   <div class="body">
     <h3><span class="num">34</span> <a href="https://www.hackster.io/kenogi1025/i-am-bomb-defuser-970c4c" target="_blank" rel="noopener">I am Bomb defuser!</a></h3>
-    <p class="meta">lego hasiri ・ 所在国 未設定 ・ 2026-08-07 ・ GPL3+</p>
-    
+    <p class="meta">lego hasiri ・ 日本(調査) ・ 2026-08-07 ・ GPL3+</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>映画さながらに「時限爆弾の解体」を体験するゲーム機。M5Stack Core2とExtend I/O Unit 2(STM32F0)が、2〜5本のワイヤーの結線状態の監視、7セグ表示、30〜180秒の制限時間設定を担当する。プレイヤーは解体マニュアルを参照しながら正解のワイヤーをニッパーで実際に切断し、誤ればタイムアップで「爆発」する。</p>
     <p><span class="label">オリジナリティ</span>画面上の操作ではなく、本物のニッパーで実物の配線を切るという不可逆な物理アクションをゲーム性の核に据えた点。結線はM5Stack側でランダムに設定され毎回異なり、専用基板をEasyEDAで設計しJLCPCBで製造するなど、専用ハードとして仕上げている。</p>
     
@@ -718,12 +720,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/ogawa3427/anything-llm-module-bring-local-llm-system-to-m5stack-c7ca22" id="p36">
+<article class="card" data-new="false" data-c="JP" data-k="/ogawa3427/anything-llm-module-bring-local-llm-system-to-m5stack-c7ca22" id="p36">
   
   <div class="body">
     <h3><span class="num">36</span> <a href="https://www.hackster.io/ogawa3427/anything-llm-module-bring-local-llm-system-to-m5stack-c7ca22" target="_blank" rel="noopener">&quot;Anything&quot;LLM Module - Bring Local LLM System to M5Stack</a></h3>
-    <p class="meta">ogawa3427 ・ 所在国 未設定 ・ 2026-08-07 ・ MIT</p>
-    
+    <p class="meta">ogawa3427 ・ 日本(調査) ・ 2026-08-07 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack純正のLLM Moduleと同じMbus接続・同じAPIプロトコルを備えつつ、推論は手元のPCで動かすという互換モジュール。M5StampS3AとJLCPCB製カスタムPCBで構成され、WiFiまたはUSBシリアル経由でリクエストをPC上のOllamaサーバへ転送する。互換コールを実装しており、既存のLLM Module向けコードがほぼそのまま動く。</p>
     <p><span class="label">オリジナリティ</span>「APIを合わせる」ことで既存資産を活かしたまま、オンデバイスの制約を超えて大きなモデルを使えるようにするという設計判断が秀逸。ハードとファームを別々の作者が分担し、PCB設計とファームをMITで公開、キットは販売店で頒布と、再現性・入手性まで整えている。</p>
     
@@ -762,23 +764,23 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/fumi24/michi-bit-the-second-19bdfd" id="p40">
+<article class="card" data-new="false" data-c="JP" data-k="/fumi24/michi-bit-the-second-19bdfd" id="p40">
   
   <div class="body">
     <h3><span class="num">40</span> <a href="https://www.hackster.io/fumi24/michi-bit-the-second-19bdfd" target="_blank" rel="noopener">Michi:bit the Second</a></h3>
-    <p class="meta">fumi24 ・ 所在国 未設定 ・ 2026-08-07 ・ MIT</p>
-    
+    <p class="meta">fumi24 ・ 日本(調査) ・ 2026-08-07 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>火星探査をテーマにした、クローラー(無限軌道)走行のローバー。M5Stack Core2をメインコントローラーとし、Module 4EncoderMotorで4つのモーターを制御、M5GO Bottom2のLEDで状態表示を行う。ロボットアームでサンプルを採取し、転倒しても腕を地面に押し付けて自力で起き上がれる。</p>
     <p><span class="label">オリジナリティ</span>同一の自作Androidアプリを入れた2台のスマートフォンが同時にBLE接続し、一方が走行、もう一方がアーム操作という分担操縦を実現している。スリップリングによるアームの無限回転機構、ワイヤー駆動の採取機構に加え、Stack-chanの表情変化とウインカー風/レインボー/緊急停止赤といったLED演出で機体の状態を直感的に伝える点も工夫されている。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/jingye-zhu/m5-slot-d1f2ad" id="p41">
+<article class="card" data-new="false" data-c="JP" data-k="/jingye-zhu/m5-slot-d1f2ad" id="p41">
   
   <div class="body">
     <h3><span class="num">41</span> <a href="https://www.hackster.io/jingye-zhu/m5-slot-d1f2ad" target="_blank" rel="noopener">M5-Slot</a></h3>
-    <p class="meta">JingYe Zhu ・ 所在国 未設定 ・ 2026-08-07 ・ ライセンス表示なし</p>
-    
+    <p class="meta">JingYe Zhu ・ 日本(調査) ・ 2026-08-07 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack Core2一台だけで動作するポケットサイズのスロットマシンゲームで、メイカーフェアで子どもに遊んでもらうために制作された。画面上で3つのリールが回転し、A/B/Cボタンで左・中・右のリールを停止させ、7・BAR・メロン・ベル・チェリーを揃えてメダルを獲得する。難易度は3段階で、リール速度と配当倍率が変化する。</p>
     <p><span class="label">オリジナリティ</span>SDカードもWi-Fiも追加パーツも一切使わず、Core2の画面・3ボタン・スピーカー・振動モーター・バッテリーだけで完結させたミニマル構成が特徴。2つ揃って3つ目が回転中はペイラインが点滅し効果音のピッチが上がる、当たりでバイブ・メロディ・紙吹雪が出るなど演出が作り込まれ、ハードモード限定のレア図柄という遊び心もある。</p>
     
@@ -795,12 +797,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/beavershivecom/beaver-robot-a-plush-animatronic-that-talks-through-a-phone-9521f7" id="p43">
+<article class="card" data-new="false" data-c="JP" data-k="/beavershivecom/beaver-robot-a-plush-animatronic-that-talks-through-a-phone-9521f7" id="p43">
   
   <div class="body">
     <h3><span class="num">43</span> <a href="https://www.hackster.io/beavershivecom/beaver-robot-a-plush-animatronic-that-talks-through-a-phone-9521f7" target="_blank" rel="noopener">Beaver Robot: A Plush Animatronic That Talks Through a Phone</a></h3>
-    <p class="meta">ビーバーズハイブ ・ 所在国 未設定 ・ 2026-08-07 ・ MIT</p>
-    
+    <p class="meta">ビーバーズハイブ ・ 日本(調査) ・ 2026-08-07 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>3Dプリント製のアニマトロニクス骨格を内蔵したビーバーのぬいぐるみロボット。スピーカーを持たず、足元に置かれたスマートフォンに自分で文字を打ち込み、スマホのテキスト読み上げ機能に喋らせることで会話する。M5Stack CoreS3が唯一のコントローラーで、M5 CANモジュール経由でROBSTRIDEブラシレスアクチュエータを、シリアルバス経由でFEETECHサーボを制御する2系統構成。</p>
     <p><span class="label">オリジナリティ</span>映画作品のロボットビーバーへのオマージュとして、「物理的に端末へ手を伸ばして触れる」という遠回りな発話手段をあえて採用した点がユニーク。眼球は球面リンク機構で関節軸を眼球中心で交差させることで眼が滑らず「視線」として見える動きを1個の小型サーボで実現しており、誰も話しかけない間は勝手に絵文字を打って読み上げさせる待機演出も好評だった。</p>
     
@@ -817,12 +819,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/ddsskm/tsundoku-resistor-aa11ab" id="p45">
+<article class="card" data-new="false" data-c="JP" data-k="/ddsskm/tsundoku-resistor-aa11ab" id="p45">
   
   <div class="body">
     <h3><span class="num">45</span> <a href="https://www.hackster.io/ddsskm/tsundoku-resistor-aa11ab" target="_blank" rel="noopener">Tsundoku Resistor</a></h3>
-    <p class="meta">Daisuke Motohashi ・ 所在国 未設定 ・ 2026-08-07 ・ GPL3+</p>
-    
+    <p class="meta">Daisuke Motohashi ・ 日本(調査) ・ 2026-08-07 ・ GPL3+</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>本棚が自分自身を目録化する蔵書管理システム。ATOM Cam 2が棚を撮影し、Cloudflare Worker経由でClaude APIが背表紙から書名を抽出、国立国会図書館のNDL Search APIで書誌情報を取得して、M5Stack Basicの画面で候補の表紙を選びボタン一押しでkintoneに登録する。登録内容は公開Web本棚にも自動で並ぶ。</p>
     <p><span class="label">オリジナリティ</span>「バーコードを1冊ずつスキャンする作業が面倒で続かない」という積読の本質的な課題に対し、既に外向きに並んでいる背表紙という情報をカメラとAIで丸ごと読み取るアプローチが的確。日本語書籍で複数版が返る問題を、M5Stackのボタンで表紙画像をめくって選ぶUIで解決しており、1冊も棚から取り出さず入力もゼロで蔵書を共有可能なライブラリに変えられる。</p>
     
@@ -850,12 +852,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/Ninune-wa/tab5-wall-dashboard-a-wall-mounted-home-information-hub-8ebbbd" id="p48">
+<article class="card" data-new="false" data-c="JP" data-k="/Ninune-wa/tab5-wall-dashboard-a-wall-mounted-home-information-hub-8ebbbd" id="p48">
   
   <div class="body">
     <h3><span class="num">48</span> <a href="https://www.hackster.io/Ninune-wa/tab5-wall-dashboard-a-wall-mounted-home-information-hub-8ebbbd" target="_blank" rel="noopener">TAB5 Wall Dashboard: A Wall-Mounted Home Information Hub</a></h3>
-    <p class="meta">Ninune-wa ・ 所在国 未設定 ・ 2026-08-08 ・ MIT</p>
-    
+    <p class="meta">Ninune-wa ・ 日本(調査) ・ 2026-08-08 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack Tab5(ESP32-P4)の5インチ1280×720タッチパネルに、LVGL 9.3で自作したUIを載せた壁掛け型スマートホームコンソール。HOME/WEATHER/BUS/SYSTEMの4タブ構成で、時計と日本の祝日判定、Open-Meteo・気象庁APIによる天気と潮位、ODPTオープンデータによる都営バス時刻表、室内外の温湿度・CO2を一画面で表示する。本体のCO2 Unitに加え、ベランダに置いたM5Stamp C3U + ENV IV Unitの屋外ノードから無線でデータを受ける2ノード構成。</p>
     <p><span class="label">オリジナリティ</span>Core2で作った小型時計を、面積の大きいTab5へ移植する過程で「取得した予報を出すだけ」から「その場の実測値を出す」装置へと設計思想ごと作り替えている点が秀逸。祝日APIによるバス時刻表の平日/土曜/休日自動切替や、オフライン耐性のためのAPIレスポンスキャッシュ、専用壁掛けブラケットまで含め、日常生活の動線に溶け込む完成度に仕上げている。</p>
     
@@ -1114,12 +1116,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/UtaAoya/stack-chan-minimal-tiny-body-local-ai-soul-23cba5" id="p72">
+<article class="card" data-new="false" data-c="JP" data-k="/UtaAoya/stack-chan-minimal-tiny-body-local-ai-soul-23cba5" id="p72">
   
   <div class="body">
     <h3><span class="num">72</span> <a href="https://www.hackster.io/UtaAoya/stack-chan-minimal-tiny-body-local-ai-soul-23cba5" target="_blank" rel="noopener">Stack-Chan Minimal: Tiny Body, Local AI Soul</a></h3>
-    <p class="meta">A-Uta ・ 所在国 未設定 ・ 2026-08-07 ・ Apache-2.0</p>
-    
+    <p class="meta">A-Uta ・ 日本(調査) ・ 2026-08-07 ・ Apache-2.0</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack AtomS3Rを使ったキーホルダーサイズのAIコンパニオンロボット。ロボット側は顔表示・制御・Wi-Fi通信とAtomic Voice Baseによるマイク/スピーカーを担当し、音声認識(whisper.cpp)・LLM(llama.cppやOllamaなどOpenAI互換API)・音声合成(piper-plus)はPCやAndroid上のローカルAIが担う。音声→STT→LLM→TTS→ロボット応答という会話AIパイプライン全体を、小さな物理ロボットとして体験できる。</p>
     <p><span class="label">オリジナリティ</span>「Body(小さな体)」と「Soul(差し替え可能なローカルAI)」を明確に分離したモジュール設計により、ロボット本体を変えずにSTTエンジンもLLMも音声も個別に交換・実験できる点が独創的。ブラウザやアプリでは見えない生成AIの内部プロセスを可視化する教材的な狙いと、3Dプリントによる再現しやすいビルドの両立も特徴。</p>
     
@@ -1257,12 +1259,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/NDenchi/makerchip-decorder-e972f0" id="p85">
+<article class="card" data-new="false" data-c="JP" data-k="/NDenchi/makerchip-decorder-e972f0" id="p85">
   
   <div class="body">
     <h3><span class="num">85</span> <a href="https://www.hackster.io/NDenchi/makerchip-decorder-e972f0" target="_blank" rel="noopener">Makerchip Decorder</a></h3>
-    <p class="meta">ndenchi ・ 所在国 未設定 ・ 2026-08-07 ・ MIT</p>
-    
+    <p class="meta">ndenchi ・ 日本(調査) ・ 2026-08-07 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>メイカー同士が交換するデジタル名刺「MakerChip」(直径40mmの円盤)のシリアル番号を、画像処理で読み取るデコーダー。チップ外周に並ぶ36個のカラーパターン(マーカー4bit+ロット番号8bit+シリアル番号24bit)を、ジグにセットするだけでAtomS3R CAMが撮影・解析し、Tab5のディスプレイに個体識別番号を表示する。</p>
     <p><span class="label">オリジナリティ</span>ICタグやQRコードに頼らず「デザインそのものにデータを埋め込み、画像処理で読む」という発想で自作MakerChipに独自性を持たせた点がユニーク。円盤外周のカラービット列という物理フォーマットの設計(固定マーカー1111を基準に残り32bitを復号)まで自前で行っている。</p>
     
@@ -1367,23 +1369,23 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/teamhackingpapa/okao-a-clickable-digital-face-block-powered-by-m5stack-atom-87cebf" id="p95">
+<article class="card" data-new="false" data-c="JP" data-k="/teamhackingpapa/okao-a-clickable-digital-face-block-powered-by-m5stack-atom-87cebf" id="p95">
   
   <div class="body">
     <h3><span class="num">95</span> <a href="https://www.hackster.io/teamhackingpapa/okao-a-clickable-digital-face-block-powered-by-m5stack-atom-87cebf" target="_blank" rel="noopener">OKAO: A Clickable Digital Face Block Powered by M5Stack Atom</a></h3>
-    <p class="meta">Hacking PAPA ・ 所在国 未設定 ・ 2026-08-06 ・ CC BY-NC</p>
-    
+    <p class="meta">Hacking PAPA ・ 日本(調査) ・ 2026-08-06 ・ CC BY-NC</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>LEGOデュプロのブロックに組み込める「デジタル顔ブロック」。M5Stack AtomS3を本物のレゴブロックをCNC加工した筐体に収め、画面を押すたびにアニメーションする表情が切り替わる。子どもが組み立てた作品に取り付けるだけでキャラクターになり、スマホやアプリは一切不要。</p>
     <p><span class="label">オリジナリティ</span>AtomS3の「画面自体がクリックできるボタン」という特性をおもちゃブロックの顔として活かした発想が秀逸。専用治具による本物レゴのCNC加工や、MCP73871を使った24×24mmの自作充電・電源基板など、子どもの使用に耐える完成度への作り込みも光る。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/niwachipi/tokky-drive-partner-with-jacky-ccee5a" id="p96">
+<article class="card" data-new="false" data-c="JP" data-k="/niwachipi/tokky-drive-partner-with-jacky-ccee5a" id="p96">
   
   <div class="body">
     <h3><span class="num">96</span> <a href="https://www.hackster.io/niwachipi/tokky-drive-partner-with-jacky-ccee5a" target="_blank" rel="noopener">TOKKY Drive Partner with Jacky</a></h3>
-    <p class="meta">松本大介 ・ 所在国 未設定 ・ 2026-08-06 ・ ライセンス表示なし</p>
-    
+    <p class="meta">松本大介 ・ 日本(調査) ・ 2026-08-06 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack CoreS3を使った車載AIコンパニオン。レーダー風UIで周辺スポットを表示し、運転者の長期的な好みプロファイルに基づいて立ち寄り先を提案、「Tokky」「Jacky」の2キャラクターと音声会話ができる。音声認識・AI応答生成・VOICEVOX音声合成などの重い処理はMac側サーバーが担い、CoreS3は表示・音声入出力・ローカル音声区間検出を受け持つ。</p>
     <p><span class="label">オリジナリティ</span>「目的地への誘導」ではなく「旅そのものを楽しくする」ことに徹した非ナビ型コンパニオンというコンセプトが独創的。2キャラクターの掛け合いや、ローカルのビート検出で音楽に合わせてキャラが踊り出す演出など、同乗者のような体験づくりが工夫されている。</p>
     
@@ -1477,12 +1479,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/mikimay9/m5stack-home-summer-festival-a523da" id="p105">
+<article class="card" data-new="false" data-c="JP" data-k="/mikimay9/m5stack-home-summer-festival-a523da" id="p105">
   
   <div class="body">
     <h3><span class="num">105</span> <a href="https://www.hackster.io/mikimay9/m5stack-home-summer-festival-a523da" target="_blank" rel="noopener">M5Stack Home Summer Festival</a></h3>
-    <p class="meta">Miki ・ 所在国 未設定 ・ 2026-08-06 ・ MIT</p>
-    
+    <p class="meta">Miki ・ 日本(調査) ・ 2026-08-06 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>非エンジニアのワーキングマザーが生成AIとの「バイブコーディング」で作った、おうち夏祭りシステム。普通のPCのブラウザ上に7つの縁日屋台ゲームを実装し、子どもたちはAtomS3Rのジャイロを傾けて遊び、StackChan(CoreS3 SE)が陽気な司会役を務める。</p>
     <p><span class="label">オリジナリティ</span>技術力の誇示ではなく「1つのジャイロから7通りの遊びを引き出す」創意工夫と、AIの力を借りれば時間もスキルも限られた親でもアイデアを形にできるというストーリーが魅力。StackChanに浴衣を着せたり子どもと段ボール屋台を飾ったりと、家族で作り上げる体験そのものが作品になっている。</p>
     
@@ -1510,12 +1512,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/kakerutakahashi261/tpod-capture-it-before-you-forget-it-b828dc" id="p108">
+<article class="card" data-new="false" data-c="JP" data-k="/kakerutakahashi261/tpod-capture-it-before-you-forget-it-b828dc" id="p108">
   
   <div class="body">
     <h3><span class="num">108</span> <a href="https://www.hackster.io/kakerutakahashi261/tpod-capture-it-before-you-forget-it-b828dc" target="_blank" rel="noopener">TPOD: Capture It Before You Forget It</a></h3>
-    <p class="meta">たかはしかける ・ 所在国 未設定 ・ 2026-08-05 ・ MIT</p>
-    
+    <p class="meta">たかはしかける ・ 日本(調査) ・ 2026-08-05 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>思いついたタスクをスマホを開く前に音声で即記録する、身につけるタスクコンソール。M5StampS3 BATを中核に、GC9A01の240×240円形LCD、PDMマイク、3ボタン、自作PCB、3Dプリント筐体、キーリールで構成される。ボタンを押して話すと16kHz音声をIMA ADPCM圧縮してBLEでAndroidへ送り、端末上のオフライン音声認識とタスク解析の結果が円形画面に返って表示される。</p>
     <p><span class="label">オリジナリティ</span>「引き出す→話す→確認→戻す」という物理的で反復可能な所作に落とし込み、ロック画面や通知に注意を奪われる経路そのものを回避する設計思想。重い処理はスマホ側のオンデバイス処理に委ねつつ、ウェアラブル側が独自の画面・状態保持・電源管理を持つ役割分担を、PCB・ファーム・BLEプロトコル・Androidアプリまで一貫して統合している。</p>
     
@@ -1532,12 +1534,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/nsnadex/stampfly-3d-flight-recorder-slam-blackbox-432a7b" id="p110">
+<article class="card" data-new="false" data-c="JP" data-k="/nsnadex/stampfly-3d-flight-recorder-slam-blackbox-432a7b" id="p110">
   
   <div class="body">
     <h3><span class="num">110</span> <a href="https://www.hackster.io/nsnadex/stampfly-3d-flight-recorder-slam-blackbox-432a7b" target="_blank" rel="noopener">StampFly 3D Flight Recorder &amp; SLAM BlackBox</a></h3>
-    <p class="meta">ekimae handsup ・ 所在国 未設定 ・ 2026-08-05 ・ ライセンス表示なし</p>
-    
+    <p class="meta">ekimae handsup ・ 日本(調査) ・ 2026-08-05 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>超小型ドローンM5Stack StampFly用のリアルタイム3D空間マッピング兼フライトレコーダー。下向きToF(高度)、前向きToF(障害物距離)、6軸IMU(方位)、オプティカルフローの情報を使い、壁や障害物の3D点群と飛行軌跡を記録する。Three.js製のWeb UI上で点群・軌跡・機体姿勢を表示し、飛行ログのタイムライン再生も可能。</p>
     <p><span class="label">オリジナリティ</span>床面しか動けない掃除ロボットに対し、棚の上やエアコン上部、家具の隙間といった「高所の3D空間」を軽量ドローンで点検するという着眼点。ATOM Joystick操作のESP-NOWと20Hz Wi-Fi UDPテレメトリを同時に共存させるデュアル無線構成で、操縦しながらのリアルタイム3D記録を実現している。</p>
     
@@ -1565,45 +1567,45 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/razikon/radio-control-human-3e7333" id="p113">
+<article class="card" data-new="false" data-c="JP" data-k="/razikon/radio-control-human-3e7333" id="p113">
   
   <div class="body">
     <h3><span class="num">113</span> <a href="https://www.hackster.io/razikon/radio-control-human-3e7333" target="_blank" rel="noopener">Radio Control Human</a></h3>
-    <p class="meta">y s ・ 所在国 未設定 ・ 2026-08-05 ・ MIT</p>
-    
+    <p class="meta">y s ・ 日本(調査) ・ 2026-08-05 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>画面も音声も使わず、背負ったフライホイールのジャイロ効果(歳差運動)で装着者の胴体を左右にひねり、進む方向を伝えるナビゲーション装置。M5Stack StamPLC(ESP32-S3)がCAN/TWAI経由でROBSTRIDE 02モーター2基を制御し、iOSアプリ(屋内はARKit+LiDAR、屋外はOSRM経路探索)とBLEで連携する。自作コントローラーを繋げば、他人がラジコンのように人を操縦することもできる。</p>
     <p><span class="label">オリジナリティ</span>振動モーターの「左肩が震えたら左」という学習が必要な記号ではなく、実際に身体を押す力そのものを方向指示にした点が根本的に新しい。トルクが角加速度に比例することを利用し、往路を高速・保持・復路を低速にすることで打ち消し合いを防ぎ一方向だけの明確なパルスを作る工夫が核心。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/riho-yamamoto/anytime-perfect-deep-breathing-59de5e" id="p114">
+<article class="card" data-new="false" data-c="JP" data-k="/riho-yamamoto/anytime-perfect-deep-breathing-59de5e" id="p114">
   
   <div class="body">
     <h3><span class="num">114</span> <a href="https://www.hackster.io/riho-yamamoto/anytime-perfect-deep-breathing-59de5e" target="_blank" rel="noopener">Anytime! Perfect Deep Breathing</a></h3>
-    <p class="meta">Riho Yamamoto ・ 所在国 未設定 ・ 2026-08-05 ・ ライセンス表示なし</p>
-    
+    <p class="meta">Riho Yamamoto ・ 日本(調査) ・ 2026-08-05 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack Basic CoreのGROVE端子にダイオード式呼吸センサー(RESP02)を接続し、呼気の温度変化から呼吸をリアルタイム計測するヘルスケアデバイス。画面上の緑の円の大小で自分の呼吸を可視化し、同時に「吸う4秒:吐く8秒」という理想的な腹式呼吸のペースを示すガイド円を表示して、両者を見比べながら深呼吸を練習できる。</p>
     <p><span class="label">オリジナリティ</span>呼吸という目に見えない生体活動を温度差センサーで捉え、「理想のペース」と「実際の呼吸」を同一画面に重ねて比較させるUI設計が独創的。ユーザーごとの呼気温度の最大・最小値に合わせて円のサイズを自動キャリブレーションする点も実用的な工夫である。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/magukappu0141/yamabiko-leave-your-voice-in-a-place-off-the-grid-586749" id="p115">
+<article class="card" data-new="false" data-c="JP" data-k="/magukappu0141/yamabiko-leave-your-voice-in-a-place-off-the-grid-586749" id="p115">
   
   <div class="body">
     <h3><span class="num">115</span> <a href="https://www.hackster.io/magukappu0141/yamabiko-leave-your-voice-in-a-place-off-the-grid-586749" target="_blank" rel="noopener">YAMABIKO: Leave Your Voice in a Place, Off the Grid</a></h3>
-    <p class="meta">モッツァレラピザ ・ 所在国 未設定 ・ 2026-08-05 ・ GPL3+</p>
-    
+    <p class="meta">モッツァレラピザ ・ 日本(調査) ・ 2026-08-05 ・ GPL3+</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>携帯圏外の山中でも使える、M5Stack Core2 for AWS 2台とMini GPS/BDSユニットによるオフグリッド音声通信デバイス。ESP-NOWで自動ペアリングし、Wi-Fiも基地局もスマホも不要で音声メッセージをやり取りできる。音声をGPS座標に紐付けて残すと、相手がその地点に到達したとき自動で再生される「ボイス宝物」機能が中核。</p>
     <p><span class="label">オリジナリティ</span>音声を「場所」にピン留めして時間差で届けるという山彦のメタファーが秀逸。さらにモールス信号送受信、GPS鬼ごっこなどのゲーム、自由落下→衝撃→静止の3段階シーケンスで誤検知を抑える転倒検知SOSまで、同じ位置共有基盤の上に多彩な機能を積み上げている。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/Fooping/m5plotter-88f534" id="p116">
+<article class="card" data-new="false" data-c="JP" data-k="/Fooping/m5plotter-88f534" id="p116">
   
   <div class="body">
     <h3><span class="num">116</span> <a href="https://www.hackster.io/Fooping/m5plotter-88f534" target="_blank" rel="noopener">M5Plotter</a></h3>
-    <p class="meta">Fooping ・ 所在国 未設定 ・ 2026-08-05 ・ ライセンス表示なし</p>
-    
+    <p class="meta">Fooping ・ 日本(調査) ・ 2026-08-05 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack Core2をコントローラーとする小型CoreXY方式のペンプロッター。WebUIでテキスト・QRコード・SVG・画像をG-codeに変換して送信し、Core2上の自作ファームウェアがリアルタイムに解釈して2軸ステッパー(TMC2208ドライバ)、ペン昇降用サーボ、リミットスイッチ、NeoPixelを制御し、市販のボールペンで実際に描画する。</p>
     <p><span class="label">オリジナリティ</span>既存のESP32向けCNCファームを流用せず、M5Stack専用にゼロからファームウェアを開発し、タッチスクリーン・LED・ステータス表示までを1台に統合した点が独創的。Look-ahead、Junction Deviation、Timed Segmentsといった本格的なモーションプランニング手法を小型組込みコントローラー上で実装している。</p>
     
@@ -1642,23 +1644,23 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/kazuma-igarashi/v8-motorcharged-cigarette-holder-b68908" id="p120">
+<article class="card" data-new="false" data-c="JP" data-k="/kazuma-igarashi/v8-motorcharged-cigarette-holder-b68908" id="p120">
   
   <div class="body">
     <h3><span class="num">120</span> <a href="https://www.hackster.io/kazuma-igarashi/v8-motorcharged-cigarette-holder-b68908" target="_blank" rel="noopener">V8 motorcharged cigarette holder</a></h3>
-    <p class="meta">KAZUMA Igarashi ・ 所在国 未設定 ・ 2026-08-05 ・ ライセンス表示なし</p>
-    
+    <p class="meta">KAZUMA Igarashi ・ 日本(調査) ・ 2026-08-05 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>複数本のタバコの煙を吸い込んで加速し前方へ送り出す、フル3Dプリント製のポータブル送風機。8本の吸気管とブロアファンを組み合わせた本体をマブチRE-260モーターで駆動し、M5Stack ATOM系デバイスとHブリッジでOff/Low/Medium/Highの4段階に風量を制御する。</p>
     <p><span class="label">オリジナリティ</span>V8エンジンの吸気マニホールドを模した8本のインテークという「馬鹿げているが機能する」造形コンセプトが最大の見どころ。複雑な曲線ダクトの内部流路を確保しつつ3Dプリント可能な形状に落とし込むため、マニホールドの再設計、流路の拡幅、内部サポートの恒久組み込みを繰り返した点が技術的な工夫である。</p>
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/mas-lab/charinavi-63aba3" id="p121">
+<article class="card" data-new="false" data-c="JP" data-k="/mas-lab/charinavi-63aba3" id="p121">
   
   <div class="body">
     <h3><span class="num">121</span> <a href="https://www.hackster.io/mas-lab/charinavi-63aba3" target="_blank" rel="noopener">Charinavi</a></h3>
-    <p class="meta">mas-lab ・ 所在国 未設定 ・ 2026-08-05 ・ GPL3+</p>
-    
+    <p class="meta">mas-lab ・ 日本(調査) ・ 2026-08-05 ・ GPL3+</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>2026年4月施行の自転車交通ルール厳格化に対応した、M5Stack Basic Core搭載の自転車用安全デバイス。自作AndroidアプリがGoogle Mapsの通知を読み取りBLE経由でM5Stackに送ってナビ表示するほか、ボタン操作でサドル下のLED方向指示器とブレーキランプを点灯させる。CdSセンサーによる後続車検知で、ヘッドライトを検知すると画面に警告を出す。</p>
     <p><span class="label">オリジナリティ</span>手信号でバランスを崩す・車道側にふらつくという法改正が生む実際の危険を出発点に、ナビ・ウインカー・ブレーキランプ・後方車検知を1台に統合した点が実用的で独創的。市販ナビAPIではなくAndroidの通知読み取りを利用してGoogle Mapsの案内をBLEで転送するという、既存アプリを活かした実装アプローチも工夫されている。</p>
     
@@ -1686,12 +1688,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/ueshimashima/m5stack-muscle-counter-cd3e78" id="p124">
+<article class="card" data-new="false" data-c="JP" data-k="/ueshimashima/m5stack-muscle-counter-cd3e78" id="p124">
   
   <div class="body">
     <h3><span class="num">124</span> <a href="https://www.hackster.io/ueshimashima/m5stack-muscle-counter-cd3e78" target="_blank" rel="noopener">M5stack Muscle Counter</a></h3>
-    <p class="meta">うえしましま ・ 所在国 未設定 ・ 2026-08-04 ・ MIT</p>
-    
+    <p class="meta">うえしましま ・ 日本(調査) ・ 2026-08-04 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack Core2 for AWS内蔵のジャイロセンサでアームカール(上腕二頭筋トレーニング)の回数を自動カウントするトレーニング支援システム。ジャイロ3軸の最大成分に移動平均をかけ、WAIT/LIFTINGの状態遷移でレップを判定する。最初の3回の動作からピーク値を学習して開始・停止しきい値を自動設定するキャリブレーション機能を備える。</p>
     <p><span class="label">オリジナリティ</span>固定しきい値ではなく、使用者本人の最初の数レップからピークを学習してしきい値を動的に決める自動キャリブレーション方式を採用し、人や種目による動作の大きさの違いを吸収している点。最小動作時間やカウント間隔、ピーク比率の条件を組み合わせて誤カウントを抑えている。</p>
     
@@ -1763,12 +1765,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/makotokamada0725/kettle-chan-a-living-kettle-powered-by-m5stack-e676ac" id="p131">
+<article class="card" data-new="false" data-c="JP" data-k="/makotokamada0725/kettle-chan-a-living-kettle-powered-by-m5stack-e676ac" id="p131">
   
   <div class="body">
     <h3><span class="num">131</span> <a href="https://www.hackster.io/makotokamada0725/kettle-chan-a-living-kettle-powered-by-m5stack-e676ac" target="_blank" rel="noopener">Kettle-chan: A Living Kettle Powered by M5Stack</a></h3>
-    <p class="meta">鎌田誠 ・ 所在国 未設定 ・ 2026-08-01 ・ MIT</p>
-    
+    <p class="meta">鎌田誠 ・ 日本(調査) ・ 2026-08-01 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>技術書典などの即売会で自著が素通りされる悩みを解決するために、ごく普通のやかんをM5Stack AtomS3UとSG90サーボで「生き物」にした客寄せマスコット。サーボが蓋を開閉させて喋っているように見せ、M5Stackのディスプレイが表情豊かな目と顔を担当する。UIFlow 2.0のMicroPythonで、タイマー割り込みごとにランダムなデューティ比をPWM出力し、その値に応じてRGB LEDの色も変化させるという簡潔な実装。</p>
     <p><span class="label">オリジナリティ</span>高度なセンシングではなく「動く」「顔がある」という最小限の要素だけで日用品に人格を与え、ブース集客と書籍販売という実利に直結させた点。「やかんを見に来る常連ができた」という成果まで含めて、M5Stackが物にキャラクターと人のつながりをもたらす例として提示されている。</p>
     
@@ -1807,12 +1809,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/norippy/pocket-audio-deck-web-radio-and-mp3-player-for-m5sticks3-3c0ea3" id="p135">
+<article class="card" data-new="false" data-c="JP" data-k="/norippy/pocket-audio-deck-web-radio-and-mp3-player-for-m5sticks3-3c0ea3" id="p135">
   
   <div class="body">
     <h3><span class="num">135</span> <a href="https://www.hackster.io/norippy/pocket-audio-deck-web-radio-and-mp3-player-for-m5sticks3-3c0ea3" target="_blank" rel="noopener">Pocket Audio Deck: Web Radio and MP3 Player for M5StickS3</a></h3>
-    <p class="meta">norippy ・ 所在国 未設定 ・ 2026-08-03 ・ GPL3+</p>
-    
+    <p class="meta">norippy ・ 日本(調査) ・ 2026-08-03 ・ GPL3+</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5StickS3を20年前の専用MP3プレーヤーのような携帯音楽プレーヤーに仕立てた作品。KiCadで自作したHAT2サイズの拡張基板にPCM5102A(I2S DAC)、TPA6132A2ヘッドホンアンプ、3.5mmジャック、microSDスロット、曲送り/戻しスイッチと音量用の押し込みスイッチを搭載し、M5StickS3側がWi-Fi・MP3デコード・FFT表示・UI・設定保存を担当する。2分割の3Dプリント筐体に収め、インターネットラジオとmicroSD内MP3再生を切り替えられる。</p>
     <p><span class="label">オリジナリティ</span>開発ボードの寄せ集めに見えない「一体型の専用機」を目指し、DAC・ヘッドホンアンプ・操作系・筐体を音質と実使用の握り方から逆算して同時設計した点、メニューを開かず物理操作だけで完結する往年のポータブルプレーヤーの操作感を再現した点が光る。</p>
     
@@ -1884,12 +1886,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/youtoy/m5-dialtube-ble-dial-remote-for-youtube-31c142" id="p142">
+<article class="card" data-new="false" data-c="JP" data-k="/youtoy/m5-dialtube-ble-dial-remote-for-youtube-31c142" id="p142">
   
   <div class="body">
     <h3><span class="num">142</span> <a href="https://www.hackster.io/youtoy/m5-dialtube-ble-dial-remote-for-youtube-31c142" target="_blank" rel="noopener">M5 DialTube — BLE Dial Remote for YouTube</a></h3>
-    <p class="meta">Yosuke Toyota ・ 所在国 未設定 ・ 2026-08-02 ・ ライセンス表示なし</p>
-    
+    <p class="meta">Yosuke Toyota ・ 日本(調査) ・ 2026-08-02 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5DialをBLE HIDキーボードとして動作させ、ブラウザ上のYouTubeを操作するワイヤレスリモコン。ダイヤルを回すと10秒単位のシーク(J/Lキー送出)、画面タップで再生/一時停止(Kキー)、物理ボタンで誤操作防止のロックモード(画面が青から黄に変化)になる。PlatformIO+M5DialライブラリとESP32-BLE-Keyboardで実装。</p>
     <p><span class="label">オリジナリティ</span>サーバも拡張機能も専用ソフトも一切不要で、YouTube標準のキーボードショートカットを喋るだけでOSを問わず動く「ゼロインストール単体デバイス」設計。さらに連続シーク時にYouTube画面の累積カウンタとM5Dial側表示を同期させ、エンコーダ実測値に合わせて回転を積算しロスなくシークするジョグホイール的な作り込みが効いている。</p>
     
@@ -2159,12 +2161,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/akita/tinydmm-348bf5" id="p167">
+<article class="card" data-new="false" data-c="JP" data-k="/akita/tinydmm-348bf5" id="p167">
   
   <div class="body">
     <h3><span class="num">167</span> <a href="https://www.hackster.io/akita/tinydmm-348bf5" target="_blank" rel="noopener">TinyDMM</a></h3>
-    <p class="meta">Junichi Akita ・ 所在国 未設定 ・ 2026-07-27 ・ MIT</p>
-    
+    <p class="meta">Junichi Akita ・ 日本(調査) ・ 2026-07-27 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>M5Stack ATOMS3をベースにした超小型デジタルマルチメータ(DMM)。電圧と抵抗を測定でき、3つのレンジを手動で切り替えられる。自作PCBと組み合わせたコンパクトな作りで、回路デバッグ用途を想定している。</p>
     <p><span class="label">オリジナリティ</span>一般的なDMMのオートレンジは測定値が出るまで遅く、作業台上では大きすぎるという不満に対し、あえて手動レンジ切替の最小機能に絞ることで小型・即応性を実現した逆張りの設計思想がユニーク。</p>
     
@@ -2247,12 +2249,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/ealteling/1v1-shooting-game-7b539a" id="p175">
+<article class="card" data-new="false" data-c="JP" data-k="/ealteling/1v1-shooting-game-7b539a" id="p175">
   
   <div class="body">
     <h3><span class="num">175</span> <a href="https://www.hackster.io/ealteling/1v1-shooting-game-7b539a" target="_blank" rel="noopener">1v1 Shooting game</a></h3>
-    <p class="meta">ブイドロ ・ 所在国 未設定 ・ 2026-07-24 ・ ライセンス表示なし</p>
-    
+    <p class="meta">ブイドロ ・ 日本(調査) ・ 2026-07-24 ・ ライセンス表示なし</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>2台のM5Stack Core2をUDP/Wi-Fi通信で接続し、1対1で対戦するレトロ風シューティングゲーム。PCのキーボードからUDPで操作入力を送信し、各プレイヤーの座標や弾の発射、壁のHPなどのゲームデータを2台間で同期する。ESP32同士の通信エラーや遅延の検証を目的として開発された。</p>
     <p><span class="label">オリジナリティ</span>プレイ中に発見した同期ズレのバグをあえて修正せず、「同期問題が実際に起こるとどうなるか」を示すサンプルとして保存した点がユニーク。ゲームを通信検証の教材として位置づけるアプローチが特徴的。</p>
     
@@ -2819,12 +2821,12 @@ OpenAIのCodex CLIに同一データ(model_input.json)を渡して非対話実�
     
   </div>
 </article>
-<article class="card" data-new="false" data-c="NA" data-k="/TKTK360/measurear-527d2e" id="p227">
+<article class="card" data-new="false" data-c="JP" data-k="/TKTK360/measurear-527d2e" id="p227">
   
   <div class="body">
     <h3><span class="num">227</span> <a href="https://www.hackster.io/TKTK360/measurear-527d2e" target="_blank" rel="noopener">MeasureAR</a></h3>
-    <p class="meta">TAKESHI IKEUCHI ・ 所在国 未設定 ・ 2026-06-14 ・ MIT</p>
-    
+    <p class="meta">TAKESHI IKEUCHI ・ 日本(調査) ・ 2026-06-14 ・ MIT</p>
+    <p class="via" title="別途の調査により確認(Hacksterプロフィールには未登録)">所在国の根拠: 別途の調査により確認(Hacksterプロフィールには未登録)</p>
     <p><span class="label">概要</span>現実の巻き尺(メジャー)をMR化する計測システム。M5Stack ATOM Matrixに赤外線センサとエンコーダを組み合わせた3Dプリント筐体の専用デバイスがテープ引き出し時の回転量から距離を算出し、BLEでMeta Quest 3/3Sに送信。Unity製アプリが始点・終点・距離をMR空間にリアルタイム表示する。</p>
     <p><span class="label">オリジナリティ</span>Questコントローラだけで2点を指定する方式では実空間との誤差が大きい点に着目し、あえて実物の巻き尺を計測入力デバイスにすることで精度と直感的操作性を両立。測定値のメモ書きや図面への転記といった現場作業の手間をそのまま省ける実務志向の設計になっている。</p>
     

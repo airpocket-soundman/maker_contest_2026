@@ -105,6 +105,9 @@ for i, r in enumerate(series):
                    f'<text class="axis" x="{x+2}" y="{CH2+16}">{mo[5:]}月</text>')
 
 # ---------------- Chart C: countries (profile-declared vs traced) ----------------
+_as = st.get('auth_src', {})
+A_PROF, A_TRAC = _as.get('profile', 0), _as.get('traced', 0)
+A_MAN, A_NONE = _as.get('manual', 0), _as.get('', 0)
 src = st['by_proj_src']
 rows = [(k, v) for k, v in by_proj]
 maxv = max(v for _, v in rows)
@@ -118,6 +121,7 @@ for i, (k, v) in enumerate(rows):
     y = i * RH
     prof = src.get(f'{k}|profile', 0)
     trac = src.get(f'{k}|traced', 0)
+    manu = src.get(f'{k}|manual', 0)
     nm = '未設定' if k == '(未設定)' else NAME.get(k, k)
     cbars.append(
         f'<text class="clab" x="{LBL-8}" y="{y+BARH-2}" text-anchor="end">{H.escape(nm)}</text>')
@@ -134,8 +138,13 @@ for i, (k, v) in enumerate(rows):
         if trac:
             w = trac / maxv * BARW
             cbars.append(f'<rect class="bar2" x="{x}" y="{y}" width="{w:.1f}" height="{BARH}" rx="3"></rect>')
+            x += w + (GAPX if manu else 0)
+        if manu:
+            w = manu / maxv * BARW
+            cbars.append(f'<rect class="bar3" x="{x}" y="{y}" width="{w:.1f}" height="{BARH}" rx="3"></rect>')
             x += w
-    extra = f' <tspan class="cval2">(うち追跡 {trac})</tspan>' if trac else ''
+    note = ([f'追跡 {trac}'] if trac else []) + ([f'調査 {manu}'] if manu else [])
+    extra = f' <tspan class="cval2">(うち{" / ".join(note)})</tspan>' if note else ''
     cbars.append(f'<text class="cval" x="{x+7:.1f}" y="{y+BARH-2}">{v}{extra}</text>')
 
 # ---------------- Charts D-G: parts & technology ----------------
@@ -192,6 +201,8 @@ for e in m:
     flag = f'{NAME.get(cc, cc)}' if cc else '所在国 未設定'
     if e.get('country_src') == 'traced':
         flag += '(追跡)'
+    elif e.get('country_src') == 'manual':
+        flag += '(調査)'
     via = (f'<p class="via" title="{H.escape(e["country_via"])}">所在国の根拠: '
            f'{H.escape(e["country_via"])}</p>') if e.get('country_via') else ''
     pub = e['published'][:10] if e['published'] else '—'
@@ -334,6 +345,7 @@ svg {{ display:block; }}
 .bar {{ fill:var(--series-1); }}
 .bar.muted {{ fill:var(--baseline); }}
 .bar2 {{ fill:var(--series-2); }}
+.bar3 {{ fill:var(--series-3); }}
 .cval2 {{ fill:var(--muted); font-size:10px; }}
 .fband {{ fill:var(--series-2); opacity:.16; }}
 .fcen {{ fill:none; stroke:var(--series-2); stroke-width:2.5; }}
@@ -473,10 +485,11 @@ h3 a:hover {{ color:var(--series-1); }}
 {FORECAST}
 
 <h2>投稿者の所在国別 作品数</h2>
-<p class="sub">Hacksterプロフィールの登録国(country_iso2)を一次情報とし、未登録だった45名については作品ページに書かれたGitHub・個人サイトを辿って本人アカウントと確認できた12名を「追跡で判明」として加えています。他人のライブラリのリポジトリを参照しているだけのものは除外しました。いずれも本人が公開している所在地であり、国籍そのものではありません。残る33名は手がかりが無いか本人と断定できず「未設定」です。</p>
+<p class="sub">Hacksterプロフィールの登録国(country_iso2)を一次情報({A_PROF}名)とし、未登録だった著者のうち作品ページのGitHub・個人サイトを辿って本人アカウントと確認できた{A_TRAC}名を「追跡で判明」、別途の調査で所在国を確認できた{A_MAN}名を「調査で判明」として加えています。他人のライブラリのリポジトリを参照しているだけのものは除外しました。いずれも本人が公開している所在地であり、国籍そのものではありません。残る{A_NONE}名は手がかりが無いか本人と断定できず「未設定」です。</p>
 <div class="legend">
   <span><i class="key" style="background:var(--series-1)"></i>プロフィール登録値</span>
   <span><i class="key" style="background:var(--series-2)"></i>追跡で判明</span>
+  <span><i class="key" style="background:var(--series-3)"></i>調査で判明</span>
   <span><i class="key" style="background:var(--baseline)"></i>未設定</span>
 </div>
 <figure>

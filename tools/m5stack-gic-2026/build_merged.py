@@ -57,6 +57,8 @@ for new_u, old_u in ALIAS.items():
 meta = json.load(open('meta.json', encoding='utf-8'))
 traced = json.load(open('traced.json', encoding='utf-8'))
 ainfo = json.load(open('authors_info.json', encoding='utf-8'))
+# ユーザーの調査で所在国が判明した著者。プロフィール登録値・追跡より優先する。
+manual = json.load(open('jp_manual.json', encoding='utf-8'))
 
 merged = []
 i = 0
@@ -71,11 +73,18 @@ for u in order:
         lic = 'ライセンス表示なし'
     prof = ainfo[a]['country'] or ''
     tr = traced.get(a)
+    man = manual.get(a, '')
+    if man:
+        cc, csrc, cvia = man, 'manual', '別途の調査により確認(Hacksterプロフィールには未登録)'
+    elif prof:
+        cc, csrc, cvia = prof, 'profile', ''
+    elif tr:
+        cc, csrc, cvia = tr['country'], 'traced', tr['via']
+    else:
+        cc, csrc, cvia = '', '', ''
     e.update(n=i, img=img_by_url.get(u, ''), license=lic, is_new=u in newest,
              author=a, author_name=ainfo[a]['name'] or a,
-             country=prof or (tr['country'] if tr else ''),
-             country_src=('profile' if prof else ('traced' if tr else '')),
-             country_via=(tr['via'] if tr and not prof else ''),
+             country=cc, country_src=csrc, country_via=cvia,
              published=meta[u]['published'])
     merged.append(e)
 

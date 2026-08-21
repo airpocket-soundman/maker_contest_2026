@@ -63,5 +63,6 @@ print('distinct countries (declared):', len([k for k in by_auth if k != '(未設
 json.dump(dict(series=series, weekly=sorted(wk.items()),
                by_proj=by_proj.most_common(), by_auth=by_auth.most_common(),
                by_proj_src={f'{k[0]}|{k[1]}': v for k, v in by_proj_src.items()},
+               auth_src=dict(Counter(asrc.values())),
                names=NAME),
           open('stats.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
