@@ -1,0 +1,105 @@
+{
+  "summary": {
+    "awarded_projects": 122,
+    "winners": 98,
+    "max_awards": 5,
+    "max_consecutive_years": 5,
+    "max_same_year_projects": 2
+  },
+  "annual": [
+    {"year": 2020, "awarded_projects": 10, "entries": 161},
+    {"year": 2021, "awarded_projects": 12, "entries": 153},
+    {"year": 2022, "awarded_projects": 13, "entries": 151},
+    {"year": 2023, "awarded_projects": 15, "entries": 212},
+    {"year": 2024, "awarded_projects": 36, "entries": 237},
+    {"year": 2025, "awarded_projects": 36, "entries": 192},
+    {"year": 2026, "awarded_projects": null, "entries": 246}
+  ],
+  "repeat_winners": [
+    {"name": "airpocket", "awards": 5},
+    {"name": "RoboTakao", "awards": 5},
+    {"name": "おぎ・モトキ", "awards": 4},
+    {"name": "淳【Jun】", "awards": 4},
+    {"name": "Nii", "awards": 3},
+    {"name": "小坂崇之", "awards": 3},
+    {"name": "稲玉 繁樹", "awards": 3},
+    {"name": "小林 竜太", "awards": 3},
+    {"name": "BBコリー", "awards": 3},
+    {"name": "HomeMadeGarbage", "awards": 2},
+    {"name": "namako", "awards": 2},
+    {"name": "RAWSEQ", "awards": 2},
+    {"name": "Takumi Abe", "awards": 2},
+    {"name": "ushineko3", "awards": 2},
+    {"name": "パレットシステム", "awards": 2},
+    {"name": "西村備山", "awards": 2},
+    {"name": "Beaver's Hive", "awards": 2},
+    {"name": "由井河あきら", "awards": 2}
+  ],
+  "history": {
+    "2020": [
+      {"award": "優勝", "winners": ["wararyo"]},
+      {"award": "2位", "winners": ["Nii"]},
+      {"award": "3位", "winners": ["らびやん", "ushineko3", "watako"]},
+      {"award": "スイッチサイエンス賞", "winners": ["若狭 正生", "u-design", "小坂崇之", "野良ハック（ざっきー）", "HomeMadeGarbage"]}
+    ],
+    "2021": [
+      {"award": "優勝", "winners": ["airpocket"]},
+      {"award": "2位", "winners": ["小坂崇之", "RoboTakao", "おぎ・モトキ"]},
+      {"award": "3位", "winners": ["HomeMadeGarbage", "小林 竜太", "ししかわ", "RAWSEQ", "パレットシステム"]},
+      {"award": "特別賞（意義深いで賞）", "winners": ["おぎ・モトキ"]},
+      {"award": "特別賞（テクノロジー賞）", "winners": ["山口自動機械"]},
+      {"award": "特別賞（イマジネーション賞）", "winners": ["貞末真明/皆川達也"]}
+    ],
+    "2022": [
+      {"award": "優勝", "winners": ["Nii"]},
+      {"award": "2位", "winners": ["小坂崇之", "STRATOVISION", "Takumi Abe"]},
+      {"award": "3位", "winners": ["RAWSEQ", "hank", "RoboTakao", "小林 竜太"]},
+      {"award": "工業アイデア賞", "winners": ["稲玉 繁樹"]},
+      {"award": "商業アイデア賞", "winners": ["パレットシステム"]},
+      {"award": "研究アイデア賞", "winners": ["namako"]},
+      {"award": "視覚効果賞", "winners": ["淳【Jun】"]},
+      {"award": "M5Style賞", "winners": ["airpocket"]}
+    ],
+    "2023": [
+      {"award": "優勝", "winners": ["BBコリー"]},
+      {"award": "2位", "winners": ["airpocket", "Beaver's Hive"]},
+      {"award": "3位", "winners": ["Nii", "necobit", "RoboTakao"]},
+      {"award": "工業アイデア賞", "winners": ["教材自作部"]},
+      {"award": "商業アイデア賞", "winners": ["稲玉 繁樹"]},
+      {"award": "研究アイデア賞", "winners": ["おぎ・モトキ"]},
+      {"award": "視覚効果賞", "winners": ["Botamochi"]},
+      {"award": "ロボットアイデア賞", "winners": ["柴村ひばり/柴村厚志"]},
+      {"award": "ｽﾀｯｸﾁｬﾝ賞", "winners": ["robo8080"]},
+      {"award": "DIY設計優秀賞", "winners": ["bbd", "西村備山", "sin1"]}
+    ],
+    "2024": [
+      {"award": "優勝", "winners": ["ARMA Inc"]},
+      {"award": "2位", "winners": ["Mukunoki Arata", "BBコリー"]},
+      {"award": "3位", "winners": ["Rofumi", "Takumi Abe", "MASA"]},
+      {"award": "商業アイデア賞", "winners": ["74th"]},
+      {"award": "M5Style賞", "winners": ["airpocket"]},
+      {"award": "ロボットアイデア賞", "winners": ["namako", "RoboTakao", "小林 竜太", "そらねこ", "しん", "taka matsu", "ふーぴん", "aNo研"]},
+      {"award": "IoTアイデア賞", "winners": ["稲玉 繁樹", "verylowfreq"]},
+      {"award": "学生優秀賞", "winners": ["篠原晴哉", "黑田直樹", "田中隼人", "Shiori Ozawa", "otama", "ゆうと", "ゆい", "ひろ"]},
+      {"award": "国際化対応賞", "winners": ["ushineko3", "西村備山", "淳【Jun】", "らて", "由井河あきら"]},
+      {"award": "改造アイデア賞", "winners": ["ききょうや", "Masawo Yamazaki", "ᴛᴀᴋᴀ@浜松", "おぎ・モトキ", "五味"]},
+      {"award": "斬新アイデア賞", "winners": ["菊ねぇ", "Kody", "ごりん", "shikky_lab", "HT"]},
+      {"award": "ハンドメイド優秀賞", "winners": ["TakSan"]},
+      {"award": "総合アイデア賞", "winners": ["Yugi Tech Lab"]}
+    ],
+    "2025": [
+      {"award": "優勝", "winners": ["カサネタリウム"]},
+      {"award": "2位", "winners": ["Philippe", "ATOQUE", "Kaz", "Lucas Ribeiro da Silva"]},
+      {"award": "3位", "winners": ["Yugi Tech Lab", "Team RedKnario", "ktetsuo", "Dirk Paessler", "esbenb", "Enrico Casti"]},
+      {"award": "Special Mentions - Excellence in Design", "winners": ["UGOKU Lab"]},
+      {"award": "Special Mentions - Best in Software Development", "winners": ["mengxiyou", "nishad2m8", "Geo-tp"]},
+      {"award": "Special Mentions - Life Hacker Award", "winners": ["king kai", "8080 Nky", "Jon Nordby", "由井河あきら", "Yoshihiro Sato", "sohta mei"]},
+      {"award": "Special Mentions - Educational Impact Award", "winners": ["Gord", "K.Yama-2010", "BBコリー", "airpocket"]},
+      {"award": "Special Mentions - Best IoT Application", "winners": ["Profe Tolocka"]},
+      {"award": "Special Mentions - Best Robotics", "winners": ["淳【Jun】", "淳【Jun】", "Robo Takao", "pt", "Takuya Ichise"]},
+      {"award": "Special Mentions - LLM Innovation Award", "winners": ["misetteichan"]},
+      {"award": "Special Mentions - Game Innovation Award", "winners": ["Beaver's Hive", "ridride1", "pt"]},
+      {"award": "Special Mentions - Music Innovation Award", "winners": ["Nochi Shikarunochi", "Joe Nagata"]}
+    ]
+  }
+}

@@ -1,4 +1,6 @@
 import sys, json, html as H, datetime as dt
+from award_history import render_award_history
+
 PLAIN = '--plain' in sys.argv   # 画像なし・Gist連携なし・チェック欄なしの独立版
 from collections import Counter
 
@@ -158,6 +160,7 @@ tech = json.load(open('tech_agg.json', encoding='utf-8'))
 FORECAST = open('forecast_section.html', encoding='utf-8').read()
 VERIFY = open('verify_section.html', encoding='utf-8').read()
 FINAL_R = json.load(open('final_result.json', encoding='utf-8'))
+AWARD_HISTORY = render_award_history()
 MARKS_CSS = '' if PLAIN else open('marks.css', encoding='utf-8').read()
 MARKS_JS = '' if PLAIN else open('marks.js', encoding='utf-8').read()
 if PLAIN:
@@ -530,6 +533,8 @@ h3 a:hover {{ color:var(--series-1); }}
 <table><thead><tr><th>ライセンス</th><th>作品</th></tr></thead><tbody>{lic_html}</tbody></table>
 </div>
 </details>
+
+{AWARD_HISTORY}
 
 <div class="controls">
   <span class="qwrap">

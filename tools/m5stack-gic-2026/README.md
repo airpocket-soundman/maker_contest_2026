@@ -9,6 +9,11 @@ Hackster.io のコンテストカテゴリ(category_id=595)からエントリー
   - 個人利用目的のため、`encrypt_page.py` により AES-256-GCM で暗号化されています
     (PBKDF2-HMAC-SHA256 250,000回、WebCrypto でブラウザ内復号)。
   - パスワードはページ管理者のみが保持します(リポジトリには含まれません)。
+- パスワード不要版: `gic2026-list/index.html`
+  - 作品画像、Gist連携、チェック欄・メモ欄を除いた公開用ページです。
+- 過去大会の受賞履歴: `award_history.json`
+  - `award_history.py` が年度別集計、複数回受賞者、2020〜2025年の受賞一覧を両ページ共通のHTMLへ変換します。
+  - 暗号化済みページでは `encrypt_page.py` が復号後の本文へ同じセクションを差し込みます。
 - 収集データ一式: `data/m5stack-gic-2026-data.enc`
   - `gic_data.tar.gz` を同じ方式・同じパスワードで暗号化したもの。
   - 復号: `python decrypt_data.py <password> ../../data/m5stack-gic-2026-data.enc gic_data.tar.gz`
@@ -27,6 +32,7 @@ Hackster.io のコンテストカテゴリ(category_id=595)からエントリー
 | `extract_authors.py` | Hacksterプロフィールから投稿者名・所在国を抽出 |
 | `build_html.py` | 最終的なHTMLページとMarkdownを生成 |
 | `encrypt_page.py` | 生成したページをパスワード付きページに変換 |
+| `award_history.py` | 過去大会の受賞履歴JSONから共通HTMLセクションを生成 |
 
 実行順: `build_merged.py` → `stats.py` → `parse_parts.py` → `aggregate_tech.py` →
 `forecast_chart.py` → `build_html.py` → `encrypt_page.py`

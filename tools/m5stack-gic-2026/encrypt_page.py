@@ -4,6 +4,7 @@
 """
 import sys, os, base64, hashlib, json
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from award_history import render_award_history
 
 password, src, dst = sys.argv[1], sys.argv[2], sys.argv[3]
 data = open(src, 'rb').read()
@@ -12,6 +13,7 @@ iv = os.urandom(12)
 key = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 250_000, dklen=32)
 ct = AESGCM(key).encrypt(iv, data, None)
 payload = base64.b64encode(salt + iv + ct).decode()
+award_history = render_award_history()
 
 wrapper = '''<!DOCTYPE html>
 <html lang="ja">
@@ -43,6 +45,7 @@ button { font:inherit; margin-top:12px; width:100%; padding:9px 0; border:none; 
   <button type="submit">表示する</button>
   <div id="err"></div>
 </form>
+<template id="award-history">__HISTORY__</template>
 <script>
 const PAYLOAD = "__PAYLOAD__";
 async function decrypt(pw) {
@@ -61,8 +64,12 @@ document.getElementById("f").addEventListener("submit", async ev => {
   document.getElementById("err").textContent = "";
   try {
     const html = await decrypt(pw);
+    const history = document.getElementById("award-history").innerHTML;
+    const enhanced = html.includes("AWARD_HISTORY_START")
+      ? html
+      : html.replace('<div class="controls">', history + '\n<div class="controls">');
     sessionStorage.setItem("gic_ok", "1");
-    document.open(); document.write(html); document.close();
+    document.open(); document.write(enhanced); document.close();
   } catch (e) {
     document.getElementById("err").textContent = "パスワードが違います";
   }
@@ -71,5 +78,6 @@ document.getElementById("f").addEventListener("submit", async ev => {
 </body>
 </html>'''
 
-open(dst, 'w', encoding='utf-8').write(wrapper.replace('__PAYLOAD__', payload))
+rendered = wrapper.replace('__PAYLOAD__', payload).replace('__HISTORY__', award_history)
+open(dst, 'w', encoding='utf-8').write(rendered)
 print('encrypted:', src, '->', dst, f'({len(payload)//1024} KB payload)')
