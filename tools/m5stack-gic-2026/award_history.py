@@ -63,12 +63,12 @@ def render_award_history(data_path=DATA_PATH):
     <thead><tr><th>年</th><th>受賞作品数</th><th>エントリー数</th><th>受賞作品率</th></tr></thead>
     <tbody>{''.join(annual_rows)}</tbody>
   </table></div>
-  <details><summary>複数回受賞者・チーム（2回以上）</summary>
+  <div><h3 class="mh" style="margin-top:0">複数回受賞者・チーム（2回以上）</h3>
     <div class="scroll"><table style="width:100%;margin-top:8px">
       <thead><tr><th style="text-align:left">受賞者・チーム</th><th>受賞回数</th></tr></thead>
       <tbody>{repeat_rows}</tbody>
     </table></div>
-  </details>
+  </div>
 </div>
 <div style="margin-top:10px">{''.join(yearly_details)}</div>
 <p class="sub" style="margin-top:10px">※ 表記と集計単位は提供された受賞履歴に準拠しています。同一人物・チームでも表記が異なる場合は別名として扱い、共同受賞では受賞者数と受賞作品数が一致しないことがあります。</p>
