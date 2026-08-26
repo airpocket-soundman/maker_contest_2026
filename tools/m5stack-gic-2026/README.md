@@ -13,7 +13,6 @@ Hackster.io のコンテストカテゴリ(category_id=595)からエントリー
   - 作品画像、Gist連携、チェック欄・メモ欄を除いた公開用ページです。
 - 過去大会の受賞履歴: `award_history.json`
   - `award_history.py` が年度別集計、複数回受賞者、2020〜2025年の受賞一覧を両ページ共通のHTMLへ変換します。
-  - 暗号化済みページでは `encrypt_page.py` が復号後の本文へ同じセクションを差し込みます。
 - 収集データ一式: `data/m5stack-gic-2026-data.enc`
   - `gic_data.tar.gz` を同じ方式・同じパスワードで暗号化したもの。
   - 復号: `python decrypt_data.py <password> ../../data/m5stack-gic-2026-data.enc gic_data.tar.gz`
