@@ -1,0 +1,52 @@
+---
+layout: default
+---
+<article class="idea">
+  <header class="hardware-header">
+    <p class="breadcrumb">
+      <a href="{{ '/' | relative_url }}">トップ</a>
+      {% if page.related_contest %}
+        {% for c in site.contests %}
+          {% assign c_slug = c.path | split: '/' | last | split: '.' | first %}
+          {% if c_slug == page.related_contest %}
+            &raquo; <a href="{{ c.url | relative_url }}">{{ c.short_title | default: c.title }}</a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      &raquo; 作品アイデア
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.tagline %}<p class="tagline">{{ page.tagline }}</p>{% endif %}
+  </header>
+
+  <section class="info-block">
+    <h2>アイデア情報</h2>
+    <dl class="info-list">
+      {% if page.related_contest %}
+        <dt>応募先</dt>
+        <dd>
+          {% for c in site.contests %}
+            {% assign c_slug = c.path | split: '/' | last | split: '.' | first %}
+            {% if c_slug == page.related_contest %}
+              <a href="{{ c.url | relative_url }}">{{ c.title }}</a>
+            {% endif %}
+          {% endfor %}
+        </dd>
+      {% endif %}
+      {% if page.status %}
+        <dt>状態</dt>
+        <dd>{{ page.status }}</dd>
+      {% endif %}
+      {% if page.updated %}
+        <dt>最終更新</dt>
+        <dd>{{ page.updated | date: '%Y-%m-%d' }}</dd>
+      {% endif %}
+      {% if page.code_url %}
+        <dt>コード</dt>
+        <dd><a href="{{ page.code_url }}" target="_blank" rel="noopener">{{ page.code_label | default: page.code_url }}</a></dd>
+      {% endif %}
+    </dl>
+  </section>
+
+  {{ content }}
+</article>

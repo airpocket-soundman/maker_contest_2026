@@ -96,4 +96,8 @@ hardware:
 - プレスリリース上の正式名称は「Physical AI チャレンジ Sponsored by Arduino 2026」。
 - Arduino 公式コンテストとしては日本初の開催。
 
+## 作品アイデア
+
+- [口笛を真似るちくわ笛ロボット](../../ideas/chikuwa-flute-imitation-robot/) — 世界モデル + 強化学習で、ちくわ笛を耳で聴きながら吹きこなす
+
 > ⚠️ 本ページの内容は公開情報をもとにまとめた参考情報です。応募前に必ず[公式ページ](https://protopedia.net/event/arduino-physical-ai)で最新情報をご確認ください。

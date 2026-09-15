@@ -49,6 +49,10 @@
             {% for ev in related_events %}
               <li><a href="{{ ev.url | relative_url }}"{% if page.url == ev.url %} class="active"{% endif %}>{{ ev.short_title | default: ev.title }}</a></li>
             {% endfor %}
+            {% assign related_ideas = site.ideas | where: 'related_contest', c_slug | sort: 'order' %}
+            {% for idea in related_ideas %}
+              <li><a href="{{ idea.url | relative_url }}"{% if page.url == idea.url %} class="active"{% endif %}>{{ idea.short_title | default: idea.title }}</a></li>
+            {% endfor %}
             {% if c.hardware %}
               {% for hw_ref in c.hardware %}
                 {% if hw_ref.slug and hw_ref.slug != "" %}
