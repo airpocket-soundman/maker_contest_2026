@@ -202,9 +202,9 @@ MCUXpresso for VS Code の **Import Example from Repository** は、SDK ツリ�
 - SDK を `git pull` した時に、自分で書き換えた箇所と SDK 由来コードの境目が曖昧になる
 - 「原本(SDK 由来そのまま)」と「改造版」を **並べて diff を取りたい** 時に、SDK 例題ディレクトリと別ブランチを跨ぐ必要があり扱いづらい
 
-ため、**動かしたサンプルを別リポジトリに切り出して、原本と改造版を 2 桁プレフィックス(`00_xxx` / `01_xxx_my` ...)で並べる** 運用にしている。リポジトリは [`airpocket-soundman/FRDM-MCXN947_demo`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo)(本ドキュメントとは別レポ。詳細運用ルールは同レポの [`README.md`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/README.md) と [`CLAUDE.md`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/CLAUDE.md) を参照)。
+ため、**動かしたサンプルを別リポジトリに切り出して、原本と改造版を 2 桁プレフィックス(`00_xxx` / `01_xxx_my` ...)で並べる** 運用にしている。リポジトリは [`airpocket-soundman/FRDM-MCXN947_demo`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo)(本ドキュメントとは別レポ。初回セットアップ手順は同レポの [`README.md`](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/README.md) を参照)。
 
-> ⚠ **重要な方針(2026-05 改定)**: 切り出しの際、MCUXpresso Import Example の **App type は原本・改造版とも `Freestanding application` を選ぶ**。Freestanding は SDK 由来ファイル(`board/hardware_init.c`、`pin_mux.[ch]`、リンカスクリプト等)を **すべてローカルにコピー** するため、SDK 側のパス・バージョン依存を最小化できる。Repository application は SDK 側の実体を参照するだけなので、(a) ボード固有の改造が build に反映されず詰む、(b) SDK が更新されると同じプロジェクトの挙動が変わる、(c) 配布時に SDK パスを再現してもらう必要がある、という 3 つの問題が出る。**原本も Freestanding に統一**することで、原本と改造版の diff が「サンプル間の差分」になり読みやすくなる副次効果もある。詳細は同レポの [`CLAUDE.md`「サンプル取り込み方針」](https://github.com/airpocket-soundman/FRDM-MCXN947_demo/blob/main/CLAUDE.md#サンプル取り込み方針-app-type-の選択) を参照。
+> ⚠ **重要な方針**: 切り出しの際、MCUXpresso Import Example の **App type は原本・改造版とも `Freestanding application` を選ぶ**。Freestanding は SDK 由来ファイル(`board/hardware_init.c`、`pin_mux.[ch]`、リンカスクリプト等)を **すべてローカルにコピー** するため、SDK 側のパス・バージョン依存を最小化できる。Repository application は SDK 側の実体を参照するだけなので、(a) ボード固有の改造が build に反映されず詰む、(b) SDK が更新されると同じプロジェクトの挙動が変わる、(c) 配布時に SDK パスを再現してもらう必要がある、という 3 つの問題が出る。**原本も Freestanding に統一**することで、原本と改造版の diff が「サンプル間の差分」になり読みやすくなる副次効果もある。
 
 ### 設計の柱: ローカル絶対パスを排する
 
@@ -222,7 +222,6 @@ MCUXpresso for VS Code の **Import Example from Repository** は、SDK ツリ�
 ```
 FRDM-MCXN947_demo/
 ├─ README.md                  リポジトリ概要 / 初回セットアップ手順
-├─ CLAUDE.md                  詳細規約(命名・App type 選択・取り込み後の必須調整)
 ├─ .gitignore
 ├─ .vscode/
 │   └─ settings.json          ${env:MCUXSDK_DIR} 経由で SDK を参照(全マシン共通)
@@ -251,10 +250,23 @@ FRDM-MCXN947_demo/
 
 0. **(初回のみ)** リポジトリ clone 後に `pwsh -File scripts/setup.ps1` を実行して `MCUXSDK_DIR` を設定 → VS Code を再起動。
 1. VS Code で `FRDM-MCXN947_demo` レポをフォルダとして開く(全サンプルを 1 ワークスペースで扱う)。
-2. **CMake Tools** 拡張が `<sample>/CMakePresets.json` を自動検出する。コマンドパレットから **CMake: Select Configure Preset** で対象サンプルの `debug` を選ぶ。
-3. **CMake: Configure** → **CMake: Build** で `.elf` / `.bin` / `.hex` が `<sample>/debug/` 配下に生成される。
-4. 書き込みは MCUXpresso 拡張の Flash アクション、または LinkServer の CLI から実行。経路は **MCU-Link USB(J17)** → オンボードデバッガ → SWD。
-5. シリアルは MCU-Link 側 VCOM を **115200 / 8N1** で開く(`hello_world_virtual_com` 系のみ J11 直結 USB を併用)。
+2. **MCUXpresso 拡張に各サンプルをプロジェクト登録する**。clone 直後は PROJECTS パネルが空なので、各サンプルを Flash / Debug できるようにここで紐付ける。
+   - QUICKSTART PANEL → **Import Project** を開く
+   - **Import path** に対象サンプルフォルダ(例: `…/FRDM-MCXN947_demo/00_hello_world`)を **Folder** ボタンで指定
+   - Detected project type が **MCUXpresso SDK** と表示されれば認識成功(`mcuxpresso-tools.json` の `projectType: sdk-v2-freestanding` が効いている)
+   - **Repository** には Import 済みの `mcuxsdk` が、**Toolchain** には Arm GNU Toolchain 14.2 が自動で入る(変更不要)
+   - **Import** を押すと PROJECTS ビューに表示され、Build / Flash / Debug ができるようになる
+   - 全サンプルについて繰り返す(`00_hello_world` / `10_led_blinky_peripheral` / `20_tflm_label_image` …)
+
+   <figure>
+     <img src="{{ '/images/MCUXpresso%20for%20VSCode%20Install%2014.png' | relative_url }}" alt="MCUXpresso for VS Code の Import Project パネル。Import path に d:\workspace\github\FRDM-MCXN947_demo\00_hello_world、Detected project type に MCUXpresso SDK、Repository に d:\workspace\sdks\mcuxsdk、Toolchain に Arm GNU Toolchain 14.2.Rel1 が表示され、Import ボタンが押せる状態">
+     <figcaption>図 14: Import Project で既存サンプルを MCUXpresso 拡張に登録(clone 後の初回だけ各サンプルで実行)</figcaption>
+   </figure>
+
+3. **CMake Tools** 拡張が `<sample>/CMakePresets.json` を自動検出する。コマンドパレットから **CMake: Select Configure Preset** で対象サンプルの `debug` を選ぶ。
+4. **CMake: Configure** → **CMake: Build** で `.elf` / `.bin` / `.hex` が `<sample>/debug/` 配下に生成される。
+5. 書き込みは MCUXpresso 拡張の Flash アクション、または LinkServer の CLI から実行。経路は **MCU-Link USB(J17)** → オンボードデバッガ → SWD。
+6. シリアルは MCU-Link 側 VCOM を **115200 / 8N1** で開く(`hello_world_virtual_com` 系のみ J11 直結 USB を併用)。
 
 ### サンプル切り出し時に **必ず追加で揃える** 3 ファイル
 
